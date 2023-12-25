@@ -1,0 +1,61 @@
+.sidebar__container {
+    width: 20%;
+    min-width: 15rem;
+    background-color: #1F2A40;
+}
+
+.sidebar {
+    margin: 0 1rem 10rem 0;
+}
+.top__section {
+    margin-bottom: 2rem;
+}
+
+.bar__icon {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 0;
+}
+
+.trakky__logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.trakky__logo_img{
+    width: 50%;
+    height: auto;
+    display: flex;
+    margin: 0 auto;
+}
+
+.sidebar__topic_box {
+    padding: 0.5rem 1rem;
+}
+
+.sidebar_topic_title {
+    color: gray;
+    font-weight: 600;
+    line-height: 2rem;
+}
+
+.sidebar_links {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    row-gap: 5px;
+}
+
+.sidebar_links a {
+    color: white;
+    padding: 0.5rem;
+    text-transform: none;
+    text-decoration: none;
+}
+.sidebar_links a:hover {
+    color: black;
+    background-color: aliceblue;
+    border-radius: 5px;
+}

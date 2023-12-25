@@ -1,0 +1,25 @@
+.popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.popup-inner{
+    position: absolute;
+    padding: 1rem;
+    width: 90%;
+    margin: 5% 5%;
+    /* max-width: 45rem; */
+    background-color: #fff;
+    border-radius: 10px;
+    max-height: 90%;
+    overflow-y: scroll;
+}

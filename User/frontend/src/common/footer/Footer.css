@@ -1,0 +1,63 @@
+.footer-main {
+    display: flex;
+    flex-direction: column;
+    padding-left: 6%;
+    padding-top: 2%;
+    background-color: #fff;
+}
+
+.footer-logo {
+    display: flex;
+}
+
+.footer-logo img {
+    width: 2.5%;
+    padding-right: 1%;
+}
+
+.footer-logo p {
+    font-size: 1.5rem;
+    font-family: 'Rubik';
+}
+
+.footer-logo p span {
+    font-weight: 500;
+}
+
+.footer-description {
+    width: 40%;
+    font-size: 1.12rem;
+    font-family: Rubik;
+    line-height: 1.4rem;
+    color: #4F5665;
+    padding: 2% 0;
+}
+
+.social-media-icon {
+    padding: 1% 0;
+}
+
+.facebook-link svg {
+    color: blue;
+    font-size: 2rem;
+    padding: 0 0.5rem;
+}
+
+.twitter-link svg {
+    color: black;
+    font-size: 2rem;
+    padding: 0 0.5rem;
+}
+
+.instagram-link {
+    color: #fa2099;
+    font-size: 2rem;
+    padding: 0 0.5rem;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    color: #AFB5C0;
+    font-family: 'Rubik';
+    padding-bottom: 3%;
+}

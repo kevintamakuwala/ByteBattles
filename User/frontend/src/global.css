@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* fonts */
+  --font-rubik: Rubik;
+
+  /* font sizes */
+  --font-size-6xl: 1.56rem;
+  --font-size-lg: 1.13rem;
+  --font-size-31xl: 3.13rem;
+  --font-size-xl: 1.25rem;
+  --font-size-mini: 0.94rem;
+
+  /* Colors */
+  --color-gray-100: #120d32;
+  --color-gray-200: #0b132a;
+  --color-dimgray: #4f5665;
+  --color-tomato-100: #f53838;
+  --color-white: #fff;
+  --color-darkgray: #b0b4bb;
+  --color-crimson: #f53855;
+  --color-lightsteelblue: #c9d2ed;
+
+  /* Gaps */
+  --gap-111xl: 8.13rem;
+
+  /* Paddings */
+  --padding-3xs: 0.63rem;
+
+  /* Border radiuses */
+  --br-8xs-7: 4.7px;
+}

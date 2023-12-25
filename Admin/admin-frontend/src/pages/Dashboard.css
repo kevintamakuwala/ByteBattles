@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
+/* To cover the whole screen */
+.dashboard__container {
+    width: 98%;
+    height: 100vh;
+    margin-left: 2%;
+}
+
+/* Displaying spa_data_labels as flex */
+.spa_data_labels {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Styling data__container */
+.data__container {
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    flex-basis: 30%;
+    /* Adjust this value based on your desired width */
+    margin-right: 16px;
+}
+
+/* Additional styling for paragraph and heading elements */
+.data__container {
+    background-color: #ffffff;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+    padding: 1.6rem;
+    text-align: center;
+    flex-basis: 30%;
+    /* Adjust this value based on your desired width */
+    margin-right: 1.6rem;
+    transition: all 0.3s ease;
+}
+
+.data__container:hover {
+    transform: translateY(-0.2rem);
+    box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+}
+
+.data__container p {
+    color: #888;
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+}
+
+.data__container h1 {
+    color: #333;
+    margin-top: 0;
+    font-family: 'Kanit', sans-serif;
+}

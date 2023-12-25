@@ -1,0 +1,63 @@
+.main__container {
+    width: 80%;
+}
+
+.main_list__container {
+    width: 100%;
+    /* border: 3px dashed blue; */
+}
+
+.mini_navbar__container {
+    width: 96%;
+    margin: 1rem 2%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 1rem;
+}
+
+.mini_navbar__container form {
+    width: fit-content;
+    height: 2rem;
+}
+
+.list__container {
+    width: 98%;
+    margin: 1rem 1%;
+    overflow-x: scroll;
+}
+
+.custom-table tr {
+    display: flex;
+}
+
+.custom-table td,
+.custom-table th {
+    width: 150px;
+    display: block;
+    padding: 1rem;
+}
+
+
+.view_more__button {
+    width: 100%;
+    text-align: center;
+}
+
+.view_more__button button {
+    background-color: transparent;
+    padding: 0.5rem 2rem;
+    color: #000;
+    font-size: larger;
+    border: 1px solid #000;
+    border-radius: 46px;
+}
+
+.more_spa_detail__container {
+    width: 100%;
+}
+
+.image__container img {
+    width: 10rem;
+}
