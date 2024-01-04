@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { signup } from "../../util/APIUtils";
-import "./Signup.css";
+// import "./Signup.css";
+import { MdLock } from "react-icons/md";
 // import { notification } from "antd";
 import { ACCESS_TOKEN } from "../../constants";
-
+import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import Verify from "../verify/Verify";
 const Signup = (props) => {
@@ -42,7 +43,7 @@ const Signup = (props) => {
         alert(
           "Thank you! You're successfully registered. Please Login to continue!"
         );
-        props.updateStates(username,password);
+        props.updateStates(username, password);
         setRegistered(true);
       } catch (error) {
         alert("Sorry! Something went wrong. Please try again!");
@@ -58,6 +59,10 @@ const Signup = (props) => {
     localStorage.length > 0 && localStorage.getItem(ACCESS_TOKEN) !== ""
   ) ? (
     <div id="loginform">
+      <div className="signup-heading">
+        <MdLock className="signup-icon"/>
+        <span>Sign up</span>
+      </div>
       <Form
         updateContext={props.updateContext}
         name={name}
@@ -88,6 +93,7 @@ const Form = (props) => (
       type="text"
       value={props.name}
       onChange={(e) => props.setName(e.target.value)}
+      className="name-label"
     />
     <FormInput
       description="Email"
@@ -120,10 +126,10 @@ const Form = (props) => (
     />
     <div
       style={{
-        padding: "0 2.6rem",
-        marginBottom: "10px",
-        fontSize: "12px",
-        color: "grey",
+        padding: "0px 2.6rem",
+        marginBottom: "1%",
+        fontSize: "0.85rem",
+        color: "#131212",
       }}
     >
       Password should have at least one uppercase letter, one digit, and one
@@ -134,8 +140,10 @@ const Form = (props) => (
         type="button"
         onClick={props.handleSignup}
       >
-        Signup
+        SIGN UP
       </button>
+      <span className="login-here">Already have an account? <a href="/login">Login here</a></span>
+      
     </div>
   </div>
 );
@@ -146,10 +154,10 @@ const FormInput = (props) => {
 
   return (
     <div
-      className={`row ${
-        isEmailOrPassword && props.value !== "" && !props.isValid ? "error" : ""
-      }`}
+      className={`row ${isEmailOrPassword && props.value !== "" && !props.isValid ? "error" : ""
+        }`}
     >
+
       <label
         style={{ fontWeight: "bold", marginBottom: "8px", display: "block" }}
       >
@@ -163,11 +171,10 @@ const FormInput = (props) => {
         style={{
           padding: "10px",
           borderRadius: "5px",
-          border: `1px solid ${
-            isEmailOrPassword && props.value !== "" && !props.isValid
+          border: `1px solid ${isEmailOrPassword && props.value !== "" && !props.isValid
               ? "red"
               : "#ccc"
-          }`,
+            }`,
           boxShadow:
             isEmailOrPassword && props.value !== "" && !props.isValid
               ? "0 0 5px rgba(255, 0, 0, 0.5)"

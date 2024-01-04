@@ -23,8 +23,7 @@ signed main() {
 }
 `;
 
-// int a=0;
-const Landing = () => {
+const CodeWindow = () => {
   const [code, setCode] = useState(cppDefault);
   const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState();
@@ -227,4 +226,4 @@ const Landing = () => {
     </>
   );
 };
-export default Landing;
+export default CodeWindow;

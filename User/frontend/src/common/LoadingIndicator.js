@@ -1,9 +1,15 @@
 import React from 'react';
 import { Spin, Icon } from 'antd';
+import "./LoadingIndicator.css"
 
 export default function LoadingIndicator(props) {
-    const antIcon = <Icon type="loading-3-quarters" style={{ fontSize: 30 }} spin />;
     return (
-        <Spin indicator={antIcon} style = {{display: 'block', textAlign: 'center', marginTop: 30}} />
+        <div className="spinner-container">
+            <div className="spinner"></div>
+        </div>
+
+        // <div className="flex justify-center items-center h-full">
+        //     <div className="border-t-4 border-blue-500 border-solid rounded-full h-12 w-12 animate-spin"></div>
+        // </div>
     );
 }

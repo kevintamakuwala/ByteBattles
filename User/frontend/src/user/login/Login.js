@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { login } from "../../util/APIUtils";
 import "./Login.css";
 import { ACCESS_TOKEN } from "../../constants";
+import LoadingIndicator from "../../common/LoadingIndicator";
 
 const FormHeader = (props) => <h2 id="headerTitle">{props.title}</h2>;
 
@@ -10,12 +11,14 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
     validatePassword();
 
     setTimeout(async () => {
       if (validPassword) {
+        setLoading(true);
         try {
           await login({
             username: username,
@@ -26,6 +29,7 @@ const Login = (props) => {
                 alert(
                   "Your Username or Password is incorrect. Please try again!"
                 );
+                setLoading(false);
                 return;
               }
               localStorage.setItem(ACCESS_TOKEN, response.jwt);
@@ -44,6 +48,9 @@ const Login = (props) => {
         } catch (error) {
           alert("Sorry! Something went wrong. Please try again!");
         }
+        finally {
+          setLoading(false);
+        }
       } else {
         alert("Please fix the validation errors before submitting.");
       }
@@ -54,13 +61,14 @@ const Login = (props) => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/;
     setValidPassword(passwordRegex.test(password));
   };
-  
-  
+
+
   return !(
     localStorage.length > 0 && localStorage.getItem(ACCESS_TOKEN) !== ""
   ) ? (
     <div id="loginform">
       <FormHeader title="Login" />
+
       <Form
         username={username}
         password={password}
@@ -69,6 +77,7 @@ const Login = (props) => {
         setPassword={setPassword}
         validatePassword={validatePassword}
         handleLogin={handleLogin}
+        loading={loading}
       />
     </div>
   ) : (
@@ -78,44 +87,53 @@ const Login = (props) => {
 
 const Form = (props) => (
   <form>
-    <FormInput
-      description="Username"
-      placeholder="Enter your username"
-      type="text"
-      value={props.username}
-      onChange={(e) => props.setUsername(e.target.value)}
-    />
-    
-    <FormInput
-      description="Password"
-      placeholder="Enter your password"
-      type="password"
-      value={props.password}
-      onChange={(e) => {
-        const newPassword = e.target.value;
-        props.setPassword(newPassword);
-        props.validatePassword(newPassword);
-      }}
-      isValid={props.validPassword}
-    />
-    <div style={{ padding: "0 2.6rem",marginBottom: "10px", fontSize: "12px", color: "grey" }}>
-      Password should have at least one uppercase letter, one digit, and one special character (!@#$%^&*).
-    </div>
-    <div id="button" className="row">
-      <button type="button" onClick={props.handleLogin}>
-        Login
-      </button>
-    </div>
+    {
+      props.loading ? <LoadingIndicator /> : <div>
+        <FormInput
+          description="Username"
+          placeholder="Enter your username"
+          type="text"
+          value={props.username}
+          onChange={(e) => props.setUsername(e.target.value)}
+        />
+
+        <FormInput
+          description="Password"
+          placeholder="Enter your password"
+          type="password"
+          value={props.password}
+          onChange={(e) => {
+            const newPassword = e.target.value;
+            props.setPassword(newPassword);
+            props.validatePassword(newPassword);
+          }}
+          isValid={props.validPassword}
+        />
+
+        <div style={{ padding: "0px 2.6rem",
+        marginBottom: "1%",
+        fontSize: "0.85rem",
+        color: "#131212", }}>
+          Password should have at least one uppercase letter, one digit, and one special character (!@#$%^&*).
+        </div>
+        <div id="button" className="row">
+          <button type="button" onClick={props.handleLogin}>
+            Login
+          </button>
+        </div>
+      </div>
+    }
+
+
   </form>
 );
 
 const FormInput = (props) => (
   <div
-    className={`row ${
-      props.description === "Password" && props.value !== "" && !props.isValid
-        ? "error"
-        : ""
-    }`}
+    className={`row ${props.description === "Password" && props.value !== "" && !props.isValid
+      ? "error"
+      : ""
+      }`}
   >
     <label
       style={{ fontWeight: "bold", marginBottom: "8px", display: "block" }}
@@ -130,17 +148,16 @@ const FormInput = (props) => (
       style={{
         padding: "10px",
         borderRadius: "5px",
-        border: `1px solid ${
-          props.description === "Password" &&
+        border: `1px solid ${props.description === "Password" &&
           props.value !== "" &&
           !props.isValid
-            ? "red"
-            : "#ccc"
-        }`,
+          ? "red"
+          : "#ccc"
+          }`,
         boxShadow:
           props.description === "Password" &&
-          props.value !== "" &&
-          !props.isValid
+            props.value !== "" &&
+            !props.isValid
             ? "0 0 5px rgba(255, 0, 0, 0.5)"
             : "none",
         boxSizing: "border-box",

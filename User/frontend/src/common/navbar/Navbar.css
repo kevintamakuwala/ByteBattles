@@ -23,6 +23,7 @@ body {
 .logo {
   display: flex;
   align-items: center;
+  margin-top: -1%;
 }
 
 .logo img {

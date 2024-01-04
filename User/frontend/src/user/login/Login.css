@@ -1,99 +1,147 @@
 .login-container {
-    max-width: 420px;
-    margin: 0 auto;
-    margin: 0 auto;
-    margin-top: 40px;
+	max-width: 420px;
+	margin: 0 auto;
+	margin: 0 auto;
+	margin-top: 40px;
 }
 
 .login-form-button {
-    width: 100%;
+	width: 100%;
 }
+
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap');
 
-body{
-  background: #120d32;
-  font-family: "work sans";
+body {
+	background: #120d32;
+	font-family: "work sans";
 }
 
 
-#loginform{
-  max-width: 30rem;
-  min-width: 300px;
-  max-height: 700px;
-  width: 40%;
-  height: 60%;
-  margin: 100px auto;
-  background-color: #ffffff;
-  border-radius: 25px;
+#loginform {
+	max-width: 30rem;
+	min-width: 300px;
+	max-height: 745px;
+	width: 40%;
+	height: 60%;
+	margin: 100px auto;
+	background-color: #ffffff;
+	border-radius: 25px;
 }
 
-#headerTitle{
-  text-align: center;
-  font-family: 'open sans', sans-serif;
-  padding: 2rem 0;
-  margin: 0;
-  font-size: 2rem;
+#headerTitle {
+	text-align: center;
+    font-family: 'open sans', sans-serif;
+    padding: 2rem 0 1rem 0;
+    margin: 0;
+    font-size: 2rem;
+    font-family: sans-serif;
+    font-weight: 600;
 }
 
-.row{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 2rem;
-  max-width: 100%;
+.row {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 2rem;
+	max-width: 100%;
 }
 
-.row input{
-  width: 83%;
-  box-sizing: border-box;
+.row input {
+	width: 83%;
+	box-sizing: border-box;
 	border: none;
-  font-size: 1.3rem;
-  padding-bottom: 1rem;
-  box-shadow: inset 0px -3px 0px 0px rgba(187,187,187,0.2);
-  transition: box-shadow 0.2s ease-in;
+	font-size: 1.3rem;
+	padding-bottom: 1rem;
+	box-shadow: inset 0px -3px 0px 0px rgba(187, 187, 187, 0.2);
+	transition: box-shadow 0.2s ease-in;
 }
 
-.row input:focus{
-   box-shadow: inset 0px -3px 0px 0px rgba(34, 63, 195,0.7);
-   outline: none;
+
+.row input:focus {
+	box-shadow: inset 0px -3px 0px 0px rgba(34, 63, 195, 0.7);
+	outline:none;
 }
 
-.row input::-webkit-input-placeholder{
-  opacity: 1;
-  transition: opacity 0.25s ease-out;
+.row input::-webkit-input-placeholder {
+	opacity: 1;
+	transition: opacity 0.25s ease-out;
 }
 
 .row input:hover::-webkit-input-placeholder,
-.row input:focus::-webkit-input-placeholder{
-  opacity: 0;
+.row input:focus::-webkit-input-placeholder {
+	opacity: 0;
 }
 
-.row label{
-  align-self: start;
-  padding-left: 2.6rem;
-  padding-bottom: 0.5rem;
-  color: rgba(28, 27, 27, 0.9);
+.row label {
+	align-self: start;
+    padding-left: 2.7rem;
+    padding-bottom: 0.5rem;
+    color: rgba(28, 27, 27, 0.9);
+    font-size: 1.2rem;
+	font-family: sans-serif;
 }
 
-.row button{
-  border-radius: 25px;
-  width: 80%;
-  height: 40px;
-  font-size: 1.3rem;
-  color: rgb(39, 40, 40);
-  font-weight: 700;
-  background: rgb(11, 12, 12);
-  background: linear-gradient(90deg, rgb(34, 63, 195) 0%,     rgb(234, 230, 221) 100%);
-  border: 0px;
-  cursor: pointer;
-  transition: opacity 0.25s ease-out;
+.row button {
+	/* border-radius: 25px;
+	width: 80%;
+	height: 40px;
+	font-size: 1.3rem;
+	color: rgb(39, 40, 40);
+	font-weight: 700;
+	background: rgb(11, 12, 12);
+	background: linear-gradient(90deg, rgb(34, 63, 195) 0%, rgb(234, 230, 221) 100%);
+	border: 0px;
+	cursor: pointer;
+	transition: opacity 0.25s ease-out; */
+
+	border-radius: 10px;
+    width: 80%;
+    height: 40px;
+    font-size: 1.3rem;
+    color: rgb(195 209 209);
+    font-weight: 500;
+    background: -o-linear-gradient(left, rgb(34, 63, 195) 0%, rgb(234, 230, 221) 100%);
+    background-color: #24119ad9;
+    border: 0px;
+    cursor: pointer;
+    -webkit-transition: opacity 0.25s ease-out;
+    -o-transition: opacity 0.25s ease-out;
+    transition: opacity 0.5s ease-out;
+	 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.row button:hover{
-  opacity: 0.8;
+.row button:hover {
+	opacity: 0.8;
 }
 
-#button{
-  padding-bottom: 1.5rem;
+#button {
+	padding-bottom: 1.5rem;
 }
 
+/*  */
+
+
+.signup-heading {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	padding-top: 6%;
+	margin-bottom: 2%;
+}
+
+.signup-heading span {
+	font-size: 2rem;
+    padding-left: 3%;
+    font-family: sans-serif;
+    font-weight: 600;
+}
+
+.signup-heading svg{
+	font-size: 2rem;
+	color: #120d32;
+}
+
+.login-here{
+	font-size: 1rem;
+    padding: 6.1% 0;
+}
