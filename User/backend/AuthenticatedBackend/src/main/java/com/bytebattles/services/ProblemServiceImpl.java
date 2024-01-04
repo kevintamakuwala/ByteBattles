@@ -31,9 +31,8 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    @Transactional
     public Problem updateProblem(Problem updatedProblem) {
-        // Check if the problem with the given ID exists
+        System.out.println(updatedProblem);
         Long problemId = updatedProblem.getProblemID();
         if (!problemRepository.existsById(problemId)) {
             return null;

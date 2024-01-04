@@ -1,13 +1,17 @@
 package com.bytebattles.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "problems")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "problem_id")
+    @JsonProperty("problemID")
     private Long problemID;
 
     private String title;
@@ -19,15 +23,16 @@ public class Problem {
     private String difficultyLevel;
 
     public Problem() {
-        super();
     }
 
-    public Problem(String title, String description, String constraints, String difficultyLevel) {
+    public Problem(Long problemID, String title, String description, String constraints, String difficultyLevel) {
+        this.problemID = problemID;
         this.title = title;
         this.description = description;
         this.constraints = constraints;
-        setDifficultyLevel(difficultyLevel);
+        this.difficultyLevel = difficultyLevel;
     }
+
 
     public Long getProblemID() {
         return problemID;
@@ -67,5 +72,16 @@ public class Problem {
 
     public void setDifficultyLevel(String difficultyLevel) {
         this.difficultyLevel = difficultyLevel.toLowerCase();
+    }
+
+    @Override
+    public String toString() {
+        return "Problem{" +
+                "problemID=" + problemID +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", constraints='" + constraints + '\'' +
+                ", difficultyLevel='" + difficultyLevel + '\'' +
+                '}';
     }
 }

@@ -12,46 +12,51 @@ import java.util.List;
 @RestController
 @RequestMapping("/problems")
 public class ProblemController {
+
     @Autowired
     private ProblemService problemService;
 
-    @GetMapping({"/",""})
-    public List<Problem> getProblems() {
-        return problemService.getProblems();
+    @GetMapping({"/", ""})
+    public ResponseEntity<List<Problem>> getProblems() {
+        List<Problem> problems = problemService.getProblems();
+        return new ResponseEntity<>(problems, HttpStatus.OK);
     }
 
-    @GetMapping("/{problemId}")
-    public Problem getProblemById(@PathVariable String problemId) {
-        return problemService.getProblemById(problemId);
-    }
-
-    @PostMapping({"/",""})
-    public Problem addProblem(@RequestBody Problem problem) {
-        return problemService.addProblem(problem);
-    }
-
-    @PutMapping({"/{problemId}"})
-    public ResponseEntity<Problem> updateProblem(@PathVariable String problemId, @RequestBody Problem updatedProblem) {
-        Problem existingProblem = problemService.getProblemById((problemId));
-
-        if (existingProblem == null) {
+    @GetMapping({"/{problemId}/", "/{problemId}"})
+    public ResponseEntity<Problem> getProblemById(@PathVariable String problemId) {
+        Problem problem = problemService.getProblemById(problemId);
+        if (problem != null) {
+            return new ResponseEntity<>(problem, HttpStatus.OK);
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        existingProblem.setTitle(updatedProblem.getTitle());
-        existingProblem.setDescription(updatedProblem.getDescription());
-        existingProblem.setConstraints(updatedProblem.getConstraints());
-        existingProblem.setDifficultyLevel(updatedProblem.getDifficultyLevel());
-
-        problemService.updateProblem(existingProblem);
-
-        return new ResponseEntity<>(existingProblem, HttpStatus.OK);
     }
-    @DeleteMapping("/{problemId}")
-    public ResponseEntity<HttpStatus> deleteProblem(@PathVariable String problemId) {
-        if (problemService.deleteProblem(problemId)) {
-            return new ResponseEntity<>(HttpStatus.OK);
+
+    @PostMapping({"/", ""})
+    public ResponseEntity<Problem> addProblem(@RequestBody Problem problem) {
+        Problem addedProblem = problemService.addProblem(problem);
+        return new ResponseEntity<>(addedProblem, HttpStatus.CREATED);
+    }
+
+    @PutMapping({"/{problemId}/", "/{problemId}"})
+    public ResponseEntity<Problem> updateProblem(@PathVariable String problemId, @RequestBody Problem updatedProblem) {
+        updatedProblem.setProblemID(Long.parseLong(problemId));
+        Problem updated = problemService.updateProblem(updatedProblem);
+
+        if (updated != null) {
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @DeleteMapping({"/{problemId}/", "/{problemId}"})
+    public ResponseEntity<Void> deleteProblem(@PathVariable String problemId) {
+        boolean deleted = problemService.deleteProblem(problemId);
+        if (deleted) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
