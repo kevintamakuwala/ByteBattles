@@ -9,12 +9,19 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div className="footer-main">
-      <div className="footer-logo">
-        <img src={Logo} alt="" draggable="false" />
-        <p>
-          Byte<span>Battles</span>
-        </p>
-      </div>
+      <Link to="/"
+      style={{
+        textDecoration: "none",
+        color: "#000",
+      }}
+      >
+        <div className="footer-logo">
+          <img src={Logo} alt="" draggable="false" />
+          <p>
+            Byte<span>Battles</span>
+          </p>
+        </div>
+      </Link>
       <div className="footer-description">
         <span>Byte</span>
         <b>Battles </b>
