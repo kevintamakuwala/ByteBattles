@@ -4,11 +4,6 @@ import CodingPerson from "../../../assets/coding-person1.png"
 import {Link} from "react-router-dom"
 
 const Home = () => {
-
-  // const onButtongetStartedClick = useCallback(() => {
-  //     // Please sync "Problem Set" to the project
-  //   }, []);
-
   return (
     <div className='main__container'>
       <div className='left_container'>

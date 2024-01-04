@@ -74,19 +74,12 @@ const App = ({ history }) => {
 
   return (
     <div>
-      <Navbar isAuthenticated={isAuthenticated}/>
+      <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
       <Switch>
+        <Route exact path="/" render={(props) => <LandingPage />}></Route>
         <Route
-          exact
-          path="/"
-          render={(props) =>
-             
-              <LandingPage/>
-          }
-        ></Route>
-        <Route
-        path="/login" render=
-        {(props) => <Login onLogin={handleLogin} {...props} />}
+          path="/login"
+          render={(props) => <Login onLogin={handleLogin} {...props} />}
         />
         <Route
           path="/signup"
@@ -98,7 +91,7 @@ const App = ({ history }) => {
             <MailValidation onLogin={handleLogin} {...props} />
           )}
         />
-        {/* <Route path="/problem" element={<Problem />} /> */}
+        {/* <Route path="/problems" element={<Problem />} /> */}
         {/* <Route path="/contest" element={<Contest />} />
       <Route path="/about" element={<About />} />
       <Route path="/profile" element={<Profile />} /> */}
@@ -115,5 +108,4 @@ const App = ({ history }) => {
     </div>
   );
 };
-
 export default withRouter(App);

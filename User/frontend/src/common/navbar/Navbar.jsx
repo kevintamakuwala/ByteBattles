@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Logo from "../../assets/standard-collection-27.svg";
 
-const Navbar = ({ isAuthenticated }) => {
+const Navbar = ({ isAuthenticated, handleLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -13,20 +13,28 @@ const Navbar = ({ isAuthenticated }) => {
   return (
     <div className={`navbar${isMenuOpen ? " mobile-menu-open" : ""}`}>
       <div className="navbar-container">
-        <div className="logo">
-          <img
-            className="standard-collection-27"
-            alt=""
-            src={Logo}
-            draggable={false}
-          />
-          <span className="bytebattles">ByteBattles</span>
-        </div>
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            color: "#fff",
+          }}
+        >
+          <div className="logo">
+            <img
+              className="standard-collection-27"
+              alt="logo"
+              src={Logo}
+              draggable={false}
+            />
+            <span className="bytebattles">ByteBattles</span>
+          </div>
+        </Link>
         <div className={`links${isMenuOpen ? " mobile-links" : ""}`}>
-          <Link to="/problem" onClick={toggleMenu}>
+          <Link to="/problems" onClick={toggleMenu}>
             Problems
           </Link>
-          <Link to="/contests" onClick={toggleMenu}>
+          <Link to="/contest" onClick={toggleMenu}>
             Contests
           </Link>
           <Link to="/about" onClick={toggleMenu}>
@@ -35,10 +43,15 @@ const Navbar = ({ isAuthenticated }) => {
           <Link to="/profile" onClick={toggleMenu}>
             Profile
           </Link>
-          <button className="LoginButton">
-            <Link to="/signup">
-              {isAuthenticated ? <span> Log Out</span> : <span>Sign up</span>}
-            </Link>
+          <button
+            className="LoginButton"
+            onClick={`${isAuthenticated}` ? handleLogout : null}
+          >
+            {!isAuthenticated ? (
+              <Link to="/signup">Sign up</Link>
+            ) : (
+              <span>Log out</span>
+            )}
           </button>
         </div>
 
