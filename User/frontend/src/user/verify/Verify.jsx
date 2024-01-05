@@ -18,7 +18,7 @@ const Verify = () => {
 const styles = {
   container: {
     maxWidth: "600px",
-    margin: "auto",
+    margin: "3% auto 6% auto",
     padding: "20px",
     textAlign: "center",
     marginTop: "50px",

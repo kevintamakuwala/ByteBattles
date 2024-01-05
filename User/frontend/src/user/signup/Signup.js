@@ -7,6 +7,7 @@ import { ACCESS_TOKEN } from "../../constants";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import Verify from "../verify/Verify";
+import LoadingIndicator from "../../common/LoadingIndicator";
 const Signup = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +16,7 @@ const Signup = (props) => {
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
   const [registered, setRegistered] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const validateEmail = () => {
     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -32,6 +34,7 @@ const Signup = (props) => {
     validatePassword();
 
     if (validEmail && validPassword) {
+      setLoading(true);
       try {
         await signup({
           name: name,
@@ -48,6 +51,9 @@ const Signup = (props) => {
       } catch (error) {
         alert("Sorry! Something went wrong. Please try again!");
       }
+      finally {
+        setLoading(false);
+      }
     } else {
       alert("Please fix the validation errors before submitting.");
     }
@@ -60,7 +66,7 @@ const Signup = (props) => {
   ) ? (
     <div id="loginform">
       <div className="signup-heading">
-        <MdLock className="signup-icon"/>
+        <MdLock className="signup-icon" />
         <span>Sign up</span>
       </div>
       <Form
@@ -86,66 +92,130 @@ const Signup = (props) => {
 };
 
 const Form = (props) => (
-  <div>
-    <FormInput
-      description="Name"
-      placeholder="Enter your name"
-      type="text"
-      value={props.name}
-      onChange={(e) => props.setName(e.target.value)}
-      className="name-label"
-    />
-    <FormInput
-      description="Email"
-      placeholder="Enter your Email"
-      type="text"
-      value={props.email}
-      onChange={(e) => {
-        props.setEmail(e.target.value);
-        props.validateEmail();
-      }}
-      isValid={props.validEmail}
-    />
-    <FormInput
-      description="Username"
-      placeholder="Enter your username"
-      type="text"
-      value={props.username}
-      onChange={(e) => props.setUsername(e.target.value)}
-    />
-    <FormInput
-      description="Password"
-      placeholder="Enter your password"
-      type="password"
-      value={props.password}
-      onChange={(e) => {
-        props.setPassword(e.target.value);
-        props.validatePassword();
-      }}
-      isValid={props.validPassword}
-    />
-    <div
-      style={{
-        padding: "0px 2.6rem",
-        marginBottom: "1%",
-        fontSize: "0.85rem",
-        color: "#131212",
-      }}
-    >
-      Password should have at least one uppercase letter, one digit, and one
-      special character (!@#$%^&*).
-    </div>
-    <div id="button" className="row">
-      <button
-        type="button"
-        onClick={props.handleSignup}
-      >
-        SIGN UP
-      </button>
-      <span className="login-here">Already have an account? <a href="/login">Login here</a></span>
-      
-    </div>
-  </div>
+  <form>
+    {
+      props.loading ? <LoadingIndicator /> : <div>
+          <FormInput
+            description="Name"
+            placeholder="Enter your name"
+            type="text"
+            value={props.name}
+            onChange={(e) => props.setName(e.target.value)}
+            className="name-label"
+          />
+          <FormInput
+            description="Email"
+            placeholder="Enter your Email"
+            type="text"
+            value={props.email}
+            onChange={(e) => {
+              props.setEmail(e.target.value);
+              props.validateEmail();
+            }}
+            isValid={props.validEmail}
+          />
+          <FormInput
+            description="Username"
+            placeholder="Enter your username"
+            type="text"
+            value={props.username}
+            onChange={(e) => props.setUsername(e.target.value)}
+          />
+          <FormInput
+            description="Password"
+            placeholder="Enter your password"
+            type="password"
+            value={props.password}
+            onChange={(e) => {
+              props.setPassword(e.target.value);
+              props.validatePassword();
+            }}
+            isValid={props.validPassword}
+          />
+          <div
+            style={{
+              padding: "0px 2.6rem",
+              marginBottom: "1%",
+              fontSize: "0.85rem",
+              color: "#131212",
+            }}
+          >
+            Password should have at least one uppercase letter, one digit, and one
+            special character (!@#$%^&*).
+          </div>
+          <div id="button" className="row">
+            <button
+              type="button"
+              onClick={props.handleSignup}
+            >
+              SIGN UP
+            </button>
+            <span className="login-here">Already have an account? <a href="/login">Login here</a></span>
+
+          </div>
+        </div>
+    }
+  </form>
+  // <div>
+  //   <FormInput
+  //     description="Name"
+  //     placeholder="Enter your name"
+  //     type="text"
+  //     value={props.name}
+  //     onChange={(e) => props.setName(e.target.value)}
+  //     className="name-label"
+  //   />
+  //   <FormInput
+  //     description="Email"
+  //     placeholder="Enter your Email"
+  //     type="text"
+  //     value={props.email}
+  //     onChange={(e) => {
+  //       props.setEmail(e.target.value);
+  //       props.validateEmail();
+  //     }}
+  //     isValid={props.validEmail}
+  //   />
+  //   <FormInput
+  //     description="Username"
+  //     placeholder="Enter your username"
+  //     type="text"
+  //     value={props.username}
+  //     onChange={(e) => props.setUsername(e.target.value)}
+  //   />
+  //   <FormInput
+  //     description="Password"
+  //     placeholder="Enter your password"
+  //     type="password"
+  //     value={props.password}
+  //     onChange={(e) => {
+  //       props.setPassword(e.target.value);
+  //       props.validatePassword();
+  //     }}
+  //     isValid={props.validPassword}
+  //   />
+  //   <div
+  //     style={{
+  //       padding: "0px 2.6rem",
+  //       marginBottom: "1%",
+  //       fontSize: "0.85rem",
+  //       color: "#131212",
+  //     }}
+  //   >
+  //     Password should have at least one uppercase letter, one digit, and one
+  //     special character (!@#$%^&*).
+  //   </div>
+  //   <div id="button" className="row">
+  //     <button
+  //       type="button"
+  //       onClick={props.handleSignup}
+  //     >
+  //       SIGN UP
+  //     </button>
+  //     <span className="login-here">Already have an account? <a href="/login">Login here</a></span>
+
+  //   </div>
+  // </div>
 );
 
 const FormInput = (props) => {
@@ -172,8 +242,8 @@ const FormInput = (props) => {
           padding: "10px",
           borderRadius: "5px",
           border: `1px solid ${isEmailOrPassword && props.value !== "" && !props.isValid
-              ? "red"
-              : "#ccc"
+            ? "red"
+            : "#ccc"
             }`,
           boxShadow:
             isEmailOrPassword && props.value !== "" && !props.isValid
