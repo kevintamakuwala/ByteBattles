@@ -1,8 +1,8 @@
 package com.bytebattles.services;
 
 import com.bytebattles.models.Problem;
+import com.bytebattles.models.Submission;
 import com.bytebattles.repository.ProblemRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +26,10 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public Problem addProblem(Problem problem) {
-        problemRepository.save(problem);
-        return problem;
+
+        return problemRepository.save(problem);
     }
+
 
     @Override
     public Problem updateProblem(Problem updatedProblem) {

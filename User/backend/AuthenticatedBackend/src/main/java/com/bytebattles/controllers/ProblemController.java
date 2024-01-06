@@ -1,6 +1,7 @@
 package com.bytebattles.controllers;
 
 import com.bytebattles.models.Problem;
+import com.bytebattles.models.Submission;
 import com.bytebattles.services.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,14 @@ public class ProblemController {
 
     @PostMapping({"/", ""})
     public ResponseEntity<Problem> addProblem(@RequestBody Problem problem) {
+        List<Submission> submissions = problem.getSubmissionList();
+        if (submissions != null) {
+            for (Submission submission : submissions) {
+                submission.setProblem(problem);
+            }
+        }
+        System.out.println(submissions);
+
         Problem addedProblem = problemService.addProblem(problem);
         return new ResponseEntity<>(addedProblem, HttpStatus.CREATED);
     }

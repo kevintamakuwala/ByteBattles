@@ -1,16 +1,17 @@
 package com.bytebattles.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "problems")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "problemId")
 public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "problem_id")
     @JsonProperty("problemId")
     private Long problemId;
 
@@ -21,16 +22,25 @@ public class Problem {
     private String constraints;
 
     private String difficultyLevel;
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Submission> submissionList;
 
     public Problem() {
     }
 
-    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel) {
+    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel, List<Submission> submissions) {
         this.problemId = problemId;
         this.title = title;
         this.description = description;
         this.constraints = constraints;
         this.difficultyLevel = difficultyLevel;
+        this.submissionList = submissions;
+        if (submissions != null) {
+            for (Submission submission : submissions) {
+                submission.setProblem(this);
+            }
+        }
     }
 
 
@@ -52,6 +62,14 @@ public class Problem {
 
     public String getDescription() {
         return description;
+    }
+
+    public List<Submission> getSubmissionList() {
+        return submissionList;
+    }
+
+    public void setSubmissionList(List<Submission> submissionList) {
+        this.submissionList = submissionList;
     }
 
     public void setDescription(String description) {
