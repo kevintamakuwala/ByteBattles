@@ -31,29 +31,29 @@ const Footer = () => {
         </span>
       </div>
       <div className="social-media-icon">
-        <Link
-          to="https://www.facebook.com"
+        <a
+          href="https://www.facebook.com"
           className="facebook-link"
           target="_blank"
         >
           <FaFacebook />
-        </Link>
+        </a>
 
-        <Link
-          to="https://www.twitter.com"
+        <a
+          href="https://www.twitter.com"
           className="twitter-link"
           target="_blank"
         >
           <FaXTwitter />
-        </Link>
+        </a>
 
-        <Link
-          to="https://www.instagram.com"
+        <a
+          href="https://www.instagram.com"
           className="instagram-link"
           target="_blank"
         >
           <FaInstagram />
-        </Link>
+        </a>
       </div>
       <div className="copyright">
         <span>©2023Byte</span>

@@ -40,7 +40,7 @@ public class ProblemController {
 
     @PutMapping({"/{problemId}/", "/{problemId}"})
     public ResponseEntity<Problem> updateProblem(@PathVariable String problemId, @RequestBody Problem updatedProblem) {
-        updatedProblem.setProblemID(Long.parseLong(problemId));
+        updatedProblem.setProblemId(Long.parseLong(problemId));
         Problem updated = problemService.updateProblem(updatedProblem);
 
         if (updated != null) {

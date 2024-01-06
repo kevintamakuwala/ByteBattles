@@ -11,19 +11,19 @@ public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tag_id")
-    @JsonProperty("tagID")
-    private Long tagID;
+    @JsonProperty("tagId")
+    private Long tagId;
 
     @Column(name = "tag_name")
     @JsonProperty("tagName")
     private String name;
 
-    public Long getTagID() {
-        return tagID;
+    public Long getTagId() {
+        return tagId;
     }
 
-    public void setTagID(Long tagID) {
-        this.tagID = tagID;
+    public void setTagId(Long tagID) {
+        this.tagId = tagID;
     }
 
     public String getName() {
@@ -39,15 +39,15 @@ public class Tag {
     public Tag() {
     }
 
-    public Tag(Long tagID, String name) {
-        this.tagID= tagID;
+    public Tag(Long tagId, String name) {
+        this.tagId= tagId;
         this.name = name;
     }
 
     @Override
     public String toString() {
         return "Tag{" +
-                "tagID=" + tagID +
+                "tagID=" + tagId +
                 ", name='" + name + '\'' +
                 '}';
     }

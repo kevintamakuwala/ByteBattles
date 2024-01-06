@@ -33,7 +33,7 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     public Problem updateProblem(Problem updatedProblem) {
         System.out.println(updatedProblem);
-        Long problemId = updatedProblem.getProblemID();
+        Long problemId = updatedProblem.getProblemId();
         if (!problemRepository.existsById(problemId)) {
             return null;
         }

@@ -39,7 +39,7 @@ public class TagController {
 
     @PutMapping({"/{tagId}/", "/{tagId}"})
     public ResponseEntity<Tag> updateTag(@PathVariable String tagId, @RequestBody Tag updatedTag) {
-        updatedTag.setTagID(Long.parseLong(tagId));
+        updatedTag.setTagId(Long.parseLong(tagId));
         Tag updated = tagService.updateTag(updatedTag);
 
         if (updated != null) {

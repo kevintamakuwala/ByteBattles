@@ -33,7 +33,7 @@ public class TagServiceImpl implements TagService{
     @Override
     public Tag updateTag(Tag tag) {
         System.out.println(tag);
-        Long tagId = tag.getTagID();
+        Long tagId = tag.getTagId();
         if (!tagRepository.existsById(tagId)) {
             return null;
         }

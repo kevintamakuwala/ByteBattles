@@ -11,8 +11,8 @@ public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "problem_id")
-    @JsonProperty("problemID")
-    private Long problemID;
+    @JsonProperty("problemId")
+    private Long problemId;
 
     private String title;
 
@@ -25,8 +25,8 @@ public class Problem {
     public Problem() {
     }
 
-    public Problem(Long problemID, String title, String description, String constraints, String difficultyLevel) {
-        this.problemID = problemID;
+    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel) {
+        this.problemId = problemId;
         this.title = title;
         this.description = description;
         this.constraints = constraints;
@@ -34,12 +34,12 @@ public class Problem {
     }
 
 
-    public Long getProblemID() {
-        return problemID;
+    public Long getProblemId() {
+        return problemId;
     }
 
-    public void setProblemID(Long problemID) {
-        this.problemID = problemID;
+    public void setProblemId(Long problemId) {
+        this.problemId = problemId;
     }
 
     public String getTitle() {
@@ -77,7 +77,7 @@ public class Problem {
     @Override
     public String toString() {
         return "Problem{" +
-                "problemID=" + problemID +
+                "problemId=" + problemId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", constraints='" + constraints + '\'' +

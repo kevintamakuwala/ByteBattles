@@ -47,8 +47,7 @@ const Login = (props) => {
             });
         } catch (error) {
           alert("Sorry! Something went wrong. Please try again!");
-        }
-        finally {
+        } finally {
           setLoading(false);
         }
       } else {
@@ -58,13 +57,14 @@ const Login = (props) => {
   };
 
   const validatePassword = () => {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/;
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/;
     setValidPassword(passwordRegex.test(password));
   };
 
-
   return !(
-    localStorage.length > 0 && localStorage.getItem(ACCESS_TOKEN) !== ""
+    localStorage.getItem(ACCESS_TOKEN) !== null ||
+    localStorage.getItem(ACCESS_TOKEN) === ""
   ) ? (
     <div id="loginform">
       <FormHeader title="Login" />
@@ -87,53 +87,57 @@ const Login = (props) => {
 
 const Form = (props) => (
   <form>
-    {
-      props.loading ? <LoadingIndicator /> : <div>
-        <FormInput
-          description="Username"
-          placeholder="Enter your username"
-          type="text"
-          value={props.username}
-          onChange={(e) => props.setUsername(e.target.value)}
-        />
+    <div>
+      <FormInput
+        description="Username"
+        placeholder="Enter your username"
+        type="text"
+        value={props.username}
+        onChange={(e) => props.setUsername(e.target.value)}
+      />
 
-        <FormInput
-          description="Password"
-          placeholder="Enter your password"
-          type="password"
-          value={props.password}
-          onChange={(e) => {
-            const newPassword = e.target.value;
-            props.setPassword(newPassword);
-            props.validatePassword(newPassword);
-          }}
-          isValid={props.validPassword}
-        />
+      <FormInput
+        description="Password"
+        placeholder="Enter your password"
+        type="password"
+        value={props.password}
+        onChange={(e) => {
+          const newPassword = e.target.value;
+          props.setPassword(newPassword);
+          props.validatePassword(newPassword);
+        }}
+        isValid={props.validPassword}
+      />
 
-        <div style={{ padding: "0px 2.6rem",
-        marginBottom: "1%",
-        fontSize: "0.85rem",
-        color: "#131212", }}>
-          Password should have at least one uppercase letter, one digit, and one special character (!@#$%^&*).
-        </div>
-        <div id="button" className="row">
-          <button type="button" onClick={props.handleLogin}>
-            Login
-          </button>
-        </div>
+      <div
+        style={{
+          padding: "0px 2.6rem",
+          marginBottom: "1%",
+          fontSize: "0.85rem",
+          color: "#131212",
+        }}
+      >
+        Password should have at least one uppercase letter, one digit, and one
+        special character (!@#$%^&*).
       </div>
-    }
+      <div id="button" className="row">
+        <button type="button" onClick={props.handleLogin}>
+          Login
+        </button>
+      </div>
+    </div>
 
-
+    {props.loading ? <LoadingIndicator /> : <div></div>}
   </form>
 );
 
 const FormInput = (props) => (
   <div
-    className={`row ${props.description === "Password" && props.value !== "" && !props.isValid
-      ? "error"
-      : ""
-      }`}
+    className={`row ${
+      props.description === "Password" && props.value !== "" && !props.isValid
+        ? "error"
+        : ""
+    }`}
   >
     <label
       style={{ fontWeight: "bold", marginBottom: "8px", display: "block" }}
@@ -148,16 +152,17 @@ const FormInput = (props) => (
       style={{
         padding: "10px",
         borderRadius: "5px",
-        border: `1px solid ${props.description === "Password" &&
+        border: `1px solid ${
+          props.description === "Password" &&
           props.value !== "" &&
           !props.isValid
-          ? "red"
-          : "#ccc"
-          }`,
+            ? "red"
+            : "#ccc"
+        }`,
         boxShadow:
           props.description === "Password" &&
-            props.value !== "" &&
-            !props.isValid
+          props.value !== "" &&
+          !props.isValid
             ? "0 0 5px rgba(255, 0, 0, 0.5)"
             : "none",
         boxSizing: "border-box",
