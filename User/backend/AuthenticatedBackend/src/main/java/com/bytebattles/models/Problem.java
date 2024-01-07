@@ -23,26 +23,36 @@ public class Problem {
 
     private String difficultyLevel;
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value = "problem-submission")
     private List<Submission> submissionList;
+
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
+    @JsonBackReference(value = "problem-testcase")
+    private List<TestCase> testCaseList;
 
     public Problem() {
     }
 
-    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel, List<Submission> submissions) {
+    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel, List<Submission> submissions, List<TestCase> testCases) {
         this.problemId = problemId;
         this.title = title;
         this.description = description;
         this.constraints = constraints;
         this.difficultyLevel = difficultyLevel;
         this.submissionList = submissions;
+        this.testCaseList = testCases;
+
         if (submissions != null) {
             for (Submission submission : submissions) {
                 submission.setProblem(this);
             }
         }
+        if (testCases != null) {
+            for (TestCase testCase : testCases) {
+                testCase.setProblem(this);
+            }
+        }
     }
-
 
     public Long getProblemId() {
         return problemId;
@@ -62,14 +72,6 @@ public class Problem {
 
     public String getDescription() {
         return description;
-    }
-
-    public List<Submission> getSubmissionList() {
-        return submissionList;
-    }
-
-    public void setSubmissionList(List<Submission> submissionList) {
-        this.submissionList = submissionList;
     }
 
     public void setDescription(String description) {
@@ -92,6 +94,22 @@ public class Problem {
         this.difficultyLevel = difficultyLevel.toLowerCase();
     }
 
+    public List<Submission> getSubmissionList() {
+        return submissionList;
+    }
+
+    public void setSubmissionList(List<Submission> submissionList) {
+        this.submissionList = submissionList;
+    }
+
+    public List<TestCase> getTestCaseList() {
+        return testCaseList;
+    }
+
+    public void setTestCaseList(List<TestCase> testCaseList) {
+        this.testCaseList = testCaseList;
+    }
+
     @Override
     public String toString() {
         return "Problem{" +
@@ -100,6 +118,8 @@ public class Problem {
                 ", description='" + description + '\'' +
                 ", constraints='" + constraints + '\'' +
                 ", difficultyLevel='" + difficultyLevel + '\'' +
+                ", submissionList=" + submissionList +
+                ", testCaseList=" + testCaseList +
                 '}';
     }
 }

@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "submissions")
-
 public class Submission {
     @Id
     @Column(name = "submission_id")

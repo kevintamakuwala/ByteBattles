@@ -30,7 +30,7 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public Problem updateProblem(Problem updatedProblem) {
-        System.out.println(updatedProblem);
+//        System.out.println(updatedProblem);
         Long problemId = updatedProblem.getProblemId();
         if (!problemRepository.existsById(problemId)) {
             return null;
@@ -43,6 +43,7 @@ public class ProblemServiceImpl implements ProblemService {
         existingProblem.setConstraints(updatedProblem.getConstraints());
         existingProblem.setDifficultyLevel(updatedProblem.getDifficultyLevel());
         existingProblem.setSubmissionList(updatedProblem.getSubmissionList());
+        existingProblem.setTestCaseList(updatedProblem.getTestCaseList());
 
         problemRepository.save(existingProblem);
 
