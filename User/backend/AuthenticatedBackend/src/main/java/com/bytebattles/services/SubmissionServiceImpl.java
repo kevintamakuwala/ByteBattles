@@ -28,14 +28,12 @@ public class SubmissionServiceImpl implements SubmissionService {
 
     @Override
     public Submission addSubmission(Submission submission) {
-        problemRepository.save(submission.getProblem());
         return submissionRepository.save(submission);
     }
 
     @Override
     public Submission updateSubmission(Submission submission) {
         submission.setSubmissionDate(LocalDateTime.now());
-        problemRepository.save(submission.getProblem());
         return submissionRepository.save(submission);
     }
 

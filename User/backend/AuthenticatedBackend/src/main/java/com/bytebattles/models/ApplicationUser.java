@@ -1,19 +1,24 @@
 package com.bytebattles.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class ApplicationUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("userId")
     private Integer userId;
 
     private String name;
@@ -36,12 +41,16 @@ public class ApplicationUser implements UserDetails {
     )
     private Set<Role> authorities;
 
+    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Submission> submissionList;
+
     public ApplicationUser() {
         super();
         authorities = new HashSet<>();
     }
 
-    public ApplicationUser(Integer userId, String name, String email, String username, String password, String verificationCode, boolean enabled, Set<Role> authorities) {
+    public ApplicationUser(Integer userId, String name, String email, String username, String password, String verificationCode, boolean enabled, Set<Role> authorities, List<Submission> submissions) {
         super();
         this.userId = userId;
         this.username = username;
@@ -51,6 +60,12 @@ public class ApplicationUser implements UserDetails {
         this.verificationCode = verificationCode;
         this.enabled = enabled;
         this.authorities = authorities;
+        this.submissionList = submissions;
+        if (submissions != null) {
+            for (Submission submission : submissions) {
+                submission.setApplicationUser(this);
+            }
+        }
     }
 
     public Integer getUserId() {
@@ -102,6 +117,15 @@ public class ApplicationUser implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+
+    public List<Submission> getSubmissionList() {
+        return submissionList;
+    }
+
+    public void setSubmissionList(List<Submission> submissionList) {
+        this.submissionList = submissionList;
     }
 
     @Override

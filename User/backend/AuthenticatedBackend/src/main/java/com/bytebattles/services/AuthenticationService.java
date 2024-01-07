@@ -85,7 +85,7 @@ public class AuthenticationService {
 
         String randomCode = RandomString.make(64);
 
-        ApplicationUser user = new ApplicationUser(0, name, email, username, encodedPassword, randomCode, false, authorities);
+        ApplicationUser user = new ApplicationUser(0, name, email, username, encodedPassword, randomCode, false, authorities,null);
         ApplicationUser savedUser = userRepository.save(user);
         sendVerificationEmail(user, siteURL);
 

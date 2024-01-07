@@ -59,5 +59,4 @@ public class SubmissionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 }

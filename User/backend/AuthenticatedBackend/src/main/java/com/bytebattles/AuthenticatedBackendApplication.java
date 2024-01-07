@@ -33,7 +33,7 @@ public class AuthenticatedBackendApplication {
             Set<Role> roles = new HashSet<>();
             roles.add(adminRole);
 
-            ApplicationUser admin = new ApplicationUser(1, "Admin","admin@gmail.com","admin", passwordEncode.encode("Admin@123"), "",true,roles);
+            ApplicationUser admin = new ApplicationUser(1, "Admin","admin@gmail.com","admin", passwordEncode.encode("Admin@123"), "",true,roles,null);
 
             userRepository.save(admin);
         };

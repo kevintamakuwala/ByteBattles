@@ -24,16 +24,20 @@ public class Submission {
     @JsonIdentityReference(alwaysAsId = true)
     private Problem problem;
 
-    public Problem getProblem() {
-        return problem;
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private ApplicationUser applicationUser;
 
-    public void setProblem(Problem problem) {
-        this.problem = problem;
-    }
 
     public Submission() {
+    }
 
+    public Submission(long submissionId, String language, String result, LocalDateTime localDateTime) {
+        this.submissionId = submissionId;
+        this.language = language;
+        this.result = result;
+        this.submissionDate = localDateTime;
     }
 
     public long getSubmissionId() {
@@ -68,11 +72,20 @@ public class Submission {
         this.submissionDate = submissionDate;
     }
 
-    public Submission(long submissionId, String language, String result, LocalDateTime localDateTime) {
-        this.submissionId = submissionId;
-        this.language = language;
-        this.result = result;
-        this.submissionDate = localDateTime;
+    public Problem getProblem() {
+        return problem;
+    }
+
+    public void setProblem(Problem problem) {
+        this.problem = problem;
+    }
+
+    public ApplicationUser getApplicationUser() {
+        return applicationUser;
+    }
+
+    public void setApplicationUser(ApplicationUser applicationUser) {
+        this.applicationUser = applicationUser;
     }
 
     @PrePersist
@@ -88,6 +101,7 @@ public class Submission {
                 ", result='" + result + '\'' +
                 ", submissionDate=" + submissionDate +
                 ", problem=" + problem +
+                ", applicationUser=" + applicationUser +
                 '}';
     }
 }

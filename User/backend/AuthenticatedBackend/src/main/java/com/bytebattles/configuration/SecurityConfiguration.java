@@ -63,6 +63,7 @@ public class SecurityConfiguration {
                     auth.requestMatchers("/verify/**").permitAll();
                     auth.requestMatchers("/problems/**").permitAll();
                     auth.requestMatchers("/submissions/**").permitAll();
+                    auth.requestMatchers("/users/**").permitAll();
                     auth.requestMatchers("/tags/**").permitAll();
                     auth.requestMatchers("http://localhost:3000/verify/**").permitAll();
                     auth.requestMatchers("/admin/**").hasRole("ADMIN");

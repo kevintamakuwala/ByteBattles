@@ -1,7 +1,6 @@
 package com.bytebattles.services;
 
 import com.bytebattles.models.Problem;
-import com.bytebattles.models.Submission;
 import com.bytebattles.repository.ProblemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,7 @@ import java.util.List;
 
 @Service
 public class ProblemServiceImpl implements ProblemService {
-    List<Problem> problems;
+
     @Autowired
     ProblemRepository problemRepository;
 
@@ -26,10 +25,8 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public Problem addProblem(Problem problem) {
-
         return problemRepository.save(problem);
     }
-
 
     @Override
     public Problem updateProblem(Problem updatedProblem) {
@@ -45,6 +42,7 @@ public class ProblemServiceImpl implements ProblemService {
         existingProblem.setDescription(updatedProblem.getDescription());
         existingProblem.setConstraints(updatedProblem.getConstraints());
         existingProblem.setDifficultyLevel(updatedProblem.getDifficultyLevel());
+        existingProblem.setSubmissionList(updatedProblem.getSubmissionList());
 
         problemRepository.save(existingProblem);
 
