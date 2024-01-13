@@ -2,9 +2,12 @@ package com.bytebattles.services;
 
 import com.bytebattles.models.Problem;
 import com.bytebattles.repository.ProblemRepository;
+import com.bytebattles.repository.SubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -12,7 +15,10 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Autowired
     ProblemRepository problemRepository;
+    @Autowired
+    SubmissionRepository submissionRepository;
 
+    @Transactional
     @Override
     public List<Problem> getProblems() {
         return problemRepository.findAll();
@@ -25,12 +31,13 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public Problem addProblem(Problem problem) {
+        if (problem.getSubmissionList() == null)
+            problem.setSubmissionList(new HashSet<>());
         return problemRepository.save(problem);
     }
 
     @Override
     public Problem updateProblem(Problem updatedProblem) {
-//        System.out.println(updatedProblem);
         Long problemId = updatedProblem.getProblemId();
         if (!problemRepository.existsById(problemId)) {
             return null;

@@ -3,7 +3,9 @@ package com.bytebattles.models;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "problems")
@@ -22,18 +24,18 @@ public class Problem {
     private String constraints;
 
     private String difficultyLevel;
-    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
-    @JsonBackReference(value = "problem-submission")
-    private List<Submission> submissionList;
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference(value = "problem-submission")
+    private Set<Submission> submissionList=new HashSet<>();
 
-    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
-    @JsonBackReference(value = "problem-testcase")
-    private List<TestCase> testCaseList;
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference(value = "problem-testcase")
+    private Set<TestCase> testCaseList=new HashSet<>();
 
     public Problem() {
     }
 
-    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel, List<Submission> submissions, List<TestCase> testCases) {
+    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel, Set<Submission> submissions, Set<TestCase> testCases) {
         this.problemId = problemId;
         this.title = title;
         this.description = description;
@@ -94,19 +96,19 @@ public class Problem {
         this.difficultyLevel = difficultyLevel.toLowerCase();
     }
 
-    public List<Submission> getSubmissionList() {
+    public Set<Submission> getSubmissionList() {
         return submissionList;
     }
 
-    public void setSubmissionList(List<Submission> submissionList) {
+    public void setSubmissionList(Set<Submission> submissionList) {
         this.submissionList = submissionList;
     }
 
-    public List<TestCase> getTestCaseList() {
+    public Set<TestCase> getTestCaseList() {
         return testCaseList;
     }
 
-    public void setTestCaseList(List<TestCase> testCaseList) {
+    public void setTestCaseList(Set<TestCase> testCaseList) {
         this.testCaseList = testCaseList;
     }
 
@@ -118,8 +120,6 @@ public class Problem {
                 ", description='" + description + '\'' +
                 ", constraints='" + constraints + '\'' +
                 ", difficultyLevel='" + difficultyLevel + '\'' +
-                ", submissionList=" + submissionList +
-                ", testCaseList=" + testCaseList +
                 '}';
     }
 }

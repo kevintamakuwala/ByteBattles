@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/problems")
@@ -35,13 +36,12 @@ public class ProblemController {
 
     @PostMapping({"/", ""})
     public ResponseEntity<Problem> addProblem(@RequestBody Problem problem) {
-        List<Submission> submissions = problem.getSubmissionList();
+        Set<Submission> submissions = problem.getSubmissionList();
         if (submissions != null) {
             for (Submission submission : submissions) {
                 submission.setProblem(problem);
             }
         }
-        System.out.println(submissions);
 
         Problem addedProblem = problemService.addProblem(problem);
         return new ResponseEntity<>(addedProblem, HttpStatus.CREATED);

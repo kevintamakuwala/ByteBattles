@@ -32,7 +32,7 @@ public class SubmissionController {
     }
 
     @PostMapping({"/", ""})
-    public ResponseEntity<Submission> addProblem(@RequestBody Submission submission) {
+    public ResponseEntity<Submission> addSubmission(@RequestBody Submission submission) {
         Submission addedSubmission = submissionService.addSubmission(submission);
 
         return new ResponseEntity<>(addedSubmission, HttpStatus.CREATED);

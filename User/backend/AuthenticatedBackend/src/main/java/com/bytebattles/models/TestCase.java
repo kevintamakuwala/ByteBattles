@@ -1,5 +1,6 @@
 package com.bytebattles.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import jakarta.persistence.*;
 
@@ -19,6 +20,7 @@ public class TestCase {
     @ManyToOne
     @JoinColumn(name = "problem_id")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonBackReference(value = "problem-testcase")
     private Problem problem;
 
     public TestCase() {

@@ -42,7 +42,7 @@ public class ApplicationUser implements UserDetails {
     private Set<Role> authorities;
 
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonManagedReference(value = "user-submission")
     private List<Submission> submissionList;
 
     public ApplicationUser() {
@@ -162,5 +162,19 @@ public class ApplicationUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.enabled;
+    }
+
+    @Override
+    public String toString() {
+        return "ApplicationUser{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", verificationCode='" + verificationCode + '\'' +
+                ", enabled=" + enabled +
+                ", authorities=" + authorities +
+                '}';
     }
 }

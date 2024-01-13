@@ -1,5 +1,6 @@
 package com.bytebattles.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import jakarta.persistence.*;
 
@@ -21,11 +22,13 @@ public class Submission {
     @ManyToOne
     @JoinColumn(name = "problem_id")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonBackReference(value = "problem-submission")
     private Problem problem;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonBackReference(value = "user-submission")
     private ApplicationUser applicationUser;
 
 
@@ -37,6 +40,14 @@ public class Submission {
         this.language = language;
         this.result = result;
         this.submissionDate = localDateTime;
+    }
+    public Submission(long submissionId, String language, String result, LocalDateTime submissionDate, Problem problem, ApplicationUser applicationUser) {
+        this.submissionId = submissionId;
+        this.language = language;
+        this.result = result;
+        this.submissionDate = submissionDate;
+        this.problem = problem;
+        this.applicationUser = applicationUser;
     }
 
     public long getSubmissionId() {

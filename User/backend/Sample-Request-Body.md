@@ -69,3 +69,31 @@ Create a new submission.
     }
 }
 ```
+
+## TestCases
+
+### POST /testcases
+
+Create a new TestCase.
+#### Request Body
+```json
+{
+    "input":5,
+    "expectedOutput":25,
+    "problem": {
+        "problemId": 5
+    }
+}
+```
+### PUT /testcases/{id}
+
+#### Request Body
+```json
+{
+    "input":7,
+    "expectedOutput":49,
+    "problem": {
+        "problemId": 5
+    }
+}
+```

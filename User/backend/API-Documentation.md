@@ -13,6 +13,7 @@ Backend is running on: http://localhost:8000/
   - [Problem](#problem)
   - [Tag](#tag)
   - [Submission](#submission)
+  - [Testcase](#testcase)
 
 ## Endpoints
 
@@ -107,3 +108,26 @@ Delete a submission by ID.
 #### GET /submissions/{id}
 
 Retrieve details of a specific submission by ID.
+
+
+### Testcase
+
+#### POST /testcases
+
+Create a new testcase.
+
+#### GET /testcases
+
+Retrieve a list of testcase.
+
+#### PUT /testcases/{id}
+
+Update an existing testcase.
+
+#### DELETE /testcases/{id}
+
+Delete a testcase by ID.
+
+#### GET /testcases/{id}
+
+Retrieve details of a specific testcase by ID.
