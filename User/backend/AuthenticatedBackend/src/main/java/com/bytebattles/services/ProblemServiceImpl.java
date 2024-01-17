@@ -1,14 +1,17 @@
 package com.bytebattles.services;
 
 import com.bytebattles.models.Problem;
+import com.bytebattles.models.Tag;
 import com.bytebattles.repository.ProblemRepository;
 import com.bytebattles.repository.SubmissionRepository;
+import com.bytebattles.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProblemServiceImpl implements ProblemService {
@@ -17,6 +20,8 @@ public class ProblemServiceImpl implements ProblemService {
     ProblemRepository problemRepository;
     @Autowired
     SubmissionRepository submissionRepository;
+    @Autowired
+    TagRepository tagRepository;
 
     @Transactional
     @Override
@@ -61,5 +66,24 @@ public class ProblemServiceImpl implements ProblemService {
     public boolean deleteProblem(String problemId) {
         problemRepository.deleteById(Long.parseLong(problemId));
         return true;
+    }
+
+    @Override
+    public Problem assignTagToProject(Long problemId, Long tagId) {
+        Problem problem = problemRepository.findById(problemId).get();
+        Tag tag = tagRepository.findById(tagId).get();
+
+        Set<Tag> tagSet = null;
+        tagSet = problem.getTagList();
+        tagSet.add(tag);
+        problem.setTagList(tagSet);
+
+        Set<Problem> problemSet = null;
+        problemSet = tag.getProblemSet();
+        problemSet.add(problem);
+        tag.setProblemSet(problemSet);
+        tagRepository.save(tag);
+
+        return problemRepository.save(problem);
     }
 }

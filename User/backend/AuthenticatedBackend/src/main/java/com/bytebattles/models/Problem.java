@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,16 +25,23 @@ public class Problem {
     private String difficultyLevel;
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference(value = "problem-submission")
-    private Set<Submission> submissionList=new HashSet<>();
+    private Set<Submission> submissionList = new HashSet<>();
 
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference(value = "problem-testcase")
-    private Set<TestCase> testCaseList=new HashSet<>();
+    private Set<TestCase> testCaseList = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "PROBLEM_TAG_TABLE",
+            joinColumns = @JoinColumn(name = "problem_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tagList = new HashSet<>();
 
     public Problem() {
     }
 
-    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel, Set<Submission> submissions, Set<TestCase> testCases) {
+    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel, Set<Submission> submissions, Set<TestCase> testCases, Set<Tag> tagList) {
         this.problemId = problemId;
         this.title = title;
         this.description = description;
@@ -54,6 +60,15 @@ public class Problem {
                 testCase.setProblem(this);
             }
         }
+        this.tagList = tagList;
+    }
+
+    public Set<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(Set<Tag> tagList) {
+        this.tagList = tagList;
     }
 
     public Long getProblemId() {

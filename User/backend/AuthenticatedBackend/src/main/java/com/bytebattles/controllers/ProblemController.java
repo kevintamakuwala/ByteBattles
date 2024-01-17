@@ -69,4 +69,11 @@ public class ProblemController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping({"/{problemId}/tags/{tagId}","/{problemId}/tags/{tagId}/"})
+    public Problem assignTagToProject(@PathVariable Long problemId,
+                                      @PathVariable Long tagId) {
+        return problemService.assignTagToProject(problemId,tagId);
+    }
+
 }

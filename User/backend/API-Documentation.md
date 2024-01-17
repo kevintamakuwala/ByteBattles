@@ -17,117 +17,123 @@ Backend is running on: http://localhost:8000/
 
 ## Endpoints
 
-### Login
+## Login
 
-#### POST /auth/login
+#### POST ```/auth/login```
 
 Endpoint for user authentication.
 
-#### GET /user
+#### GET ```/user```
 
 Retrieve user information.
 
-#### GET /admin
+#### GET ```/admin```
 
 Retrieve admin information.
 
-### Register
+## Register
 
-#### POST /auth/register
+#### POST ```/auth/register```
 
 Endpoint for user registration.
 
-### Verify
+## Verify
 
-#### GET /verify?code={randomCode}
+#### GET ```/verify?code={randomCode}```
 
 Endpoint for verifying user registration using a random code.
 
-### Problem
+## Problem
 
-#### POST /problems
+#### POST ```/problems```
 
 Create a new problem.
 
-#### GET /problems
+#### GET ```/problems```
 
 Retrieve a list of problems.
 
-#### PUT /problems/{id}
+#### PUT ```/problems/{id}```
 
 Update an existing problem.
 
-#### DELETE /problems/{id}
+#### DELETE ```/problems/{id}```
 
 Delete a problem by ID.
 
-#### GET /problems/{id}
+#### GET ```/problems/{id}```
 
 Retrieve details of a specific problem by ID.
 
-### Tag
+#### PUT ```/problems/{id}/tags/{id}```
+Add Tag to a Problem.
+ 
 
-#### POST /tags
+
+## Tag
+
+#### POST ```/tags```
 
 Create a new tag.
 
-#### GET /tags
+#### GET ```/tags```
 
 Retrieve a list of tags.
 
-#### PUT /tags/{id}
+#### PUT ```/tags/{id}```
 
 Update an existing tag.
 
-#### DELETE /tags/{id}
+#### DELETE ```/tags/{id}```
 
 Delete a tag by ID.
 
-#### GET /tags/{id}
+#### GET ```/tags/{id}```
 
 Retrieve details of a specific tag by ID.
 
-### Submission
+## Submission
 
-#### POST /submissions
+#### POST ```/submissions```
 
 Create a new submission.
 
-#### GET /submissions
+#### GET ```/submissions```
 
 Retrieve a list of submissions.
 
-#### PUT /submissions/{id}
+#### PUT ```/submissions/{id}```
 
 Update an existing submission.
 
-#### DELETE /submissions/{id}
+#### DELETE ```/submissions/{id}```
 
 Delete a submission by ID.
 
-#### GET /submissions/{id}
+#### GET ```/submissions/{id}```
 
 Retrieve details of a specific submission by ID.
 
 
-### Testcase
+## Testcase
 
-#### POST /testcases
+#### POST ```/testcases```
 
 Create a new testcase.
 
-#### GET /testcases
+#### GET ```/testcases```
 
 Retrieve a list of testcase.
 
-#### PUT /testcases/{id}
+#### PUT ```/testcases/{id}```
 
 Update an existing testcase.
 
-#### DELETE /testcases/{id}
+#### DELETE ```/testcases/{id}```
 
 Delete a testcase by ID.
 
-#### GET /testcases/{id}
+#### GET ```/testcases/{id}```
 
 Retrieve details of a specific testcase by ID.
+

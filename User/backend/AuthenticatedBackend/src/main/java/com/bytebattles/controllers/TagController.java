@@ -51,10 +51,14 @@ public class TagController {
 
     @DeleteMapping({"/{tagId}/", "/{tagId}"})
     public ResponseEntity<Void> deleteTag(@PathVariable String tagId) {
-        boolean deleted = tagService.deleteTag(tagId);
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
+        try {
+            boolean deleted = tagService.deleteTag(tagId);
+            if (deleted) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
