@@ -15,5 +15,7 @@ public interface ContestService {
 
     public boolean deleteContest(String contestId);
 
-    Contest assignProblemToContest(Long contestId, Long problemId);
+    public Contest assignProblemToContest(Long contestId, Long problemId);
+
+    public Contest assignUserToContest(Long contestId, Integer userId);
 }

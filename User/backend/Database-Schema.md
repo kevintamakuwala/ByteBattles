@@ -67,4 +67,3 @@
 ### ContestParticipant (Associative Entity)
 - ContestID (Foreign Key referencing Contest)
 - UserID (Foreign Key referencing User)
-- Registration Time

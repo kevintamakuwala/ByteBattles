@@ -22,7 +22,7 @@ public class ContestController {
         return new ResponseEntity<>(contests, HttpStatus.OK);
     }
 
-    @GetMapping({"/{contestId}/", "/{contestId}"})
+    @GetMapping({"/{contestId}", "/{contestId}/"})
     public ResponseEntity<Contest> getContestById(@PathVariable String contestId) {
         Contest contest = contestService.getContestById(contestId);
         if (contest != null) {
@@ -51,7 +51,7 @@ public class ContestController {
         }
     }
 
-    @DeleteMapping({"/{contestId}/", "/{contestId}"})
+    @DeleteMapping({"/{contestId}", "/{contestId}/"})
     public ResponseEntity<Void> deleteContest(@PathVariable String contestId) {
         boolean deleted = contestService.deleteContest(contestId);
         if (deleted) {
@@ -66,4 +66,11 @@ public class ContestController {
                                           @PathVariable Long problemId) {
         return contestService.assignProblemToContest(contestId, problemId);
     }
+
+    @PutMapping({"/{contestId}/users/{userId}", "/{contestId}/users/{userId}/"})
+    public Contest assignUserToContest(@PathVariable Long contestId,
+                                       @PathVariable Integer userId) {
+        return contestService.assignUserToContest(contestId, userId);
+    }
+
 }

@@ -45,12 +45,29 @@ public class ApplicationUser implements UserDetails {
     @JsonManagedReference(value = "user-submission")
     private List<Submission> submissionList;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "applicationUserSet", fetch = FetchType.LAZY)
+    private Set<Contest> contestSet = new HashSet<>();
+
+//    constructors
     public ApplicationUser() {
         super();
         authorities = new HashSet<>();
     }
 
-    public ApplicationUser(Integer userId, String name, String email, String username, String password, String verificationCode, boolean enabled, Set<Role> authorities, List<Submission> submissions) {
+    public ApplicationUser(Integer userId, String name, String email, String username, String password, String verificationCode, boolean enabled, Set<Role> authorities, List<Submission> submissionList) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
+        this.authorities = authorities;
+        this.submissionList = submissionList;
+    }
+
+    public ApplicationUser(Integer userId, String name, String email, String username, String password, String verificationCode, boolean enabled, Set<Role> authorities, List<Submission> submissions, Set<Contest> contestSet) {
         super();
         this.userId = userId;
         this.username = username;
@@ -66,8 +83,11 @@ public class ApplicationUser implements UserDetails {
                 submission.setApplicationUser(this);
             }
         }
+        if (contestSet != null)
+            this.contestSet = contestSet;
     }
 
+//    Getters and Setters
     public Integer getUserId() {
         return this.userId;
     }
@@ -154,6 +174,14 @@ public class ApplicationUser implements UserDetails {
         this.enabled = enabled;
     }
 
+    public Set<Contest> getContestSet() {
+        return contestSet;
+    }
+
+    public void setContestSet(Set<Contest> contestSet) {
+        this.contestSet = contestSet;
+    }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -175,6 +203,8 @@ public class ApplicationUser implements UserDetails {
                 ", verificationCode='" + verificationCode + '\'' +
                 ", enabled=" + enabled +
                 ", authorities=" + authorities +
+                ", submissionList=" + submissionList +
+                ", contestSet=" + contestSet +
                 '}';
     }
 }

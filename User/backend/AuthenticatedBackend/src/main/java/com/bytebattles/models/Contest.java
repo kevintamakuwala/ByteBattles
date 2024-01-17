@@ -1,5 +1,6 @@
 package com.bytebattles.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "contests")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Contest {
 
     @Id
@@ -33,6 +35,12 @@ public class Contest {
             inverseJoinColumns = @JoinColumn(name = "problem_id")
     )
     private Set<Problem> problemSet = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "CONTEST_USER_TABLE",
+            joinColumns = @JoinColumn(name = "contest_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<ApplicationUser> applicationUserSet = new HashSet<>();
 
 
     // Constructors
@@ -40,12 +48,13 @@ public class Contest {
     public Contest() {
     }
 
-    public Contest(String title, String description, LocalDateTime startTime, LocalDateTime endTime, Set<Problem> problemSet) {
+    public Contest(String title, String description, LocalDateTime startTime, LocalDateTime endTime, Set<Problem> problemSet, Set<ApplicationUser> applicationUserSet) {
         this.title = title;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
         this.problemSet = problemSet;
+        this.applicationUserSet = applicationUserSet;
     }
 
     // Getters and setters
@@ -98,6 +107,14 @@ public class Contest {
         this.problemSet = problemSet;
     }
 
+    public Set<ApplicationUser> getApplicationUserSet() {
+        return applicationUserSet;
+    }
+
+    public void setApplicationUserSet(Set<ApplicationUser> applicationUserSet) {
+        this.applicationUserSet = applicationUserSet;
+    }
+
     @Override
     public String toString() {
         return "Contest{" +
@@ -107,6 +124,7 @@ public class Contest {
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", problemSet=" + problemSet +
+                ", applicationUserSet=" + applicationUserSet +
                 '}';
     }
 }

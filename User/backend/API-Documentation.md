@@ -161,3 +161,6 @@ Retrieve details of a specific contest by ID.
 
 #### PUT ```/contests/{id}/problems/{id}```
 Add problem to a contest.
+
+#### PUT ```/contests/{id}/users/{id}```
+Add user to a contest.

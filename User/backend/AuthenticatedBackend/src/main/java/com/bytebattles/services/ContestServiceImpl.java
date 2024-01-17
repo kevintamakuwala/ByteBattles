@@ -1,9 +1,11 @@
 package com.bytebattles.services;
 
+import com.bytebattles.models.ApplicationUser;
 import com.bytebattles.models.Contest;
 import com.bytebattles.models.Problem;
 import com.bytebattles.repository.ContestRepository;
 import com.bytebattles.repository.ProblemRepository;
+import com.bytebattles.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class ContestServiceImpl implements ContestService {
     ContestRepository contestRepository;
     @Autowired
     ProblemRepository problemRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public List<Contest> getContests() {
@@ -72,6 +76,24 @@ public class ContestServiceImpl implements ContestService {
         contestSet.add(contest);
         problem.setContestSet(contestSet);
         problemRepository.save(problem);
+
+        return contestRepository.save(contest);
+    }
+    @Override
+    public Contest assignUserToContest(Long contestId, Integer userId) {
+        Contest contest = contestRepository.findById(contestId).get();
+        ApplicationUser applicationUser = userRepository.findById(userId).get();
+
+        Set<ApplicationUser> applicationUserSet = null;
+        applicationUserSet = contest.getApplicationUserSet();
+        applicationUserSet.add(applicationUser);
+        contest.setApplicationUserSet(applicationUserSet);
+
+        Set<Contest> contestSet = null;
+        contestSet = applicationUser.getContestSet();
+        contestSet.add(contest);
+        applicationUser.setContestSet(contestSet);
+        userRepository.save(applicationUser);
 
         return contestRepository.save(contest);
     }
