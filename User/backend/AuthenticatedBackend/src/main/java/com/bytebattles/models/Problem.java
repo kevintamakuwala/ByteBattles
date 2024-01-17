@@ -38,10 +38,14 @@ public class Problem {
     )
     private Set<Tag> tagList = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "problemSet", fetch = FetchType.LAZY)
+    private Set<Contest> contestSet = new HashSet<>();
+
     public Problem() {
     }
 
-    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel, Set<Submission> submissions, Set<TestCase> testCases, Set<Tag> tagList) {
+    public Problem(Long problemId, String title, String description, String constraints, String difficultyLevel, Set<Submission> submissions, Set<TestCase> testCases, Set<Tag> tagList, Set<Contest> contestSet) {
         this.problemId = problemId;
         this.title = title;
         this.description = description;
@@ -61,14 +65,9 @@ public class Problem {
             }
         }
         this.tagList = tagList;
-    }
 
-    public Set<Tag> getTagList() {
-        return tagList;
-    }
-
-    public void setTagList(Set<Tag> tagList) {
-        this.tagList = tagList;
+        if (contestSet != null)
+            this.contestSet = contestSet;
     }
 
     public Long getProblemId() {
@@ -127,6 +126,22 @@ public class Problem {
         this.testCaseList = testCaseList;
     }
 
+    public Set<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(Set<Tag> tagList) {
+        this.tagList = tagList;
+    }
+
+    public Set<Contest> getContestSet() {
+        return contestSet;
+    }
+
+    public void setContestSet(Set<Contest> contestSet) {
+        this.contestSet = contestSet;
+    }
+
     @Override
     public String toString() {
         return "Problem{" +
@@ -135,6 +150,10 @@ public class Problem {
                 ", description='" + description + '\'' +
                 ", constraints='" + constraints + '\'' +
                 ", difficultyLevel='" + difficultyLevel + '\'' +
+                ", submissionList=" + submissionList +
+                ", testCaseList=" + testCaseList +
+                ", tagList=" + tagList +
+                ", contestSet=" + contestSet +
                 '}';
     }
 }

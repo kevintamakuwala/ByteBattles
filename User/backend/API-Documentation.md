@@ -14,6 +14,7 @@ Backend is running on: http://localhost:8000/
   - [Tag](#tag)
   - [Submission](#submission)
   - [Testcase](#testcase)
+  - [Contest](#contest)
 
 ## Endpoints
 
@@ -67,8 +68,6 @@ Retrieve details of a specific problem by ID.
 
 #### PUT ```/problems/{id}/tags/{id}```
 Add Tag to a Problem.
- 
-
 
 ## Tag
 
@@ -137,3 +136,28 @@ Delete a testcase by ID.
 
 Retrieve details of a specific testcase by ID.
 
+
+## Contest
+
+#### POST ```/contests```
+
+Create a new contest.
+
+#### GET ```/contests```
+
+Retrieve a list of contests.
+
+#### PUT ```/contests/{id}```
+
+Update an existing contest.
+
+#### DELETE ```/contests/{id}```
+
+Delete a contest by ID.
+
+#### GET ```/contests/{id}```
+
+Retrieve details of a specific contest by ID.
+
+#### PUT ```/contests/{id}/problems/{id}```
+Add problem to a contest.

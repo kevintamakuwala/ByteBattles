@@ -11,13 +11,9 @@
     - [TestCase](#testcase)
     - [Tag](#tag)
     - [ProblemTag (Associative Entity)](#problemtag-associative-entity)
-    - [UserProblem (Associative Entity)](#userproblem-associative-entity)
-    - [Admin](#admin)
     - [Contest (For Live Contest Functionality)](#contest-for-live-contest-functionality)
     - [ContestProblem (Associative Entity)](#contestproblem-associative-entity)
     - [ContestParticipant (Associative Entity)](#contestparticipant-associative-entity)
-    - [ContestSubmission (Associative Entity)](#contestsubmission-associative-entity)
-
 ## Entities
 
 ### User
@@ -38,6 +34,7 @@
 - SubmissionID (Primary Key)
 - UserID (Foreign Key referencing User)
 - ProblemID (Foreign Key referencing Problem)
+- ContestID (Foreign Key referencing Contest)
 - Language
 - Submission Date
 - Result (Accepted, Wrong Answer, Runtime Error, etc.)
@@ -56,23 +53,12 @@
 - ProblemID (Foreign Key referencing Problem)
 - TagID (Foreign Key referencing Tag)
 
-### UserProblem (Associative Entity)
-- UserID (Foreign Key referencing User)
-- ProblemID (Foreign Key referencing Problem)
-- SubmissionID (Foreign Key referencing Submission)
-
-### Admin
-- AdminID
-- Name
-- Password
-
 ### Contest (For Live Contest Functionality)
 - ContestID (Primary Key)
 - Title
 - Description
 - Start Time
 - End Time
-- OrganizerID (Foreign Key referencing User)
 
 ### ContestProblem (Associative Entity)
 - ContestID (Foreign Key referencing Contest)
@@ -82,7 +68,3 @@
 - ContestID (Foreign Key referencing Contest)
 - UserID (Foreign Key referencing User)
 - Registration Time
-
-### ContestSubmission (Associative Entity)
-- SubmissionID (Foreign Key referencing Submission)
-- ContestID (Foreign Key referencing Contest)

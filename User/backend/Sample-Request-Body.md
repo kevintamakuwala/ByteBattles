@@ -129,3 +129,65 @@ Create a new Tag.
   "name": "basic"
 }
 ```
+
+## Contests
+
+### POST `/contests`
+
+Create a new Contest.
+
+#### Request Body
+
+```json
+{
+  "title": "Weekly Contest-1",
+  "description": "3 hours long coding contest",
+  "startTime": [
+    2024,
+    1,
+    17,
+    20,
+    0,
+    0,
+    0
+  ],
+  "endTime": [
+    2024,
+    1,
+    17,
+    23,
+    0,
+    0,
+    0
+  ]
+}
+```
+
+### PUT `/contests/{id}`
+
+#### Request Body
+
+```json
+{
+  "title": "Weekly Contest-1",
+  "description": "3.5 hours long coding contest",
+  "startTime": [
+    2024,
+    1,
+    18,
+    20,
+    0,
+    0,
+    0
+  ],
+  "endTime": [
+    2024,
+    1,
+    18,
+    23,
+    30,
+    0,
+    0
+  ]
+}
+```

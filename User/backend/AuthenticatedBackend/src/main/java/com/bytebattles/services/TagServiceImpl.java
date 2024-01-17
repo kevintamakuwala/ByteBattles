@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public class TagServiceImpl implements TagService{
 
-    List<Tag> problems;
     @Autowired
     TagRepository tagRepository;
 
@@ -53,7 +52,3 @@ public class TagServiceImpl implements TagService{
         return true;
     }
 }
-
-
-
-// TagServiceImpl
