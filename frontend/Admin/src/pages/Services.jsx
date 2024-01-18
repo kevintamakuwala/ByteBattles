@@ -105,10 +105,8 @@ const Services = () => {
     setSelectedOption(event.target.value);
   };
 
-
   // useStates of update spa
-  const [updatespa, setUpdatespa] = useState(null)
-
+  const [updatespa, setUpdatespa] = useState(null);
 
   return (
     <div className="main_list__container">
@@ -168,7 +166,6 @@ const Services = () => {
               .map((service, index) => {
                 return (
                   <>
-                    {/* {console.log(service)} */}
                     {service.select_spa === selectedOption ? (
                       <>
                         <tr key={index}>
@@ -185,9 +182,11 @@ const Services = () => {
                               }}
                             />
                             &nbsp;&nbsp;
-                            <FaEdit onClick={() => {
-                              setUpdatespa(index)
-                            }} />
+                            <FaEdit
+                              onClick={() => {
+                                setUpdatespa(index);
+                              }}
+                            />
                           </td>
                         </tr>
 

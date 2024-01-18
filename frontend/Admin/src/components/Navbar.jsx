@@ -5,7 +5,7 @@ import "./components.css"
 const Navbar = () => {
   return (
     <div className='navbar__container'>
-        <h1>Trakky Admin</h1>
+        <h1>ByteBattles Admin</h1>
     </div>
   )
 }

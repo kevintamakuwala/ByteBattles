@@ -20,8 +20,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://trakky.in/">
-        Trakky.in
+      <Link color="inherit" href="/">
+       ByteBattles
       </Link>
     </Typography>
   );
@@ -29,11 +29,8 @@ function Copyright(props) {
 const Signin = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    // const data = new FormData(event.currentTarget);
+    
   };
 
   return (

@@ -5,8 +5,8 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 
 import Dashboard from "./pages/Dashboard.jsx";
-import Spa from "./pages/Spa.jsx";
-import SpaForm from "./pages/forms/Spa.jsx";
+import Problem from "./pages/Problem.jsx";
+import ProblemForm from "./pages/forms/Problem.jsx";
 import Therapy from "./pages/Therapy.jsx";
 import TherapyForm from "./pages/forms/Therapy";
 import Offer from "./pages/Offer.jsx";
@@ -18,12 +18,13 @@ import Areas from "./pages/Areas";
 import Blog from "./pages/Blog.jsx";
 import BlogForm from "./pages/forms/BlogForm";
 import Faq from "./pages/Faq.jsx";
+import Submission from "./pages/Submission.jsx";
 import Signin from "./pages/Signin";
 import BookNow from "./pages/BookNow.jsx";
 import CallNow from "./pages/CallNow";
 import AreaForm from "./pages/forms/AreaForm";
 import CityForm from "./pages/forms/CityForm";
-import SpaUpdate from "./pages/forms/updateForms/SpaUpdate";
+import ProblemUpdate from "./pages/forms/updateForms/ProblemUpdate";
 
 function App() {
   // if loginState is true then only display Admin content else display login form.
@@ -42,20 +43,20 @@ function App() {
               <Route path="/offers" element={<Offer />} />
               <Route path="/addoffer" element={<OffersForm />} />
 
-              <Route path="/spas" element={<Spa />} />
-              <Route path="/addspa" element={<SpaForm />} />
+              <Route path="/problems" element={<Problem />} />
+              <Route path="/addproblem" element={<ProblemForm />} />
 
-              <Route path="/therapies" element={<Therapy />} />
-              <Route path="/addtherapy" element={<TherapyForm />} />
+              <Route path="/contests" element={<Therapy />} />
+              <Route path="/addcontest" element={<TherapyForm />} />
 
-              <Route path="/services" element={<Services />} />
-              <Route path="/addservice" element={<ServicesForm />} />
+              <Route path="/testcases" element={<Services />} />
+              <Route path="/addtestcase" element={<ServicesForm />} />
 
-              <Route path="/cities" element={<Cities />} />
-              <Route path="/addcity" element={<CityForm />} />
+              <Route path="/tags" element={<Services />} />
+              <Route path="/addtags" element={<ServicesForm />} />
 
-              <Route path="/areas" element={<Areas />} />
-              <Route path="/addarea" element={<AreaForm />} />
+              <Route path="/submissions" element={<Submission />} />
+              <Route path="/addsubmission" element={<ServicesForm />} />
 
               <Route path="/blogs" element={<Blog />} />
               <Route path="/addblog" element={<BlogForm />} />
@@ -66,7 +67,7 @@ function App() {
               <Route path="/signin" element={<Signin />} />
 
               {/* Update form routes */}
-              <Route path="/updateSpa" element={<SpaUpdate />} />
+              <Route path="/updateProblem" element={<ProblemUpdate />} />
 
               <Route path="*" element={<Dashboard />} />
               {/* <Route path="/answer-faqs" element={<FaqForm />} />{" "} */}

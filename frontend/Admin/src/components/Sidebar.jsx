@@ -43,121 +43,73 @@ const Sidebar = () => {
               </div>
 
               <div className="sidebar__topic_box">
-                <p className="sidebar_topic_title">Spas</p>
+                <p className="sidebar_topic_title">Problems</p>
                 <div className="sidebar_links">
-                  <NavLink to={"/Spas"}>
+                  <NavLink to={"/problems"}>
                     <AiOutlineUnorderedList />
-                    &nbsp;&nbsp; List Spa
+                    &nbsp;&nbsp; Problems
                   </NavLink>
-                  <NavLink to={"/addspa"}>
+                  <NavLink to={"/addproblem"}>
                     <GrAdd />
-                    &nbsp;&nbsp; Add Spa
+                    &nbsp;&nbsp; Add Problem
                   </NavLink>
                 </div>
               </div>
 
               <div className="sidebar__topic_box">
-                <p className="sidebar_topic_title">Therapies</p>
+                <p className="sidebar_topic_title">Contests</p>
                 <div className="sidebar_links">
-                  <NavLink to={"/therapies"}>
+                  <NavLink to={"/contests"}>
                     <AiOutlineUnorderedList />
-                    &nbsp;&nbsp; List Therapies
+                    &nbsp;&nbsp; Contests
                   </NavLink>
-                  <NavLink to={"/addtherapy"}>
+                  <NavLink to={"/addcontest"}>
                     <GrAdd />
-                    &nbsp;&nbsp; Add Therapy
+                    &nbsp;&nbsp; Add Contest
+                  </NavLink>
+                </div>
+              </div>
+
+              
+
+              <div className="sidebar__topic_box">
+                <p className="sidebar_topic_title">Tags</p>
+                <div className="sidebar_links">
+                  <NavLink to={"/tags"}>
+                    <AiOutlineUnorderedList />
+                    &nbsp;&nbsp; Tags
+                  </NavLink>
+                  <NavLink to={"/addtag"}>
+                    <GrAdd />
+                    &nbsp;&nbsp; Add Tag
                   </NavLink>
                 </div>
               </div>
 
               <div className="sidebar__topic_box">
-                <p className="sidebar_topic_title">Offers</p>
+                <p className="sidebar_topic_title">Testcases</p>
                 <div className="sidebar_links">
-                  <NavLink to={"/offers"}>
+                  <NavLink to={"/testcases"}>
                     <AiOutlineUnorderedList />
-                    &nbsp;&nbsp; List Offers
+                    &nbsp;&nbsp; Testcases
                   </NavLink>
-                  <NavLink to={"/addoffer"}>
+                  <NavLink to={"/addtestcase"}>
                     <GrAdd />
-                    &nbsp;&nbsp; Add Offer
+                    &nbsp;&nbsp; Add Testcase
                   </NavLink>
                 </div>
               </div>
-
               <div className="sidebar__topic_box">
-                <p className="sidebar_topic_title">Services</p>
+                <p className="sidebar_topic_title">Submissions</p>
                 <div className="sidebar_links">
-                  <NavLink to={"/services"}>
+                  <NavLink to={"/submissions"}>
                     <AiOutlineUnorderedList />
-                    &nbsp;&nbsp; List Services
-                  </NavLink>
-                  <NavLink to={"/addservice"}>
-                    <GrAdd />
-                    &nbsp;&nbsp; Add Service
+                    &nbsp;&nbsp; Submissions
                   </NavLink>
                 </div>
               </div>
 
-              <div className="sidebar__topic_box">
-                <p className="sidebar_topic_title">Cities</p>
-                <div className="sidebar_links">
-                  <NavLink to={"/cities"}>
-                    <AiOutlineUnorderedList />
-                    &nbsp;&nbsp; List Cities
-                  </NavLink>
-                  <NavLink to={"/addcity"}>
-                    <GrAdd />
-                    &nbsp;&nbsp; Add City
-                  </NavLink>
 
-                  <NavLink to={"/areas"}>
-                    <AiOutlineUnorderedList />
-                    &nbsp;&nbsp; List Areas
-                  </NavLink>
-                  <NavLink to={"/addarea"}>
-                    <GrAdd />
-                    &nbsp;&nbsp; Add Area
-                  </NavLink>
-                </div>
-              </div>
-
-              <div className="sidebar__topic_box">
-                <p className="sidebar_topic_title">Inquiries</p>
-                <div className="sidebar_links">
-                  <NavLink to={"/booknow"}>
-                    <AiOutlineUnorderedList />
-                    &nbsp;&nbsp; Book Now
-                  </NavLink>
-                  <NavLink to={"/callnow"}>
-                    <AiOutlineUnorderedList />
-                    &nbsp;&nbsp; Call Now
-                  </NavLink>
-                </div>
-              </div>
-
-              <div className="sidebar__topic_box">
-                <p className="sidebar_topic_title">Blogs</p>
-                <div className="sidebar_links">
-                  <NavLink to={"/blogs"}>
-                    <AiOutlineUnorderedList />
-                    &nbsp;&nbsp; List Blogs
-                  </NavLink>
-                  <NavLink to={"/addblog"}>
-                    <GrAdd />
-                    &nbsp;&nbsp; Add Blog
-                  </NavLink>
-                </div>
-              </div>
-
-              <div className="sidebar__topic_box">
-                <p className="sidebar_topic_title">FAQ's</p>
-                <div className="sidebar_links">
-                  <NavLink to={"/faqs"}>
-                    <AiOutlineUnorderedList />
-                    &nbsp;&nbsp; List FAQs
-                  </NavLink>
-                </div>
-              </div>
             </div>
           </div>
         </div>
