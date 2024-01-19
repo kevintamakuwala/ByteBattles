@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Page.css";
 import { AiFillDelete } from "react-icons/ai";
-import { errorNotification, formatDate, successNotification } from "../utils";
+import { BASE_URL, errorNotification, formatDate, successNotification } from "../utils";
 import { ToastContainer } from "react-toastify";
 
 const Submission = () => {
@@ -13,7 +13,7 @@ const Submission = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch("http://localhost:8000/submissions", requestOption)
+    fetch(`${BASE_URL}/submissions`, requestOption)
       .then((res) => res.json())
       .then((data) => setSubmissionsData(data))
       .catch((err) => console.log(err));
@@ -31,7 +31,7 @@ const Submission = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch("http://localhost:8000/problems/", requestOption)
+    fetch(`${BASE_URL}/problems/`, requestOption)
       .then((res) => res.json())
       .then((data) => setProblemData(data))
       .catch((err) => console.log(err));
@@ -43,7 +43,7 @@ const Submission = () => {
 
   //  Deleting Submission
   const deleteSubmission = (id) => {
-    fetch(`http://localhost:8000/submissions/${id}`, {
+    fetch(`${BASE_URL}/submissions/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -90,7 +90,7 @@ const Submission = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`http://localhost:8000/problems/${id}`, requestOption)
+    fetch(`${BASE_URL}/problems/${id}`, requestOption)
       .then((res) => res.json())
       .then((data) => setSelectedProblemData(data))
       .catch(() => errorNotification("Something Went Wrong"));

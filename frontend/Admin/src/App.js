@@ -13,17 +13,15 @@ import Offer from "./pages/Offer.jsx";
 import OffersForm from "./pages/forms/Offer";
 import Services from "./pages/Services.jsx";
 import ServicesForm from "./pages/forms/Services";
-import Cities from "./pages/Cities";
-import Areas from "./pages/Areas";
+import TestcaseForm from "./pages/forms/TestcaseForm.jsx";
 import Blog from "./pages/Blog.jsx";
 import BlogForm from "./pages/forms/BlogForm";
 import Faq from "./pages/Faq.jsx";
+import Testcase from "./pages/Testcase.jsx";
 import Submission from "./pages/Submission.jsx";
 import Signin from "./pages/Signin";
 import BookNow from "./pages/BookNow.jsx";
 import CallNow from "./pages/CallNow";
-import AreaForm from "./pages/forms/AreaForm";
-import CityForm from "./pages/forms/CityForm";
 import ProblemUpdate from "./pages/forms/updateForms/ProblemUpdate";
 
 function App() {
@@ -49,8 +47,8 @@ function App() {
               <Route path="/contests" element={<Therapy />} />
               <Route path="/addcontest" element={<TherapyForm />} />
 
-              <Route path="/testcases" element={<Services />} />
-              <Route path="/addtestcase" element={<ServicesForm />} />
+              <Route path="/testcases" element={<Testcase />} />
+              <Route path="/addtestcase" element={<TestcaseForm />} />
 
               <Route path="/tags" element={<Services />} />
               <Route path="/addtags" element={<ServicesForm />} />

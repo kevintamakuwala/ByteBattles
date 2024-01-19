@@ -1,0 +1,84 @@
+.dailyProblem__main{
+        /* border: 2px solid red; */
+        background-color: white;
+        border-radius: 20px;
+        /* width: 20rem; */
+        /* height: 14rem; */
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        /* align-items: center; */
+        width: auto;
+        padding: 2% 2%;
+        height: 17rem;
+}
+
+.today-problem{
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+    align-items: center;
+    margin: 3% 0 7%;
+}
+
+.today-problem h2{
+    font-size: 1.6rem;
+    /* margin: auto; */
+    font-weight: 600;
+    font-family: sans-serif;
+    /* margin-top: 5%; */
+}
+
+.today-problem svg{
+    font-size: 1.5rem;
+    color: #8cdc11;
+}
+
+.dailyProblem-heading{
+    display: flex;
+    justify-content: flex-start;
+    gap: 10%;
+    margin: 1% 10%;
+    font-size: 1.1rem;
+    font-family: sans-serif;
+}
+
+.dailyProblem-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10%;
+    margin: 1% 10% 5%;
+    font-size: 1.1rem;
+    font-family: sans-serif;
+}
+
+.daily-solveBtn{
+    border: 2px solid#F53838;
+    border-radius: 30px;
+    padding: 0 1.5rem;
+    font-weight: 600;
+    font-family: system-ui;
+    transition: background-color 0.3s ease;
+    padding: 2% 5%;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    font-family: sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+
+.dailyProblem-details P{
+    padding: 1% 0%;
+}
+
+@media only screen and (max-width: 600px) {
+    .dailyProblem__main {
+        height: auto;
+    }
+    .today-problem {
+        margin: 3% 0 5%;
+    }
+}

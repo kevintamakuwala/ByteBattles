@@ -55,7 +55,7 @@ const ProblemForm = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="phone">Description *</label>
+            <label htmlFor="description">Description *</label>
             <input
               className="form-control"
               type="text"

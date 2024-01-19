@@ -1,169 +1,169 @@
 body {
-  margin: 0;
-  font-family: 'Rubik', sans-serif;
-}
-
-.navbar {
-  background-color: #120d32;
-  color: white;
-  padding: 2.4%;
-  height: 1rem;
-  padding-top: 5%;
-  padding-bottom: 2%;
-  padding-left: 6%;
-  position: relative;
-}
-
-.navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  margin-top: -1%;
-}
-
-.logo img {
-  width: 14%;
-  margin-right: 0.5rem;
-}
-
-.logo span {
-  font-weight: bold;
-  width: 7.31rem;
-  flex-shrink: 0;
-  font-size: 1.2rem;
-  margin-top: 2%;
-}
-
-.links {
-  display: flex;
-  width: 70%;
-  justify-content: space-between;
-}
-
-.links a {
-  color: #c9d2ed;
-  text-decoration: none;
-  font-size: 1.1rem;
-}
-
-.LoginButton {
-  padding: 0.5rem 1rem;
-  color: crimson;
-  border: 2px solid crimson;
-  border-radius: 50rem;
-  cursor: pointer;
-  background-color: transparent;
-  font-size: 1.1rem;
-  margin-top: -0.7rem;
-  margin-right: 5.5%;
-}
-
-.LoginButton a{
-  color: crimson;
-}
-
-.navbar-toggle {
-  cursor: pointer;
-  display: none;
-  flex-direction: column;
-  font-size: 1.5rem;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 2;
-  color: white;
-}
-
-.navbar-toggle {
-  cursor: pointer;
-  display: none;
-  flex-direction: column;
-  font-size: 1.5rem;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 2;
-  color: white;
-}
-
-.navbar-toggle button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  color: white;
-  border: 2px solid white;
-  border-radius: 50rem;
-  cursor: pointer;
-  background-color: transparent;
-  font-size: 1rem;
-}
-
-
-
-@media only screen and (max-width: 768px) {
-  .navbar {
-    padding: 3% 0;
-    height: auto;
-    padding-top: 5%;
-    width: 100%;
+    margin: 0;
+    font-family: 'Rubik', sans-serif;
   }
-
+  
+  .navbar {
+    background-color: #120d32;
+    color: white;
+    padding: 2.4%;
+    height: 1rem;
+    padding-top: 5%;
+    padding-bottom: 2%;
+    padding-left: 6%;
+    position: relative;
+  }
+  
   .navbar-container {
-    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
   }
-
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    margin-top: -1%;
+  }
+  
   .logo img {
-    width: 30%;
+    width: 14%;
     margin-right: 0.5rem;
   }
-
-  .links {
-    display: none;
-    position: absolute;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background-color: #120d32;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  
+  .logo span {
+    font-weight: bold;
+    width: 7.31rem;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    margin-top: 2%;
   }
-
+  
+  .links {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+  }
+  
   .links a {
-    padding: 1% 0;
+    color: #c9d2ed;
+    text-decoration: none;
+    font-size: 1.1rem;
   }
-
+  
   .LoginButton {
-    margin-right: 0;
-    margin-top: 1%;
-    margin-bottom: 1%;
+    padding: 0.5rem 1rem;
+    color: crimson;
+    border: 2px solid crimson;
+    border-radius: 50rem;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 1.1rem;
+    margin-top: -0.7rem;
+    margin-right: 5.5%;
   }
-
-
-
+  
+  .LoginButton a{
+    color: crimson;
+  }
+  
   .navbar-toggle {
-    display: flex;
-  }
-
-  .links {
+    cursor: pointer;
     display: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background-color: #120d32;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    color: white;
   }
-
-  .navbar.mobile-menu-open .links {
-    display: flex;
-    margin-top: 4%;
+  
+  .navbar-toggle {
+    cursor: pointer;
+    display: none;
+    flex-direction: column;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+    color: white;
   }
-}
+  
+  .navbar-toggle button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    border: 2px solid white;
+    border-radius: 50rem;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 1rem;
+  }
+  
+  
+  
+  @media only screen and (max-width: 768px) {
+    .navbar {
+      padding: 3% 0;
+      height: auto;
+      padding-top: 5%;
+      width: 100%;
+    }
+  
+    .navbar-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .logo img {
+      width: 30%;
+      margin-right: 0.5rem;
+    }
+  
+    .links {
+      display: none;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background-color: #120d32;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .links a {
+      padding: 1% 0;
+    }
+  
+    .LoginButton {
+      margin-right: 0;
+      margin-top: 1%;
+      margin-bottom: 1%;
+    }
+  
+  
+  
+    .navbar-toggle {
+      display: flex;
+    }
+  
+    .links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: #120d32;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .navbar.mobile-menu-open .links {
+      display: flex;
+      margin-top: 4%;
+    }
+  }

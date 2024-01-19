@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ACCESS_TOKEN } from "../../constants";
 import { login, verify } from "../../util/APIUtils";
-import { useLocation } from "react-router-dom";
 
 const MailValidation = (props) => {
   const [username, setUsername] = useState(localStorage.getItem("username"));

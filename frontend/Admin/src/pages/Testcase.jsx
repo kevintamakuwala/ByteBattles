@@ -1,73 +1,68 @@
 import React, { useState, useEffect } from "react";
 import "./Page.css";
-
 import { AiFillDelete } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
-import ServiceUpdate from "./forms/updateForms/ServcieUpdate";
+import { BASE_URL, errorNotification, successNotification } from "../utils";
+import { ToastContainer } from "react-toastify";
+import TestcaseUpdate from "./forms/updateForms/TestcaseUpdate";
 
-const Services = () => {
-  // Getting services details
-  const [servicesData, setServicesData] = useState([]);
+const Testcase = () => {
 
-  const getServices = () => {
+  // Getting Testcase details
+  const [testcasesData, setTestcasesData] = useState([]);
+
+  const getTestcases = () => {
     const requestOption = {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch("http://localhost:8080/api/v1/services", requestOption)
+    fetch(`${BASE_URL}/testcases`, requestOption)
       .then((res) => res.json())
-      .then((data) => setServicesData(data))
+      .then((data) => setTestcasesData(data))
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    getServices();
+    getTestcases();
   }, []);
 
-  // Getting spa details
-  const [SpaData, setSpaData] = useState([]);
+  // Getting problem details
+  const [problemData, setProblemData] = useState([]);
 
-  const getSpa = () => {
+  const getProblem = () => {
     const requestOption = {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch("http://localhost:8080/api/v1/spas", requestOption)
+    fetch(`${BASE_URL}/problems/`, requestOption)
       .then((res) => res.json())
-      .then((data) => setSpaData(data))
+      .then((data) => setProblemData(data))
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    getSpa();
+    getProblem();
   }, []);
 
-  //  Deleting Services Data starts
-  const deleteServices = (id) => {
-    console.log("delete called");
-    fetch(`http://localhost:8080/api/v1/services/${id}`, {
+  //  Deleting Testcase
+  const deleteTestcase = (id) => {
+    fetch(`${BASE_URL}/testcases/${id}`, {
       method: "DELETE",
     })
-      .then(() => getServices())
-      .catch((err) => console.log(err));
+      .then(() => {
+        successNotification("Testcase Deleted Successfully");
+        getProblemById(selectedProblemId);
+      })
+      .catch(() => errorNotification("Something Went Wrong"));
   };
-  // delete services ends
 
   // table header data
-  const tableHeaders = [
-    "Service Name",
-    "category",
-    "price",
-    "time",
-    "discount",
-    "description",
-    "Action",
-  ];
+  const tableHeaders = ["Testcase Id", "Input", "Expected Output", "Action"];
 
   // Handling view more button
   const [visible, setVisible] = useState(10);
   const [show, setShow] = useState(true);
-  const length = servicesData.length;
+  const length = testcasesData.length;
 
   const showMoreItems = () => {
     if (visible < length) {
@@ -75,6 +70,27 @@ const Services = () => {
     } else {
       setShow(false);
     }
+  };
+
+  const [selectedProblemId, setSelectedProblemId] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedProblemId(event.target.value);
+    getProblemById(event.target.value);
+  };
+
+  //   Getting Problem By Id
+  const [selectedProblemData, setSelectedProblemData] = useState({});
+
+  const getProblemById = (id) => {
+    const requestOption = {
+      method: "GET",
+      header: { "Content-Type": "application/json" },
+    };
+    fetch(`http://localhost:8000/problems/${id}`, requestOption)
+      .then((res) => res.json())
+      .then((data) => setSelectedProblemData(data))
+      .catch(() => errorNotification("Something Went Wrong"));
   };
 
   // Handling Searchbar events
@@ -85,28 +101,17 @@ const Services = () => {
     const searchTerm = event.target.value;
     setSearchTerm(searchTerm);
 
-    const results = SpaServices.filter(
+    const results = selectedProblemData.testCaseList.filter(
       (item) =>
-        item.serviceName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchTerm.toLowerCase())
+        item.testCaseId.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.input.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.expectedOutput.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     setSearchResults(results);
   };
-
-  // handling dropdown list of spa name
-  const [SpaServices, setSpaServices] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const spaNames = SpaData.map((spa) => spa.name);
-
-  const handleChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  // useStates of update spa
-  const [updatespa, setUpdatespa] = useState(null);
+  // useStates of update Testcase
+  const [updateTestcase, setUpdateTestcase] = useState(null);
 
   return (
     <div className="main_list__container">
@@ -125,26 +130,26 @@ const Services = () => {
           </button>
         </form>
 
+        <ToastContainer />
         <div className="form-group">
           <select
-            placeholder="Select Spa"
-            value={selectedOption}
+            placeholder="Select Problems"
+            value={selectedProblemId}
             onChange={handleChange}
             style={{
               width: "10rem",
             }}
           >
             <option value={""}>--select--</option>
-            {/* {console.log(spaNames)} */}
-            {spaNames.map((name, index) => {
+            {problemData.map((problem) => {
               return (
-                <option key={index} value={name}>
-                  {name}
+                <option key={problem.problemId} value={problem.problemId}>
+                  {problem.title}
                 </option>
               );
             })}
           </select>
-          <p>Selected Option: {selectedOption}</p>
+          <p>Selected Option: {selectedProblemData.title}</p>
         </div>
       </div>
 
@@ -161,71 +166,63 @@ const Services = () => {
           </thead>
 
           <tbody>
-            {(searchTerm.length !== 0 ? searchResults : servicesData)
-              .slice(0, visible)
-              .map((service, index) => {
-                return (
-                  <>
-                    {/* {console.log(service)} */}
-                    {service.select_spa === selectedOption ? (
-                      <>
-                        <tr key={index}>
-                          <td>{service.service_name}</td>
-                          <td>{service.therapies}</td>
-                          <td>{service.price}</td>
-                          <td>{service.service_time}</td>
-                          <td>{service.discount}</td>
-                          <td>{service.description}</td>
-                          <td>
-                            <AiFillDelete
-                              onClick={() => {
-                                deleteServices(service._id);
-                              }}
-                            />
-                            &nbsp;&nbsp;
-                            <FaEdit
-                              onClick={() => {
-                                setUpdatespa(index);
-                              }}
-                            />
-                          </td>
-                        </tr>
-
-                        <div
-                          className="showPhotos"
-                          style={{
-                            display: updatespa === index ? "block" : "none",
-                          }}
-                        >
-                          <button
-                            onClick={() => {
-                              setUpdatespa(null);
-                            }}
-                            style={{
-                              padding: "0.7rem 1.2rem",
-                              borderRadius: "10px",
-                              color: "white",
-                              backgroundColor: "#512DC8",
-                            }}
-                          >
-                            Close
-                          </button>
-                          <ServiceUpdate data={service} />
-                        </div>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                );
-              })}
+            {selectedProblemData && selectedProblemData["testCaseList"] ? (
+              (searchTerm.length !== 0
+                ? searchResults
+                : selectedProblemData["testCaseList"]
+              ).map((testcase, index) => (
+                <>
+                  <tr key={index}>
+                    <td>{testcase.testCaseId}</td>
+                    <td>{testcase.input}</td>
+                    <td>{testcase.expectedOutput}</td>
+                    <td>
+                      <AiFillDelete
+                        onClick={() => {
+                          deleteTestcase(testcase.testCaseId);
+                        }}
+                      />
+                      &nbsp;&nbsp;
+                      <FaEdit
+                        onClick={() => {
+                          setUpdateTestcase(index);
+                        }}
+                      />
+                    </td>
+                  </tr>
+                  <div
+                    className="showPhotos"
+                    style={{
+                      display: updateTestcase === index ? "block" : "none",
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        setUpdateTestcase(null);
+                      }}
+                      style={{
+                        padding: "0.7rem 1.2rem",
+                        borderRadius: "10px",
+                        color: "white",
+                        backgroundColor: "#512DC8",
+                      }}
+                    >
+                      Close
+                    </button>
+                    <TestcaseUpdate data={testcase} problemId={selectedProblemData.problemId}/>
+                  </div>
+                </>
+              ))
+            ) : (
+              <></>
+            )}
           </tbody>
         </table>
 
         <div
           className="view_more__button"
           style={{
-            display: show && SpaServices.length > 10 ? "block" : "none",
+            display: show && selectedProblemData.length > 10 ? "block" : "none",
           }}
         >
           <button onClick={showMoreItems}>View More</button>
@@ -234,4 +231,4 @@ const Services = () => {
     </div>
   );
 };
-export default Services;
+export default Testcase;
