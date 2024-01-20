@@ -28,9 +28,12 @@ const Sidebar = () => {
                 />
               </div>
               <div className="trakky__logo">
-                <Link to="/">
-                  <img src={trakkyLogo} alt="" className="trakky__logo_img" />
-                </Link>
+                {/* <Link to="/" > */}
+                  {/* <img src={trakkyLogo} alt="" className="trakky__logo_img" /> */}
+                 {/* <Link to="/" style={{textDecoration:"none"}}> */}
+                 <div className="trakky__logo_img" style={{color:"white",fontSize:"1.7rem"}}>ByteBattles</div>
+                 {/* </Link> */}
+                {/* </Link> */}
               </div>
             </div>
 

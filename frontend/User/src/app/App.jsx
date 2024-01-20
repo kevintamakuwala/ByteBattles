@@ -13,6 +13,7 @@ import Footer from "../common/Footer/Footer";
 // import Verify from "../user/verify/Verify";
 import MailValidation from "../user/verify/MailValidation";
 import ProblemPage from "../problems/ProblemPage";
+import CodeWindow from "../pages/code-editor/components/CodeWindow"
 import "./App.css";
 
 const App = () => {
@@ -84,6 +85,7 @@ const App = () => {
           element={<MailValidation onLogin={handleLogin} />}
         />
         <Route path="/problems" element={<ProblemPage />} />
+        <Route path="/problems/*" element={<CodeWindow />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
