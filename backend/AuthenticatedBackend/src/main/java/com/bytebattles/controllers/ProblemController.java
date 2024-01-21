@@ -1,5 +1,6 @@
 package com.bytebattles.controllers;
 
+import com.bytebattles.models.AssignTagToProblemDTO;
 import com.bytebattles.models.Problem;
 import com.bytebattles.models.Submission;
 import com.bytebattles.services.ProblemService;
@@ -71,9 +72,13 @@ public class ProblemController {
     }
 
     @PutMapping({"/{problemId}/tags/{tagId}","/{problemId}/tags/{tagId}/"})
-    public Problem assignTagToProject(@PathVariable Long problemId,
+    public Problem assignTagToProblem(@PathVariable Long problemId,
                                       @PathVariable Long tagId) {
         return problemService.assignTagToProject(problemId,tagId);
     }
-
+    @PutMapping({"/{problemId}/tags","/{problemId}/tags/"})
+    public Problem assignTagsToProblem(@PathVariable Long problemId,
+                                      @RequestBody AssignTagToProblemDTO assignTagToProblemDTO) {
+        return problemService.assignTagToProject(problemId,assignTagToProblemDTO);
+    }
 }

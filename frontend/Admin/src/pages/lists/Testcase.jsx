@@ -2,16 +2,23 @@ import React, { useState, useEffect } from "react";
 import "./Page.css";
 import { AiFillDelete } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
-import { BASE_URL, errorNotification, successNotification } from "../utils";
+import {
+  BASE_URL,
+  errorNotification,
+  successNotification,
+  customListSelectStyles,
+} from "../../utils";
 import { ToastContainer } from "react-toastify";
-import TestcaseUpdate from "./forms/updateForms/TestcaseUpdate";
+import Select from "react-select";
+import TestcaseUpdate from "../forms/updateForms/TestcaseUpdate.jsx";
 
 const Testcase = () => {
-
-  // Getting Testcase details
   const [testcasesData, setTestcasesData] = useState([]);
+  const [problemData, setProblemData] = useState([]);
+  const [selectedProblemData, setSelectedProblemData] = useState({});
 
-  const getTestcases = () => {
+  // Getting problems and testcases details
+  useEffect(() => {
     const requestOption = {
       method: "GET",
       header: { "Content-Type": "application/json" },
@@ -20,28 +27,11 @@ const Testcase = () => {
       .then((res) => res.json())
       .then((data) => setTestcasesData(data))
       .catch((err) => console.log(err));
-  };
 
-  useEffect(() => {
-    getTestcases();
-  }, []);
-
-  // Getting problem details
-  const [problemData, setProblemData] = useState([]);
-
-  const getProblem = () => {
-    const requestOption = {
-      method: "GET",
-      header: { "Content-Type": "application/json" },
-    };
     fetch(`${BASE_URL}/problems/`, requestOption)
       .then((res) => res.json())
       .then((data) => setProblemData(data))
       .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    getProblem();
   }, []);
 
   //  Deleting Testcase
@@ -50,8 +40,8 @@ const Testcase = () => {
       method: "DELETE",
     })
       .then(() => {
+        window.location.reload();
         successNotification("Testcase Deleted Successfully");
-        getProblemById(selectedProblemId);
       })
       .catch(() => errorNotification("Something Went Wrong"));
   };
@@ -72,26 +62,7 @@ const Testcase = () => {
     }
   };
 
-  const [selectedProblemId, setSelectedProblemId] = useState("");
 
-  const handleChange = (event) => {
-    setSelectedProblemId(event.target.value);
-    getProblemById(event.target.value);
-  };
-
-  //   Getting Problem By Id
-  const [selectedProblemData, setSelectedProblemData] = useState({});
-
-  const getProblemById = (id) => {
-    const requestOption = {
-      method: "GET",
-      header: { "Content-Type": "application/json" },
-    };
-    fetch(`http://localhost:8000/problems/${id}`, requestOption)
-      .then((res) => res.json())
-      .then((data) => setSelectedProblemData(data))
-      .catch(() => errorNotification("Something Went Wrong"));
-  };
 
   // Handling Searchbar events
   const [searchTerm, setSearchTerm] = useState("");
@@ -101,9 +72,12 @@ const Testcase = () => {
     const searchTerm = event.target.value;
     setSearchTerm(searchTerm);
 
-    const results = selectedProblemData.testCaseList.filter(
+    const results = selectedProblemData?.testCaseList?.filter(
       (item) =>
-        item.testCaseId.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.testCaseId
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
         item.input.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.expectedOutput.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -116,6 +90,7 @@ const Testcase = () => {
   return (
     <div className="main_list__container">
       <div className="mini_navbar__container">
+        <ToastContainer />
         <form className="d-flex" onSubmit={(e) => e.preventDefault()}>
           <input
             className="form-control me-2"
@@ -130,26 +105,30 @@ const Testcase = () => {
           </button>
         </form>
 
-        <ToastContainer />
-        <div className="form-group">
-          <select
-            placeholder="Select Problems"
-            value={selectedProblemId}
-            onChange={handleChange}
-            style={{
-              width: "10rem",
-            }}
-          >
-            <option value={""}>--select--</option>
-            {problemData.map((problem) => {
-              return (
-                <option key={problem.problemId} value={problem.problemId}>
-                  {problem.title}
-                </option>
+        <div className="form-group" style={{ margin: "1rem 0" }}>
+          <label htmlFor="problem">Select Problem *</label>
+          <Select
+            id="problem"
+            value={
+              selectedProblemData
+                ? {
+                    value: selectedProblemData.title,
+                    label: selectedProblemData.title,
+                  }
+                : null
+            }
+            options={problemData.map((problem) => ({
+              value: problem.title,
+              label: problem.title,
+            }))}
+            onChange={(selectedOption) => {
+              const selectedProblem = problemData.find(
+                (problem) => problem.title === selectedOption.value
               );
-            })}
-          </select>
-          <p>Selected Option: {selectedProblemData.title}</p>
+              setSelectedProblemData(selectedProblem);
+            }}
+            styles={customListSelectStyles}
+          />
         </div>
       </div>
 
@@ -209,7 +188,10 @@ const Testcase = () => {
                     >
                       Close
                     </button>
-                    <TestcaseUpdate data={testcase} problemId={selectedProblemData.problemId}/>
+                    <TestcaseUpdate
+                      data={testcase}
+                      problemId={selectedProblemData.problemId}
+                    />
                   </div>
                 </>
               ))

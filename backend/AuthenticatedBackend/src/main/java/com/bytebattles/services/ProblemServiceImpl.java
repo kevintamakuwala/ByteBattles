@@ -1,5 +1,6 @@
 package com.bytebattles.services;
 
+import com.bytebattles.models.AssignTagToProblemDTO;
 import com.bytebattles.models.Problem;
 import com.bytebattles.models.Tag;
 import com.bytebattles.repository.ProblemRepository;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -85,5 +87,21 @@ public class ProblemServiceImpl implements ProblemService {
         tagRepository.save(tag);
 
         return problemRepository.save(problem);
+    }
+
+    @Override
+    public Problem assignTagToProject(Long problemId, AssignTagToProblemDTO assignTagToProblemDTO) {
+        Problem problem = problemRepository.findById(problemId).get();
+        Set<Tag> tagSet = assignTagToProblemDTO.getTags();
+        for (Tag tag : tagSet) {
+            Optional<Tag> existingTag = tagRepository.findByName(tag.getName());
+            if (existingTag.isPresent()) {
+                tag = existingTag.get();
+            } else {
+                tag = tagRepository.save(tag);
+            }
+            assignTagToProject(problemId, tag.getTagId());
+        }
+        return problem;
     }
 }

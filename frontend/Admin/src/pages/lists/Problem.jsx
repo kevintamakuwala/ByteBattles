@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 import { AiFillDelete } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
-import ProblemUpdate from "./forms/updateForms/ProblemUpdate";
+import ProblemUpdate from "../forms/updateForms/ProblemUpdate";
+import { BASE_URL,requestOption } from "../../utils";
 
 const Problem = () => {
   // update Problem use state variables
@@ -15,11 +16,7 @@ const Problem = () => {
   const [ProblemData, setProblemData] = useState([]);
 
   const getProblem = () => {
-    const requestOption = {
-      method: "GET",
-      header: { "Content-Type": "application/json" },
-    };
-    fetch("http://localhost:8000/problems", requestOption)
+    fetch(`${BASE_URL}/problems`, requestOption)
       .then((res) => res.json())
       .then((data) => setProblemData(data))
       .catch((err) => console.log(err));
@@ -31,7 +28,7 @@ const Problem = () => {
 
   //  Deleting Problem
   const deleteProblem = (id) => {
-    fetch(`http://localhost:8000/problems/${id}`, {
+    fetch(`${BASE_URL}/problems/${id}`, {
       method: "DELETE",
     })
       .then(() => getProblem())
@@ -45,6 +42,7 @@ const Problem = () => {
     "Description",
     "Constraints",
     "Difficulty Level",
+    "Tags",
     "Action",
   ];
 
@@ -73,7 +71,10 @@ const Problem = () => {
       (item) =>
         item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.difficultyLevel.toLowerCase().includes(searchTerm.toLowerCase())
+        item.difficultyLevel.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.tagList.some((tag) =>
+          tag.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
     );
 
     setSearchResults(results);
@@ -119,6 +120,13 @@ const Problem = () => {
                       <td>{problem.description}</td>
                       <td>{problem.constraints}</td>
                       <td>{problem.difficultyLevel}</td>
+                      <td>
+                        <>
+                          {problem.tagList.map((tag, index) => {
+                            return <span key={index}>{tag.name}</span>;
+                          })}
+                        </>
+                      </td>
                       <td>
                         <AiFillDelete
                           onClick={() => deleteProblem(problem.problemId)}

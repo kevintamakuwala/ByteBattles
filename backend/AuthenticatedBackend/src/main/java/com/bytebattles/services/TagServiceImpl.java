@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class TagServiceImpl implements TagService{
+public class TagServiceImpl implements TagService {
 
     @Autowired
     TagRepository tagRepository;
@@ -25,8 +26,8 @@ public class TagServiceImpl implements TagService{
 
     @Override
     public Tag addTag(Tag tag) {
-        tagRepository.save(tag);
-        return tag;
+        Optional<Tag> existingTag = tagRepository.findByName(tag.getName());
+        return existingTag.orElseGet(() -> tagRepository.save(tag));
     }
 
     @Override

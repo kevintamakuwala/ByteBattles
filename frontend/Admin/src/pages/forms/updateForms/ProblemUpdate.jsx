@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../forms.css";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
-import { errorNotification, successNotification } from "../../../utils";
+import { BASE_URL, errorNotification, successNotification } from "../../../utils";
 const ProblemUpdate = (props) => {
   const [problemTitle, setProblemTitle] = useState(props.data.title);
   const [description, setDescription] = useState(props.data.description);
@@ -14,7 +14,7 @@ const ProblemUpdate = (props) => {
   // PUT Request Starts
   const PutRequest = (id) => {
     axios
-      .put(`http://localhost:8000/problems/${id}`, {
+      .put(`${BASE_URL}/problems/${id}`, {
         title: problemTitle,
         description: description,
         constraints: constraints,

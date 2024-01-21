@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./Page.css";
 import { AiFillDelete } from "react-icons/ai";
-import { BASE_URL, errorNotification, formatDate, successNotification } from "../utils";
+import {
+  BASE_URL,
+  errorNotification,
+  formatDate,
+  successNotification,
+  customListSelectStyles,
+} from "../../utils";
+import Select from "react-select";
+
 import { ToastContainer } from "react-toastify";
 
 const Submission = () => {
@@ -131,25 +139,30 @@ const Submission = () => {
         </form>
 
         <ToastContainer />
-        <div className="form-group">
-          <select
-            placeholder="Select Problems"
-            value={selectedProblemId}
-            onChange={handleChange}
-            style={{
-              width: "10rem",
-            }}
-          >
-            <option value={""}>--select--</option>
-            {problemData.map((problem) => {
-              return (
-                <option key={problem.problemId} value={problem.problemId}>
-                  {problem.title}
-                </option>
+        <div className="form-group" style={{ margin: "1rem 0" }}>
+          <label htmlFor="problem">Select Problem *</label>
+          <Select
+            id="problem"
+            value={
+              selectedProblemData
+                ? {
+                    value: selectedProblemData.title,
+                    label: selectedProblemData.title,
+                  }
+                : null
+            }
+            options={problemData.map((problem) => ({
+              value: problem.title,
+              label: problem.title,
+            }))}
+            onChange={(selectedOption) => {
+              const selectedProblem = problemData.find(
+                (problem) => problem.title === selectedOption.value
               );
-            })}
-          </select>
-          <p>Selected Option: {selectedProblemData.title}</p>
+              setSelectedProblemData(selectedProblem);
+            }}
+            styles={customListSelectStyles}
+          />
         </div>
       </div>
 
@@ -170,36 +183,42 @@ const Submission = () => {
               (searchTerm.length !== 0
                 ? searchResults
                 : selectedProblemData["submissionList"]
-              ).map((submission, index) => (
-                <tr key={index}>
-                  <td>{submission.submissionId}</td>
-                  <td>{submission.language}</td>
-                  <td>{submission.result}</td>
-                  <td>{formatDate(submission.submissionDate)}</td>
-                  <td>
-                    <AiFillDelete
-                      onClick={() => {
-                        deleteSubmission(submission.submissionId);
+              )
+                .slice(0, visible)
+                .map((submission, index) => (
+                  <>
+                    <tr key={index}>
+                      <td>{submission.submissionId}</td>
+                      <td>{submission.language}</td>
+                      <td>{submission.result}</td>
+                      <td>{formatDate(submission.submissionDate)}</td>
+                      <td>
+                        <AiFillDelete
+                          onClick={() => {
+                            deleteSubmission(submission.submissionId);
+                          }}
+                        />
+                        &nbsp;&nbsp;
+                      </td>
+                    </tr>
+                    <div
+                      className="view_more__button"
+                      style={{
+                        display:
+                          show && selectedProblemData.length > 10
+                            ? "block"
+                            : "none",
                       }}
-                    />
-                    &nbsp;&nbsp;
-                  </td>
-                </tr>
-              ))
+                    >
+                      <button onClick={showMoreItems}>View More</button>
+                    </div>
+                  </>
+                ))
             ) : (
               <></>
             )}
           </tbody>
         </table>
-
-        <div
-          className="view_more__button"
-          style={{
-            display: show && selectedProblemData.length > 10 ? "block" : "none",
-          }}
-        >
-          <button onClick={showMoreItems}>View More</button>
-        </div>
       </div>
     </div>
   );

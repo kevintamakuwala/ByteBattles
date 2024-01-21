@@ -18,7 +18,7 @@ public class Tag {
     @JsonProperty("tagId")
     private Long tagId;
 
-    @Column(name = "tag_name")
+    @Column(name = "tag_name",unique = true)
     @JsonProperty("name")
     private String name;
 

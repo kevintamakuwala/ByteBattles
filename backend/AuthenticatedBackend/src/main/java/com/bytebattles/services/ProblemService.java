@@ -1,5 +1,6 @@
 package com.bytebattles.services;
 
+import com.bytebattles.models.AssignTagToProblemDTO;
 import com.bytebattles.models.Problem;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface ProblemService {
     public boolean deleteProblem(String problemId);
 
     public Problem assignTagToProject(Long problemId, Long tagId);
+
+    public Problem assignTagToProject(Long problemId, AssignTagToProblemDTO assignTagToProblemDTO);
 }

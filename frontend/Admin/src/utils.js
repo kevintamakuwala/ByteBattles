@@ -48,3 +48,42 @@ export const formatDate = (d) => {
     " IST"
   );
 };
+
+// custom styles for select-dropdown
+export const customSelectStyles = {
+  control: (provided) => ({
+    ...provided,
+    cursor: "pointer",
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    cursor: "pointer",
+  }),
+  option: (provided) => ({
+    ...provided,
+    cursor: "pointer",
+  }),
+};
+export const customListSelectStyles = {
+  ...customSelectStyles,
+  control: (provided) => ({
+    ...provided,
+    cursor: "pointer",
+    width: "10rem",
+  }),
+  option: (provided) => ({
+    ...provided,
+    cursor: "pointer",
+    width: "10rem",
+  }),
+  menu: (provided) => ({
+    ...provided,
+    width: "10rem",
+  }),
+};
+
+// Request options for API's
+export const requestOption = {
+  method: "GET",
+  header: { "Content-Type": "application/json" },
+};
