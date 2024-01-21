@@ -1,5 +1,7 @@
 package com.bytebattles.controllers;
 
+import com.bytebattles.models.AssignProblemToContestDTO;
+import com.bytebattles.models.AssignUserToContestDTO;
 import com.bytebattles.models.Contest;
 import com.bytebattles.services.ContestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,10 +69,21 @@ public class ContestController {
         return contestService.assignProblemToContest(contestId, problemId);
     }
 
+    @PutMapping({"/{contestId}/problems", "/{contestId}/problems/"})
+    public Contest assignProblemsToContest(@PathVariable Long contestId,
+                                           @RequestBody AssignProblemToContestDTO assignProblemToContestDTO) {
+        return contestService.assignProblemToContest(contestId, assignProblemToContestDTO);
+    }
+
     @PutMapping({"/{contestId}/users/{userId}", "/{contestId}/users/{userId}/"})
     public Contest assignUserToContest(@PathVariable Long contestId,
                                        @PathVariable Integer userId) {
         return contestService.assignUserToContest(contestId, userId);
+    }
+    @PutMapping({"/{contestId}/users", "/{contestId}/users/"})
+    public Contest assignUsersToContest(@PathVariable Long contestId,
+                                           @RequestBody AssignUserToContestDTO assignUserToContestDTO) {
+        return contestService.assignUserToContest(contestId, assignUserToContestDTO);
     }
 
 }

@@ -17,7 +17,7 @@ Create a new problem.
 }
 ```
 
-### PUT `/problems/{id}`
+### PUT `/problems/{problemId}`
 
 Update an existing problem.
 
@@ -29,6 +29,27 @@ Update an existing problem.
   "description": "Sort this array using merge sort",
   "constraints": "1<=N<=1e5",
   "difficultyLevel": "HARD"
+}
+```
+### PUT `/problems/{problemId}/tags`
+
+Add multiple tags to a problem.
+
+#### Request Body
+
+```json
+{
+  "tags":[
+    {
+      "name":"math"
+    },
+    {
+      "name":"greedy"
+    },
+    {
+      "name":"array"
+    }
+  ]
 }
 ```
 
@@ -55,7 +76,7 @@ Create a new submission.
 }
 ```
 
-### PUT `/submissions/{id}`
+### PUT `/submissions/{submissionId}`
 
 **Note:** Cannot update problem and user details but required to pass in the body.
 
@@ -92,7 +113,7 @@ Create a new TestCase.
 }
 ```
 
-### PUT `/testcases/{id}`
+### PUT `/testcases/{testcaseId}`
 
 #### Request Body
 
@@ -120,7 +141,7 @@ Create a new Tag.
 }
 ```
 
-### PUT `/tags/{id}`
+### PUT `/tags/{tagId}`
 
 #### Request Body
 
@@ -163,7 +184,7 @@ Create a new Contest.
 }
 ```
 
-### PUT `/contests/{id}`
+### PUT `/contests/{contestId}`
 
 #### Request Body
 
@@ -191,3 +212,30 @@ Create a new Contest.
   ]
 }
 ```
+### PUT `/contests/${contestId}/users`
+Add multiple users to a contest
+
+#### Request Body
+```json
+{
+  "users": [
+    {
+      "username": "admin"
+    }
+  ]
+}
+```
+
+### PUT `/contests/${contestId}/problems`
+Add multiple problems to a contest
+#### Request Body
+```json
+{
+  "problems": [
+    {
+      "title": "Addition"
+    }
+  ]
+}
+```
+

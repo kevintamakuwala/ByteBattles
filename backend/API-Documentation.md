@@ -54,20 +54,23 @@ Create a new problem.
 
 Retrieve a list of problems.
 
-#### PUT ```/problems/{id}```
+#### PUT ```/problems/${problemId}```
 
 Update an existing problem.
 
-#### DELETE ```/problems/{id}```
+#### DELETE ```/problems/${problemId}```
 
 Delete a problem by ID.
 
-#### GET ```/problems/{id}```
+#### GET ```/problems/${problemId}```
 
 Retrieve details of a specific problem by ID.
 
-#### PUT ```/problems/{id}/tags/{id}```
+#### PUT ```/problems/${problemId}/tags/${tagId}```
 Add Tag to a Problem.
+
+#### PUT ```/problems/${problemId}/tags```
+Add multiple Tags to a Problem.
 
 ## Tag
 
@@ -79,15 +82,15 @@ Create a new tag.
 
 Retrieve a list of tags.
 
-#### PUT ```/tags/{id}```
+#### PUT ```/tags/${tagId}```
 
 Update an existing tag.
 
-#### DELETE ```/tags/{id}```
+#### DELETE ```/tags/${tagId}```
 
 Delete a tag by ID.
 
-#### GET ```/tags/{id}```
+#### GET ```/tags/${tagId}```
 
 Retrieve details of a specific tag by ID.
 
@@ -101,15 +104,15 @@ Create a new submission.
 
 Retrieve a list of submissions.
 
-#### PUT ```/submissions/{id}```
+#### PUT ```/submissions/${submissionId}```
 
 Update an existing submission.
 
-#### DELETE ```/submissions/{id}```
+#### DELETE ```/submissions/${submissionId}```
 
 Delete a submission by ID.
 
-#### GET ```/submissions/{id}```
+#### GET ```/submissions/${submissionId}```
 
 Retrieve details of a specific submission by ID.
 
@@ -124,15 +127,15 @@ Create a new testcase.
 
 Retrieve a list of testcase.
 
-#### PUT ```/testcases/{id}```
+#### PUT ```/testcases/${testcaseId}```
 
 Update an existing testcase.
 
-#### DELETE ```/testcases/{id}```
+#### DELETE ```/testcases/${testcaseId}```
 
 Delete a testcase by ID.
 
-#### GET ```/testcases/{id}```
+#### GET ```/testcases/${testcaseId}```
 
 Retrieve details of a specific testcase by ID.
 
@@ -147,20 +150,26 @@ Create a new contest.
 
 Retrieve a list of contests.
 
-#### PUT ```/contests/{id}```
+#### PUT ```/contests/${contestId}```
 
 Update an existing contest.
 
-#### DELETE ```/contests/{id}```
+#### DELETE ```/contests/${contestId}```
 
 Delete a contest by ID.
 
-#### GET ```/contests/{id}```
+#### GET ```/contests/${contestId}```
 
 Retrieve details of a specific contest by ID.
 
-#### PUT ```/contests/{id}/problems/{id}```
+#### PUT ```/contests/${contestId}/problems/${problemId}```
 Add problem to a contest.
 
-#### PUT ```/contests/{id}/users/{id}```
+#### PUT ```/contests/${contestId}/problems```
+Add multiple problems to a Contest.
+
+#### PUT ```/contests/${contestId}/users/${userId}```
 Add user to a contest.
+
+#### PUT ```/contests/${contestId}/users```
+Add multiple Users to a Contest.
