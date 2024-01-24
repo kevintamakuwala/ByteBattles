@@ -101,7 +101,7 @@ public class ContestServiceImpl implements ContestService {
         return contestRepository.save(contest);
     }
 
-    //    for multiple problem to a contest
+    //    for multiple problems to a contest
     @Override
     public Contest assignProblemToContest(Long contestId, AssignProblemToContestDTO assignProblemToContestDTO) {
         Contest contest = contestRepository.findById(contestId).get();
@@ -113,12 +113,12 @@ public class ContestServiceImpl implements ContestService {
             } else {
                 problem = problemRepository.save(problem);
             }
-            assignProblemToContest(contestId, problem.getProblemId());
+            contest = assignProblemToContest(contestId, problem.getProblemId());
         }
         return contest;
     }
 
-    //    for multiple problem to a contest
+    //    for multiple users to a contest
     @Override
     public Contest assignUserToContest(Long contestId, AssignUserToContestDTO assignUserToContestDTO) {
         Contest contest = contestRepository.findById(contestId).get();
@@ -130,7 +130,7 @@ public class ContestServiceImpl implements ContestService {
             } else {
                 user = userRepository.save(user);
             }
-            assignUserToContest(contestId, user.getUserId());
+            contest = assignUserToContest(contestId, user.getUserId());
         }
         return contest;
     }

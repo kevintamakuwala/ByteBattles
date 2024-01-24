@@ -15,6 +15,9 @@ import MailValidation from "../user/verify/MailValidation";
 import ProblemPage from "../problems/ProblemPage";
 import CodeWindow from "../pages/code-editor/components/CodeWindow"
 import "./App.css";
+import ContestPage from "../pages/contest/ContestPage";
+import ContestList from "../pages/contest/ContestList";
+import Contest from "../pages/contest/Contest";
 
 const App = () => {
   const navigate = useNavigate();
@@ -70,27 +73,48 @@ const App = () => {
     localStorage.setItem("password", pwd);
   };
 
-  return (
-    <>
-      <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route
-          path="/signup"
-          element={<Signup updateStates={updateStates} />}
-        />
-        <Route
-          path="/verify"
-          element={<MailValidation onLogin={handleLogin} />}
-        />
-        <Route path="/problems" element={<ProblemPage />} />
-        <Route path="/problems/*" element={<CodeWindow />} />
+  const shouldRenderNavbarAndFooter = !(location.pathname.includes("/problem/"));
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-    </>
+  return (
+    <div className="overflow-x-hidden bg-slate-950">
+      <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
+      {shouldRenderNavbarAndFooter && (
+        <>
+          
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route
+              path="/signup"
+              element={<Signup updateStates={updateStates} />}
+            />
+            <Route
+              path="/verify"
+              element={<MailValidation onLogin={handleLogin} />}
+            />
+            <Route path="/problemset" element={<ProblemPage />} />
+            <Route path="/contests" element={<ContestList/>} />
+            <Route path="/contestproblems" element={<ContestPage/>} />
+            <Route path="/problem/*" element={<CodeWindow />} />
+
+
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+
+          <Footer />
+        </>
+      )}
+
+      {!shouldRenderNavbarAndFooter && (
+        <Routes>
+          <Route path="/problem/*" element={<CodeWindow />} />
+        </Routes>
+
+
+      )}
+
+    </div>
   );
 };
 export default App;

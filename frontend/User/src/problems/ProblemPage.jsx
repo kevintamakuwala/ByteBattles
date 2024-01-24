@@ -56,10 +56,43 @@ const ProblemPage = () => {
   ];
 
   return (
-    <div className="bg-slate-950 min-h-screen py-8">
-      <div className="problem-bar flex flex-col md:flex-row justify-around items-center rounded-lg mx-4 md:mx-12 h-auto md:h-16 bg-white mb-8 md:mb-0">
+    <div className="bg-slate-950 min-h-screen py-8 ">
+      <div className="problem-bar flex flex-col md:flex-row justify-around items-center rounded-lg mx-4 md:mx-12 h-auto md:h-16 bg-white mb-8 md:mb-0 lg:ps-12 md:ps-8">
         <SearchBar onSearch={handleSearch} />
-        <Dropdown
+        <div className="flex items-center w-full justify-around">
+          <Dropdown
+            options={difficultyOptions}
+            onChange={(selectedOption) =>
+              console.log("Difficulty Selected:", selectedOption)
+            }
+            placeholder="Difficulty"
+          />
+          <Dropdown
+            options={statusOptions}
+            onChange={(selectedOption) =>
+              console.log("Status Selected:", selectedOption)
+            }
+            placeholder="Status"
+          />
+
+          <div>
+            <button
+              className="p-4 text-[#484849] flex text-center rounded-md text-xl"
+              onClick={handleOpenDialog}
+            >
+              {selectedTag || "Tags"} <RiArrowDropDownLine className="text-3xl" />
+            </button>
+
+            {isDialogOpen && (
+              <FullScreenDialog
+                options={tagOptions}
+                onClose={handleCloseDialog}
+                onSelect={handleTagSelect}
+              />
+            )}
+          </div>
+        </div>
+        {/* <Dropdown
           options={difficultyOptions}
           onChange={(selectedOption) =>
             console.log("Difficulty Selected:", selectedOption)
@@ -89,10 +122,10 @@ const ProblemPage = () => {
               onSelect={handleTagSelect}
             />
           )}
-        </div>
+        </div> */}
       </div>
-      <div className="problem__main flex flex-col md:flex-row justify-between mt-4 md:mt-12 ms-2 md:ms-8">
-        <div className="mx-2 md:mx-4 overflow-y-scroll scroll-smooth md:h-96 md:w-3/5">
+      <div className="problem__main flex flex-col-reverse md:flex-row justify-between mt-4 md:mt-12 ms-2 md:ms-8">
+        <div className="mx-2 md:ms-4 md:pr-2  md:bg-slate-800 rounded-xl overflow-y-scroll scroll-smooth md:h-[20.5rem] lg:h-[21.5rem] md:w-4/6 pt-4 md:ps-4">
           <Problem />
           <Problem />
           <Problem />
@@ -106,7 +139,7 @@ const ProblemPage = () => {
           <Problem />
           <Problem />
         </div>
-        <div className="daily-problems mx-2 md:mx-12 mt-4 md:mt-0 md:w-2/6">
+        <div className="daily-problems mx-2 md:mx-12 mt-2 md:mt-0 md:w-2/6">
           <DailyProblem />
         </div>
       </div>

@@ -1,6 +1,7 @@
 package com.bytebattles.services;
 
 import com.bytebattles.models.AssignTagToProblemDTO;
+import com.bytebattles.models.Contest;
 import com.bytebattles.models.Problem;
 import com.bytebattles.models.Tag;
 import com.bytebattles.repository.ProblemRepository;
@@ -66,7 +67,15 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public boolean deleteProblem(String problemId) {
-        problemRepository.deleteById(Long.parseLong(problemId));
+        Problem problem = problemRepository.findById(Long.parseLong(problemId)).get();
+
+        for (Contest contest : problem.getContestSet()) {
+            contest.getProblemSet().remove(problem);
+        }
+
+        problem.getContestSet().clear();
+
+        problemRepository.delete(problem);
         return true;
     }
 
@@ -100,7 +109,7 @@ public class ProblemServiceImpl implements ProblemService {
             } else {
                 tag = tagRepository.save(tag);
             }
-            assignTagToProject(problemId, tag.getTagId());
+            problem = assignTagToProject(problemId, tag.getTagId());
         }
         return problem;
     }

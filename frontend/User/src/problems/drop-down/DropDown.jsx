@@ -17,7 +17,7 @@ const Dropdown = ({ options, onChange, placeholder }) => {
         onChange={handleSelectChange}
         options={options}
         placeholder={placeholder}
-        className="border-none shadow-none cursor-pointer"
+        className="border-none shadow-none md:w-fit cursor-pointer sm:placeholder:text-sm"
         classNamePrefix="tw-select"
         styles={{color:`${selectedOption.color}`}}
       />

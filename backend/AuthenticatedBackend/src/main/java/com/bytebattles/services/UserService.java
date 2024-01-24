@@ -1,6 +1,7 @@
 package com.bytebattles.services;
 
 import com.bytebattles.models.ApplicationUser;
+import com.bytebattles.models.Contest;
 import com.bytebattles.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +23,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("In the user details service");
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("user is not valid"));
     }
 
@@ -40,7 +40,6 @@ public class UserService implements UserDetailsService {
     }
 
     public ApplicationUser updateUser(ApplicationUser updatedUser) {
-//        System.out.println(updatedUser);
         Integer userId = updatedUser.getUserId();
         if (!userRepository.existsById(userId)) {
             return null;
@@ -59,8 +58,12 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean deleteUser(String userId) {
-        userRepository.deleteById(Integer.parseInt(userId));
+        ApplicationUser applicationUser = userRepository.findById(Integer.parseInt(userId)).get();
+        for (Contest contest : applicationUser.getContestSet()) {
+            contest.getApplicationUserSet().remove(applicationUser);
+        }
+        applicationUser.getContestSet().clear();
+        userRepository.delete(applicationUser);
         return true;
     }
-
 }

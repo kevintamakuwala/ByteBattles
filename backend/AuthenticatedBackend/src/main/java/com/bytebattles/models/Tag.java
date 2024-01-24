@@ -23,7 +23,7 @@ public class Tag {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "tagList", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "tagList")
     private Set<Problem> problemSet = new HashSet<>();
 
     public Tag() {

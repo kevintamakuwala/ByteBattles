@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import ProblemUpdate from "../forms/updateForms/ProblemUpdate";
-import { BASE_URL,requestOption } from "../../utils";
+import { BASE_URL, requestOption } from "../../utils";
 
 const Problem = () => {
   // update Problem use state variables
@@ -37,7 +37,7 @@ const Problem = () => {
 
   // table header data
   const tableHeaders = [
-    "ProblemId",
+    "Problem Id",
     "Title",
     "Description",
     "Constraints",
@@ -123,7 +123,7 @@ const Problem = () => {
                       <td>
                         <>
                           {problem.tagList.map((tag, index) => {
-                            return <span key={index}>{tag.name}</span>;
+                            return <div key={index}>{tag.name}</div>;
                           })}
                         </>
                       </td>

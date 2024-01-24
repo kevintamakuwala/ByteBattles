@@ -2,12 +2,12 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 // My imports
+
 import "./Sidebar.css";
-import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineUnorderedList } from "react-icons/ai";
+import { TbLayoutSidebarLeftExpandFilled,TbLayoutSidebarRightExpandFilled } from "react-icons/tb";
 import { GrAdd } from "react-icons/gr";
 
-import trakkyLogo from "../assets/Trakky logo white.png";
 
 const Sidebar = () => {
   const [isActive, setIsActive] = useState(true);
@@ -18,22 +18,17 @@ const Sidebar = () => {
         <div className="sidebar__container">
           <div className="sidebar">
             <div className="top__section">
+              <Link to="/" style={{textDecoration:"none", color: "white", fontSize: "1.7rem" }}>
+                ByteBattles
+              </Link>
               <div className="bar__icon">
-                <AiOutlineMenu
+                <TbLayoutSidebarRightExpandFilled
                   onClick={() => setIsActive(!isActive)}
                   style={{
                     cursor: "pointer",
                     color: "white",
                   }}
                 />
-              </div>
-              <div className="trakky__logo">
-                {/* <Link to="/" > */}
-                  {/* <img src={trakkyLogo} alt="" className="trakky__logo_img" /> */}
-                 {/* <Link to="/" style={{textDecoration:"none"}}> */}
-                 <div className="trakky__logo_img" style={{color:"white",fontSize:"1.7rem"}}>ByteBattles</div>
-                 {/* </Link> */}
-                {/* </Link> */}
               </div>
             </div>
 
@@ -73,8 +68,6 @@ const Sidebar = () => {
                 </div>
               </div>
 
-              
-
               <div className="sidebar__topic_box">
                 <p className="sidebar_topic_title">Tags</p>
                 <div className="sidebar_links">
@@ -111,8 +104,6 @@ const Sidebar = () => {
                   </NavLink>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -120,10 +111,11 @@ const Sidebar = () => {
         <div
           className="sidebar__container"
           style={{
-            width: "2rem",
+            width: "5%",
             minWidth: "unset",
           }}
         >
+          <div className="top__section-closed">
           <div
             className="bar__icon"
             style={{
@@ -132,13 +124,14 @@ const Sidebar = () => {
               alignItems: "center",
             }}
           >
-            <AiOutlineMenu
+            <TbLayoutSidebarLeftExpandFilled
               onClick={() => setIsActive(!isActive)}
               style={{
                 cursor: "pointer",
                 color: "white",
               }}
             />
+          </div>
           </div>
         </div>
       )}

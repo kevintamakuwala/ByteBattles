@@ -2,8 +2,6 @@
 .navbar__container {
     width: 96%;
     margin: 1rem 2%;
-    border: 2px solid #1f1919;
-    border-radius: 15px;
     padding: 0.5rem 1rem;
     text-align: center;
     letter-spacing: .2rem;

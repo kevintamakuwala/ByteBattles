@@ -39,7 +39,7 @@ public class Problem {
     private Set<Tag> tagList = new HashSet<>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "problemSet", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "problemSet")
     private Set<Contest> contestSet = new HashSet<>();
 
     public Problem() {

@@ -1,5 +1,7 @@
 package com.bytebattles.services;
 
+import com.bytebattles.models.Contest;
+import com.bytebattles.models.Problem;
 import com.bytebattles.models.Tag;
 import com.bytebattles.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +51,14 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public boolean deleteTag(String tagId) {
-        tagRepository.deleteById(Long.parseLong(tagId));
+
+        Tag tag = tagRepository.findById(Long.parseLong(tagId)).get();
+
+        for (Problem problem : tag.getProblemSet()) {
+            problem.getTagList().remove(tag);
+        }
+        tag.getProblemSet().clear();
+        tagRepository.delete(tag);
         return true;
     }
 }

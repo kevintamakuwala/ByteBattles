@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Page.css";
 import { FaEdit } from "react-icons/fa";
+import { AiFillDelete } from "react-icons/ai";
 import {
   BASE_URL,
   errorNotification,
@@ -57,6 +58,19 @@ const Tag = () => {
     } else {
       setShow(false);
     }
+  };
+
+  // Deleting Tag
+  const deleteTag = (id) => {
+    fetch(`${BASE_URL}/tags/${id}`, {
+      method: "DELETE",
+    })
+      .then(() => {
+        getTags();
+        successNotification("Tag Deleted Successfully");
+        window.location.reload()
+      })
+      .catch(() => errorNotification("Something went wrong"));
   };
 
   const [selectedProblemId, setSelectedProblemId] = useState("");
@@ -170,6 +184,12 @@ const Tag = () => {
                       <td>{tag.tagId}</td>
                       <td>{tag.name}</td>
                       <td>
+                        <AiFillDelete
+                          onClick={() => {
+                            deleteTag(tag.tagId);
+                          }}
+                        />
+                        &nbsp;&nbsp;
                         <FaEdit
                           onClick={() => {
                             setUpdateTag(index);

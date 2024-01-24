@@ -7,8 +7,8 @@
     margin-left: 2%;
 }
 
-/* Displaying spa_data_labels as flex */
-.spa_data_labels {
+/* Displaying data_labels as flex */
+.data_labels {
     display: flex;
     justify-content: space-between;
 }

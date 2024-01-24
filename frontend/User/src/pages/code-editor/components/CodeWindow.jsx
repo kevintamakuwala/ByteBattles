@@ -16,6 +16,7 @@ import LanguagesDropdown from "./LanguagesDropdown";
 import ProblemDescription from "./ProblemDescription";
 import { FaPlay } from "react-icons/fa";
 
+
 const cppDefault = `
 #include<bits/stdc++.h>
 using namespace std;
@@ -173,7 +174,7 @@ const CodeWindow = () => {
 	};
 
 	return (
-		<div className="h-[100%] bg-gray-900 text-white">
+		<div className="h-[100%] bg-slate-950 text-white">
 			<ToastContainer
 				position="top-right"
 				autoClose={2000}
@@ -186,78 +187,119 @@ const CodeWindow = () => {
 				pauseOnHover
 			/>
 
-			<div className="flex md:flex-row sm:flex-col bg-gray-800 w-full justify-between pl-[35rem] border-t-2 border-b-2 border-gray-600 fixed z-20" >
-				<div className="m-auto -ml-[33rem] text-xl md:text-2xl font-semibold font-serif py-3 md:py-0">
-					Id. Problem Title
-				</div>
-				<div className="md:flex hidden">
-					<div className="px-4 py-2">
-						<LanguagesDropdown onSelectChange={onSelectChange} />
-					</div>
-					<div className="px-4 py-2 md:visible">
-						<ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
-					</div>
-				</div>
+			<div className="flex flex-col mt-[80px] md:h-[32.8rem] overflow-y-hidden">
+				{/* <div className="flex md:flex-row sm:flex-col bg-gray-800 w-full justify-between pl-[35rem] border-t-2 border-b-2 border-gray-600" > */}
+				{/* <div className="m-auto -ml-[33rem] text-xl md:text-2xl font-semibold font-serif py-3 md:py-0">
+						Id. Problem Title
+					</div> */}
+				{/* <div className="md:flex hidden">
+						<div className="px-4 py-2">
+							<LanguagesDropdown onSelectChange={onSelectChange} />
+						</div>
+						<div className="px-4 py-2 md:visible">
+							<ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
+						</div>
+					</div> */}
 
+				{/* </div> */}
+
+				<div className="m-auto ms-8 w-3/4 text-xl md:text-2xl font-semibold font-serif py-3 md:w-screen pb-2 mb-6 md:fixed md:z-10 top-0 md:left-0 lg:left-[2%] md:mt-[4rem] lg:mt-[5rem] md:pt-[3%] md:h-[15%] lg:h-12 lg:pt-2 md:bg-slate-950 underline underline-offset-[1rem]">
+							Id. Problem Title
+						</div>
+
+				<div className="flex flex-col md:flex-row md:h-[33rem] border-2  overflow-y-scroll overflow-x-hidden border-slate-950 md:mt-[5rem]">
+				{/* md:pt-4 */}
+					<div className="left problem sm:w-screen md:w-[42%] md:overflow-y-scroll md:border-r border-gray-600 ps-6 lg:-mt:8">
+						{/* <div className="overflow-y-scroll"> */}
+						
+						<div className="overflow-y-scroll">
+						{/* md:mt-16 */}
+						<ProblemDescription />
+						</div>
+						
+						{/* </div> */}
+
+					</div>
+					<div className="right w-screen md:w-[58%] flex flex-col md:overflow-y-scroll md:border-r border-gray-600 sm:px-6">
+
+						<div>
+							<div className="flex justify-center md:justify-start max-[400px]:flex-col max-[400px]:items-center min-[767px]:flex-col min-[846px]:flex-row min-[767px]:items-start ">
+							{/* min-[850px]:mt-[6%] */}
+								<div className="md:px-2 py-2">
+									<LanguagesDropdown onSelectChange={onSelectChange} />
+								</div>
+								<div className="md:px-4 py-2">
+									<ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
+								</div>
+							</div>
+
+							<div className="h-3/4 mt-2">
+								<CodeEditorWindow
+									code={code}
+									onChange={onChange}
+									language={language?.value}
+									theme={theme.value}
+								/>
+							</div>
+						</div>
+
+
+						<div className="flex flex-col min-[550px]:flex-row  max-[850px]:mt-[6%]">
+							<div className="w-screen min-[550px]:w-4/12 h-full">
+							{/* border-2 border-red-500 mt-4 pt-[4%] pr-[2%] pl-[1%] md:h-[75%] */}
+								<CustomInput
+									customInput={customInput}
+									setCustomInput={setCustomInput}
+								/>
+							</div>
+
+							<div className="mb-4 md:mb-20 min-[550px]:mt-4 md:mt-4 w-screen min-[550px]:w-8/12">
+								<OutputWindow outputDetails={outputDetails} />
+							</div>
+						</div>
+						{/* <div>
+							<CustomInput
+								customInput={customInput}
+								setCustomInput={setCustomInput}
+							/>
+						</div>
+
+						<div className="mb-4 md:mb-20">
+							<OutputWindow outputDetails={outputDetails} />
+						</div> */}
+
+						<div className="fill-available flex w-[99%] md:w-[58%] justify-center bg-gray-900 border-2 border-gray-600 md:fixed md:bottom-0 pb-2 bg-opacity-95 md:-ml-[1.5rem]">
+							<button
+								onClick={handleCompile}
+								disabled={!code}
+								className={classnames(
+									"text-green-500 hover:text-green-600 focus:ring focus:ring-green-300 focus:outline-none active:bg-green-700 transition duration-300 ease-in-out flex justify-center mt-4 w-32 border border-black rounded-md px-4 py-2 hover:shadow  bg-slate-700 hover:bg-slate-800 flex-shrink-0 text-lg font-bold",
+									!code ? "opacity-50" : ""
+								)}
+							>
+								<FaPlay className="pt-2 text-xl" />
+								{processing ? "Processing..." : "Run"}
+							</button>
+
+							<button
+								onClick={handleCompile}
+								disabled={!code}
+								className={classnames(
+									"bg-green-500 hover:bg-green-600 focus:ring focus:ring-green-300 focus:outline-none active:bg-green-700 text-white transition duration-300 ease-in-out mt-4 w-32 ml-4 text-lg border border-black rounded-md px-4 py-2 hover:shadow flex-shrink-0 font-bold",
+									!code ? "opacity-50" : ""
+								)}
+							>
+								{/* Submit */}
+								{processing ? "Submitting..." : "Submit"}
+							</button>
+						</div>
+
+						{/* {outputDetails && <OutputDetails outputDetails={outputDetails} />} */}
+					</div>
+				</div>
 			</div>
 
-			<div className="flex flex-col md:flex-row md:h-screen pt-16">
-				<div className="left problem sm:w-screen md:w-8/12 md:overflow-y-scroll md:border-r border-gray-600 pr-2">
-					{/* <div className="overflow-y-scroll"> */}
-					<ProblemDescription />
-					{/* </div> */}
 
-				</div>
-				<div className="right w-screen md:w-[55%] flex flex-col md:overflow-y-scroll sm:px-6">
-					
-					<div className="h-1/2 mt-2">
-						<CodeEditorWindow
-							code={code}
-							onChange={onChange}
-							language={language?.value}
-							theme={theme.value}
-						/>
-					</div>
-					<div>
-						<CustomInput
-							customInput={customInput}
-							setCustomInput={setCustomInput}
-						/>
-					</div>
-
-					<div className="mb-4 md:mb-20">
-						<OutputWindow outputDetails={outputDetails} />
-					</div>
-
-					<div className="fill-available flex w-full justify-center bg-gray-900 border-2 border-gray-600 rounded-t-lg md:fixed md:bottom-0 pb-2 bg-opacity-95 md:-ml-[1.5rem]">
-						<button
-							onClick={handleCompile}
-							disabled={!code}
-							className={classnames(
-								"text-green-500 hover:text-green-600 focus:ring focus:ring-green-300 focus:outline-none active:bg-green-700 transition duration-300 ease-in-out flex justify-center mt-4 w-32 border border-black rounded-md px-4 py-2 hover:shadow  bg-slate-700 hover:bg-slate-800 flex-shrink-0 text-lg font-bold",
-								!code ? "opacity-50" : ""
-							)}
-						>
-							<FaPlay className="pt-2 text-xl" />
-							{processing ? "Processing..." : "Run"}
-						</button>
-
-						<button
-							onClick={handleCompile}
-							disabled={!code}
-							className={classnames(
-								"bg-green-500 hover:bg-green-600 focus:ring focus:ring-green-300 focus:outline-none active:bg-green-700 text-white transition duration-300 ease-in-out mt-4 w-32 ml-4 text-lg border border-black rounded-md px-4 py-2 hover:shadow flex-shrink-0 font-bold",
-								!code ? "opacity-50" : ""
-							)}
-						>
-							Submit
-							{/* {processing ? "Processing..." : "Submit"} */}
-						</button>
-					</div>
-
-					{/* {outputDetails && <OutputDetails outputDetails={outputDetails} />} */}
-				</div>
-			</div>
 
 			{/* <div className="flex flex-row space-x-4 justify-between px-4 h-full overflow-hidden py-4">
         <ProblemDescription />
