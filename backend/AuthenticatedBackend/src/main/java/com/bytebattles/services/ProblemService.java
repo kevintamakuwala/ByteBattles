@@ -17,7 +17,7 @@ public interface ProblemService {
 
     public boolean deleteProblem(String problemId);
 
-    public Problem assignTagToProject(Long problemId, Long tagId);
+    public Problem assignTagToProblem(Long problemId, Long tagId);
 
-    public Problem assignTagToProject(Long problemId, AssignTagToProblemDTO assignTagToProblemDTO);
+    public Problem assignTagToProblem(Long problemId, AssignTagToProblemDTO assignTagToProblemDTO);
 }

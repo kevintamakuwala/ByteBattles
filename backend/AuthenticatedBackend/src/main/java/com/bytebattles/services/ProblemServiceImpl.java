@@ -26,7 +26,6 @@ public class ProblemServiceImpl implements ProblemService {
     @Autowired
     TagRepository tagRepository;
 
-    @Transactional
     @Override
     public List<Problem> getProblems() {
         return problemRepository.findAll();
@@ -51,7 +50,15 @@ public class ProblemServiceImpl implements ProblemService {
             return null;
         }
 
-        Problem existingProblem = problemRepository.getOne(problemId);
+        Problem existingProblem = problemRepository.findById(problemId).get();
+
+        Set<Tag> tagSet = updatedProblem.getTagList();
+
+        if (tagSet == null) {
+            existingProblem.setTagList(new HashSet<>());
+        } else if (!tagSet.isEmpty()) {
+            existingProblem.setTagList(tagSet);
+        }
 
         existingProblem.setTitle(updatedProblem.getTitle());
         existingProblem.setDescription(updatedProblem.getDescription());
@@ -80,7 +87,7 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public Problem assignTagToProject(Long problemId, Long tagId) {
+    public Problem assignTagToProblem(Long problemId, Long tagId) {
         Problem problem = problemRepository.findById(problemId).get();
         Tag tag = tagRepository.findById(tagId).get();
 
@@ -99,7 +106,7 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public Problem assignTagToProject(Long problemId, AssignTagToProblemDTO assignTagToProblemDTO) {
+    public Problem assignTagToProblem(Long problemId, AssignTagToProblemDTO assignTagToProblemDTO) {
         Problem problem = problemRepository.findById(problemId).get();
         Set<Tag> tagSet = assignTagToProblemDTO.getTags();
         for (Tag tag : tagSet) {
@@ -109,7 +116,7 @@ public class ProblemServiceImpl implements ProblemService {
             } else {
                 tag = tagRepository.save(tag);
             }
-            problem = assignTagToProject(problemId, tag.getTagId());
+            problem = assignTagToProblem(problemId, tag.getTagId());
         }
         return problem;
     }

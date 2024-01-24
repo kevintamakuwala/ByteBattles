@@ -7,6 +7,7 @@ import com.bytebattles.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -44,6 +45,20 @@ public class ContestServiceImpl implements ContestService {
         }
 
         Contest existingContest = contestRepository.findById(contestId).get();
+        Set<Problem> problemSet = contest.getProblemSet();
+        Set<ApplicationUser> applicationUserSet = contest.getApplicationUserSet();
+
+        if (problemSet == null) {
+            existingContest.setProblemSet(new HashSet<>());
+        } else if (!problemSet.isEmpty()) {
+            existingContest.setProblemSet(problemSet);
+        }
+
+        if (applicationUserSet == null) {
+            existingContest.setApplicationUserSet(new HashSet<>());
+        } else if (!applicationUserSet.isEmpty()) {
+            existingContest.setApplicationUserSet(applicationUserSet);
+        }
 
         existingContest.setTitle(contest.getTitle());
         existingContest.setDescription(contest.getDescription());
@@ -81,6 +96,24 @@ public class ContestServiceImpl implements ContestService {
         return contestRepository.save(contest);
     }
 
+    //    for multiple problems to a contest
+    @Override
+    public Contest assignProblemToContest(Long contestId, AssignProblemToContestDTO assignProblemToContestDTO) {
+        Contest contest = contestRepository.findById(contestId).get();
+        Set<Problem> problemSet = assignProblemToContestDTO.getProblems();
+        for (Problem problem : problemSet) {
+            Optional<Problem> existingProblem = problemRepository.findByTitle(problem.getTitle());
+            if (existingProblem.isPresent()) {
+                problem = existingProblem.get();
+            } else {
+                problem = problemRepository.save(problem);
+            }
+            contest = assignProblemToContest(contestId, problem.getProblemId());
+        }
+        System.out.println(contest);
+        return contest;
+    }
+
     //    for single user to a contest
     @Override
     public Contest assignUserToContest(Long contestId, Integer userId) {
@@ -99,23 +132,6 @@ public class ContestServiceImpl implements ContestService {
         userRepository.save(applicationUser);
 
         return contestRepository.save(contest);
-    }
-
-    //    for multiple problems to a contest
-    @Override
-    public Contest assignProblemToContest(Long contestId, AssignProblemToContestDTO assignProblemToContestDTO) {
-        Contest contest = contestRepository.findById(contestId).get();
-        Set<Problem> problemSet = assignProblemToContestDTO.getProblems();
-        for (Problem problem : problemSet) {
-            Optional<Problem> existingProblem = problemRepository.findByTitle(problem.getTitle());
-            if (existingProblem.isPresent()) {
-                problem = existingProblem.get();
-            } else {
-                problem = problemRepository.save(problem);
-            }
-            contest = assignProblemToContest(contestId, problem.getProblemId());
-        }
-        return contest;
     }
 
     //    for multiple users to a contest

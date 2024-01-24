@@ -74,11 +74,11 @@ public class ProblemController {
     @PutMapping({"/{problemId}/tags/{tagId}","/{problemId}/tags/{tagId}/"})
     public Problem assignTagToProblem(@PathVariable Long problemId,
                                       @PathVariable Long tagId) {
-        return problemService.assignTagToProject(problemId,tagId);
+        return problemService.assignTagToProblem(problemId,tagId);
     }
     @PutMapping({"/{problemId}/tags","/{problemId}/tags/"})
     public Problem assignTagsToProblem(@PathVariable Long problemId,
                                       @RequestBody AssignTagToProblemDTO assignTagToProblemDTO) {
-        return problemService.assignTagToProject(problemId,assignTagToProblemDTO);
+        return problemService.assignTagToProblem(problemId,assignTagToProblemDTO);
     }
 }
