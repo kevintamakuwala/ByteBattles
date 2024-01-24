@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import "../forms.css";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
-import { BASE_URL, errorNotification, successNotification } from "../../../utils";
+import {
+  BASE_URL,
+  errorNotification,
+  customSelectStyles,
+  successNotification,
+  requestOption,
+} from "../../../utils";
+import Select from "react-select";
+
 const ProblemUpdate = (props) => {
   const [problemTitle, setProblemTitle] = useState(props.data.title);
   const [description, setDescription] = useState(props.data.description);
@@ -11,15 +19,52 @@ const ProblemUpdate = (props) => {
     props.data.difficultyLevel
   );
 
+  const [selectedTagNames, setSelectedTagNames] = useState(
+    props.data.tagList.map((tag) => tag.name)
+  );
+  const [allTagNames, setAllTagNames] = useState([]);
+  const [tagData, setTagData] = useState([]);
+
+  // Fetching all tags
+  useEffect(() => {
+    fetchTags();
+  }, []);
+
+  const fetchTags = () => {
+    fetch(`${BASE_URL}/tags`, requestOption)
+      .then((res) => res.json())
+      .then((data) => {
+        setTagData(data);
+        setAllTagNames(data.map((tag) => tag.name));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleTagChange = (selectedOptions) => {
+    setSelectedTagNames(selectedOptions.map((option) => option.value));
+  };
+
+  const handleTagRemove = (removedTitle) => {
+    setAllTagNames((prevTitles) => [...prevTitles, removedTitle]);
+    setSelectedTagNames((prevSelected) =>
+      prevSelected.filter((title) => title !== removedTitle)
+    );
+  };
+
   // PUT Request Starts
   const PutRequest = (id) => {
+    const filteredTagData = tagData.filter((tag) =>
+      selectedTagNames.includes(tag.name)
+    );
+    const data = {
+      title: problemTitle,
+      description,
+      constraints,
+      difficultyLevel,
+      tagList: filteredTagData.length > 0 ? filteredTagData : null,
+    };
     axios
-      .put(`${BASE_URL}/problems/${id}`, {
-        title: problemTitle,
-        description: description,
-        constraints: constraints,
-        difficultyLevel: difficultyLevel,
-      })
+      .put(`${BASE_URL}/problems/${id}`, data)
       .then(() => {
         successNotification("Problem Updated Successfully");
       })
@@ -64,38 +109,6 @@ const ProblemUpdate = (props) => {
               />
             </div>
 
-            {/* <div className="form-group">
-            <label htmlFor="timings">Timings *</label>
-            <div className="time-container">
-              <div className="from-time">
-                <label htmlFor="fromTime">From</label>
-                <input
-                  className="form-control timings"
-                  type="time"
-                  name="timings"
-                  id="timings"
-                  placeholder="Enter Timings"
-                  value={openTime}
-                  autoComplete="off"
-                  onChange={(e) => setOpenTime(e.target.value)}
-                />
-              </div>
-              <div className="to-time">
-                <label htmlFor="toTime">To</label>
-                <input
-                  className="form-control timings"
-                  type="time"
-                  name="timings"
-                  id="timings"
-                  placeholder="Enter Timings"
-                  value={closeTime}
-                  autoComplete="off"
-                  onChange={(e) => setCloseTime(e.target.value)}
-                />
-              </div>
-            </div>
-          </div> */}
-
             <div className="form-group">
               <label htmlFor="constraints">Constraints *</label>
               <input
@@ -110,90 +123,41 @@ const ProblemUpdate = (props) => {
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group" style={{ margin: "1rem 0" }}>
               <label htmlFor="difficultyLevel">Difficulty Level *</label>
-              <input
-                className="form-control"
-                type="dropdown"
-                name="difficultyLevel"
-                list="difficultyLevels"
-                value={difficultyLevel}
+              <Select
                 id="difficultyLevel"
-                placeholder="Select difficulty Level"
-                autoComplete="off"
-                onChange={(e) => {
-                  setDifficultyLevel(e.target.value);
+                value={{ value: difficultyLevel, label: difficultyLevel }}
+                options={["easy", "medium", "hard"].map((difficultyLevel) => ({
+                  value: difficultyLevel,
+                  label: difficultyLevel,
+                }))}
+                onChange={(selectedDifficultyLevel) => {
+                  setDifficultyLevel(selectedDifficultyLevel.value);
                 }}
+                styles={customSelectStyles}
               />
-              <datalist id="difficultyLevels">
-                {["easy", "medium", "hard"].map((difficultyLevel, index) => {
-                  return (
-                    <option key={index} value={difficultyLevel}>
-                      {difficultyLevel}
-                    </option>
-                  );
-                })}
-              </datalist>
             </div>
-
-            {/* <div className="form-group">
-            <label htmlFor="area">Area *</label>
-            <input
-              className="form-control"
-              type="dropdown"
-              name="area"
-              list="areas"
-              id="area"
-              value={area}
-              placeholder="Select Area"
-              autoComplete="off"
-              onChange={(e) => setArea(e.target.value)}
-            />
-
-            <datalist
-              id="areas"
-              onChange={(e) => {
-                setArea(e.target.value);
-              }}
-            >
-              <option value={area}>--select--</option>
-              {areaList.map((area) => {
-                return (
-                  <>
-                    <option value={area.name}>{area.name}</option>
-                  </>
-                );
-              })}
-            </datalist>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="slug">Slug *</label>
-            <input
-              className="form-control"
-              type="text"
-              name="text"
-              id="slug"
-              value={slug}
-              placeholder="Enter slug"
-              autoComplete="off"
-              onChange={(e) => setSlug(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="aboutUs">About Us *</label>
-            <input
-              className="form-control"
-              type="text"
-              name="text"
-              id="aboutUs"
-              value={aboutUs}
-              placeholder="Enter slug"
-              autoComplete="off"
-              onChange={(e) => setAboutUs(e.target.value)}
-            />
-          </div> */}
-
+            
+            <div className="form-group" style={{ margin: "1rem 0" }}>
+              <label htmlFor="tag">Select Tags:</label>
+              <Select
+                id="tag"
+                value={selectedTagNames.map((name) => ({
+                  value: name,
+                  label: name,
+                }))}
+                isMulti
+                options={allTagNames.map((name) => ({
+                  value: name,
+                  label: name,
+                }))}
+                styles={customSelectStyles}
+                onChange={handleTagChange}
+                isSearchable={true}
+                onRemove={handleTagRemove}
+              />
+            </div>
             <button
               className="submit-btn"
               type="submit"

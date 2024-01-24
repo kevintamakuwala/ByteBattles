@@ -1,36 +1,70 @@
 import React, { useEffect, useState } from "react";
-import "../forms.css";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
+import Select from "react-select";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import {
   BASE_URL,
+  customSelectStyles,
   errorNotification,
   minMaxTime,
+  requestOption,
   successNotification,
 } from "../../../utils";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
-const ContestUpdate = (props) => {
-  const [title, setTitle] = useState(props.data.title);
-  const [description, setDescription] = useState(props.data.description);
-  
-
-  const [startTimeFormatted, setStartTimeFormatted] = useState(props.data.startTime);
-  const [endTimeFormatted, setEndTimeFormatted] = useState(props.data.endTime);
+const ContestUpdate = ({ data }) => {
+  const [title, setTitle] = useState(data.title);
+  const [description, setDescription] = useState(data.description);
+  const [startTimeFormatted, setStartTimeFormatted] = useState(data.startTime);
+  const [endTimeFormatted, setEndTimeFormatted] = useState(data.endTime);
   const [startTime, setStartTime] = useState(new Date(...startTimeFormatted));
   const [endTime, setEndTime] = useState(new Date(...endTimeFormatted));
-  
-  // PUT Request Starts
-  const PutRequest = (id) => {
-    axios
-      .put(`${BASE_URL}/contests/${id}`, {
-        title,
-        description,
-        startTime: startTimeFormatted,
-        endTime: endTimeFormatted,
+  const [selectedProblemTitles, setSelectedProblemTitles] = useState(
+    data.problemSet.map((problem) => problem.title)
+  );
+  const [allProblemTitles, setAllProblemTitles] = useState([]);
+  const [problemData, setProblemData] = useState([]);
+
+  useEffect(() => {
+    fetchProblems();
+  }, []);
+
+  const fetchProblems = () => {
+    fetch(`${BASE_URL}/problems`, requestOption)
+      .then((res) => res.json())
+      .then((data) => {
+        setProblemData(data);
+        setAllProblemTitles(data.map((problem) => problem.title));
       })
+      .catch((err) => console.log(err));
+  };
+
+  const handleProblemChange = (selectedOptions) => {
+    setSelectedProblemTitles(selectedOptions.map((option) => option.value));
+  };
+
+  const handleProblemRemove = (removedTitle) => {
+    setAllProblemTitles((prevTitles) => [...prevTitles, removedTitle]);
+    setSelectedProblemTitles((prevSelected) =>
+      prevSelected.filter((title) => title !== removedTitle)
+    );
+  };
+
+  const PutRequest = (id) => {
+    const filteredProblemData = problemData.filter((problem) =>
+      selectedProblemTitles.includes(problem.title)
+    );
+    const data = {
+      title,
+      description,
+      startTime: startTimeFormatted,
+      endTime: endTimeFormatted,
+      problemSet: filteredProblemData.length > 0 ? filteredProblemData : null,
+    };
+
+    axios
+      .put(`${BASE_URL}/contests/${id}`, data)
       .then(() => {
         successNotification("Contest Updated Successfully");
       })
@@ -39,28 +73,16 @@ const ContestUpdate = (props) => {
       });
   };
 
-  const handleStartTimeChange = (date) => {
-    const startTime = [
+  const handleDateTimeChange = (date, setter, formatter) => {
+    const formattedDate = [
       date?.getFullYear(),
       date?.getMonth() + 1,
       date?.getDate(),
       date?.getHours(),
       date?.getMinutes(),
     ];
-    setStartTimeFormatted(startTime);
-    setStartTime(date);
-  };
-
-  const handleEndTimeChange = (date) => {
-    const endTime = [
-      date?.getFullYear(),
-      date?.getMonth() + 1,
-      date?.getDate(),
-      date?.getHours(),
-      date?.getMinutes(),
-    ];
-    setEndTimeFormatted(endTime);
-    setEndTime(date);
+    setter(formattedDate);
+    formatter(date);
   };
 
   return (
@@ -80,9 +102,7 @@ const ContestUpdate = (props) => {
                 placeholder="Enter Title"
                 autoComplete="off"
                 value={title}
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                }}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -98,38 +118,15 @@ const ContestUpdate = (props) => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-            {/* 
-            <div className="form-group">
-              <label htmlFor="difficultyLevel">Difficulty Level *</label>
-              <input
-                className="form-control"
-                type="dropdown"
-                name="difficultyLevel"
-                list="difficultyLevels"
-                value={difficultyLevel}
-                id="difficultyLevel"
-                placeholder="Select difficulty Level"
-                autoComplete="off"
-                onChange={(e) => {
-                  setDifficultyLevel(e.target.value);
-                }}
-              />
-              <datalist id="difficultyLevels">
-                {["easy", "medium", "hard"].map((difficultyLevel, index) => {
-                  return (
-                    <option key={index} value={difficultyLevel}>
-                      {difficultyLevel}
-                    </option>
-                  );
-                })}
-              </datalist>
-            </div> */}
+
             <div className="form-group">
               <label htmlFor="startTime">Start Time *</label>
               <br />
               <DatePicker
                 selected={startTime}
-                onChange={handleStartTimeChange}
+                onChange={(date) =>
+                  handleDateTimeChange(date, setStartTimeFormatted, setStartTime)
+                }
                 showTimeSelect
                 timeFormat="HH:mm"
                 timeIntervals={15}
@@ -146,7 +143,9 @@ const ContestUpdate = (props) => {
               <br />
               <DatePicker
                 selected={endTime}
-                onChange={handleEndTimeChange}
+                onChange={(date) =>
+                  handleDateTimeChange(date, setEndTimeFormatted, setEndTime)
+                }
                 showTimeSelect
                 timeFormat="HH:mm"
                 timeIntervals={15}
@@ -158,10 +157,31 @@ const ContestUpdate = (props) => {
                 isValidDate={(selectedDate) => selectedDate >= new Date()}
               />
             </div>
+
+            <div className="form-group" style={{ margin: "1rem 0" }}>
+              <label htmlFor="problem">Select Problems:</label>
+              <Select
+                id="problem"
+                value={selectedProblemTitles.map((title) => ({
+                  value: title,
+                  label: title,
+                }))}
+                isMulti
+                options={allProblemTitles.map((title) => ({
+                  value: title,
+                  label: title,
+                }))}
+                styles={customSelectStyles}
+                onChange={handleProblemChange}
+                isSearchable={true}
+                onRemove={handleProblemRemove}
+              />
+            </div>
+
             <button
               className="submit-btn"
               type="submit"
-              onClick={() => PutRequest(props.data.contestId)}
+              onClick={() => PutRequest(data.contestId)}
             >
               Update Contest
             </button>
@@ -171,4 +191,5 @@ const ContestUpdate = (props) => {
     </>
   );
 };
+
 export default ContestUpdate;

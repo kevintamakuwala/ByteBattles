@@ -6,6 +6,7 @@ import {
   successNotification,
   customSelectStyles,
   minMaxTime,
+  requestOption,
 } from "../../../utils";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -24,10 +25,6 @@ const AddContest = () => {
   const [endTimeFormatted, setEndTimeFormatted] = useState();
 
   useEffect(() => {
-    const requestOption = {
-      method: "GET",
-      header: { "Content-Type": "application/json" },
-    };
     fetch(`${BASE_URL}/problems`, requestOption)
       .then((res) => res.json())
       .then((data) => {

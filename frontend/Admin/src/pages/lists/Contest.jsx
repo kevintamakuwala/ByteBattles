@@ -72,8 +72,10 @@ const Problem = () => {
           .toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
         item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchTerm.toLowerCase()) 
-       
+        item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.problemSet.some((problem) =>
+        problem.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     );
 
     setSearchResults(results);
