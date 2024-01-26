@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -7,6 +7,15 @@ const Contest = (props) => {
 	const navigate = useNavigate();
 
 	const [msg, setMsg] = useState("");
+	const [backgroundColor, setBackgroundColor] = useState("");
+	// const bgColor = props.backgroundColor;
+	// console.log(bgColor);
+	// setBackgroundColor(bgColor)
+
+	useEffect(() => {
+		// Update the background color only when the prop value changes
+		setBackgroundColor(props.backgroundColor);
+	  }, [props.backgroundColor]);
 
 	const handleClick = (e) => {
 		if (props.value === "disable") {
@@ -20,14 +29,14 @@ const Contest = (props) => {
 	};
 
 	return (
-		<div className='my-2'>
+		<div className='my-1'>
 			{/* <Link to={{pathname:"/contestproblems",state:{value : props}}} > */}
 
 			{/* () =>{
             navigate('/contestproblems' ,{state : props.value});
         } */}
 			{/* <Link to="/contestproblems" onClick={handleClick}> */}
-			<div className='h-[4.5rem] max-[493px]:w-full max-[493px]:m-auto max-[493px]:my-1 max-[493px]:px-3 items-center flex max-[493px]:flex-col max-[493px]:h-fit bg-slate-600 text-white lg:font-semibold justify-evenly rounded-md overflow-hidden py-2 cursor-pointer border-t-2 border-b-2 border-slate-500 max-[493px]:items-center' onClick={handleClick} >
+			<div className={`h-[4rem] max-[493px]:w-full max-[493px]:m-auto max-[493px]:my-1 max-[493px]:px-3 items-center flex max-[493px]:flex-col max-[493px]:h-fit text-white lg:font-semibold justify-evenly overflow-hidden py-2 cursor-pointer   max-[493px]:items-center ${backgroundColor}`} onClick={handleClick} >
 				{/* <p className='max-[493px]:text-lg text-base md:text-xl'>Id</p> */}
 				<div className='max-[493px]:flex max-[493px]:items-baseline max-[493px]:w-full max-[493px]:justify-center max-[493px]:pr-[30%]'>
 					<p className='min-[493px]:hidden pr-4 text-md'>Title: </p>
@@ -50,7 +59,7 @@ const Contest = (props) => {
 				</div>
 
 				<div>
-                    <Link>
+                    <Link disabled={props.value === "hidden"}>
                     <button className={`${(props.value === "hidden" ? "opacity-40 cursor-not-allowed max-[493px]:hidden" : "")} max-[493px]:mt-3 font-medium text-xl bg-slate-800 border border-slate-500 text-green-400 hover:bg-slate-900 hover:text-green-300 px-3 py-1 rounded-md transition duration-300 ease-in-out`}>Register</button>
                     </Link>
 

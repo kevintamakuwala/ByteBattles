@@ -1,1 +1,0 @@
-# Trakky Admin Panel

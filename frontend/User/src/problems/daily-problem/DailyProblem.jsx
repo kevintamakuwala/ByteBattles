@@ -3,7 +3,7 @@ import { FaCalendarCheck } from "react-icons/fa6";
 
 const DailyProblem = () => {
     return (
-        <div className='dailyProblem__main bg-slate-800 mr-[0.5rem] md:mr-0 rounded-2xl p-4 md:p-8 flex flex-col items-center text-center text-white lg:h-[21.5rem] mb-2'>
+        <div className='dailyProblem__main bg-slate-900 mr-[0.5rem] md:mr-0 rounded-lg p-4 md:p-8 flex flex-col items-center text-center text-white lg:h-[21.5rem] mb-2' style={{ boxShadow : "0 8px 17px 7px rgba(85 84 84 0.1)"}}>
             <div className='today-problem flex items-center gap-3 lg:gap-4 md:p-0 my-2 md:m-4 w-full justify-center'>
                 <FaCalendarCheck className='text-green-500 text-2xl  lg:text-3xl' />
                 <h2 className='text-2xl md:text-xl font-bold font-sans pb-2 md:pb-0'>Problem for You!!!</h2>

@@ -1,10 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
 
-/* To cover the whole screen */
 .dashboard__container {
     width: 98%;
     height: 100vh;
     margin-left: 2%;
+}
+.chart__container {
+    display: flex;
+    column-gap:3.4rem;
+    align-items: center;
+    margin-top: 2.8rem;
 }
 
 /* Displaying data_labels as flex */

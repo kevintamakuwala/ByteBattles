@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Editor from "@monaco-editor/react";
 
-const CodeEditorWindow = ({ onChange, language, code, theme }) => {
+const CodeEditorWindow = ({ onChange, language, code, theme, codeEditorHeight }) => {
   const [value, setValue] = useState(code || "");
 
   const handleEditorChange = (value) => {
@@ -11,9 +11,9 @@ const CodeEditorWindow = ({ onChange, language, code, theme }) => {
   };
   
   return (
-    <div className="overlay border-2 border-gray-600 rounded-lg overflow-hidden  h-full mx-2 shadow-4xl">
+    <div className="overlay border-2 border-gray-600 rounded-lg overflow-hidden h-full mx-2 shadow-4xl">
       <Editor
-        height="56vh"
+        height={`100%`}
         width={`100%`}
         language={language || "javascript"}
         value={value}

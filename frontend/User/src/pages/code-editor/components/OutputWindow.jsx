@@ -34,11 +34,11 @@ const OutputWindow = ({ outputDetails }) => {
     }
   };
   return (
-    <div className="flex flex-col border-2 mx-2 border-gray-600 rounded-xl">
+    <div className="flex flex-col border-2 ms-2 border-gray-500">
       <h1 className="font-bold text-base sm:text-lg md:text-xl bg-clip-text text-white px-4 pt-2 bg-gradient-to-r from-slate-900 to-slate-700 mb-2">
         Output:
       </h1>
-      <div className="h-56 bg-[#1e293b] mx-4 mb-4 border-2 rounded-md border-gray-600 text-white font-normal text-base sm:text-lg md:text-xl overflow-y-auto">
+      <div className="h-56 bg-[#1e293b] mx-4 mb-4 border-2 rounded-md border-gray-500 text-white font-normal text-base sm:text-lg md:text-xl overflow-y-auto">
         {outputDetails ? <>{getOutput()}</> : null}
       </div>
     </div>

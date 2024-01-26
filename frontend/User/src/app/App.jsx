@@ -18,6 +18,7 @@ import "./App.css";
 import ContestPage from "../pages/contest/ContestPage";
 import ContestList from "../pages/contest/ContestList";
 import Contest from "../pages/contest/Contest";
+import ProfilePage from "../pages/profilePage/ProfilePage";
 
 const App = () => {
   const navigate = useNavigate();
@@ -96,7 +97,7 @@ const App = () => {
             <Route path="/contests" element={<ContestList/>} />
             <Route path="/contestproblems" element={<ContestPage/>} />
             <Route path="/problem/*" element={<CodeWindow />} />
-
+            {/* <Route path="/profile/" element={<ProfilePage />} /> */}
 
 
             <Route path="*" element={<NotFound />} />

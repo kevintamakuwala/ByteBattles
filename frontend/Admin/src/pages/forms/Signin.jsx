@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState,useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,7 +9,11 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
+import { successNotification, errorNotification, BASE_URL } from "../../utils";
+import { ToastContainer } from "react-toastify";
+import Dashboard from "../lists/Dashboard";
+import { useNavigate } from "react-router-dom";
+import AdminContext from "../../context/AdminContext";
 
 function Copyright(props) {
   return (
@@ -21,100 +25,119 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="/">
-       ByteBattles
+        ByteBattles
       </Link>
     </Typography>
   );
 }
-const Signin = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    
-  };
 
+const Signin = ({ onLogin,onLogout }) => {
+  const { setLoginState } = useContext(AdminContext);
+  // const navigate = useNavigate();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = {
+      username,
+      password,
+    };
+    try {
+      const response = await fetch(`${BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const credentials = await response.json();
+        if (credentials.jwt !== "") {
+          onLogin();
+          localStorage.setItem("jwt", credentials.jwt);
+        } else {
+          onLogout();
+          errorNotification("Invalid Credentials");
+        }
+      } else {
+        errorNotification("Invalid Credentials");
+      }
+    } catch (error) {
+      errorNotification("Invalid Credentials");
+    }
+  };
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "auto",
-        height: "100%",
-        margin: "0 auto",
-      }}
-    >
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "#1F2A40" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Signin
-          </Typography>
+    <>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "auto",
+          height: "100%",
+          margin: "0 auto",
+        }}
+      >
+        <ToastContainer />
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
           <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="off"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="password"
-              type="number"
-              id="password"
-              autoComplete="off"
-            />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Avatar sx={{ m: 1, bgcolor: "#1F2A40" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
               Signin
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              {/* <Grid item>
-                <NavLink to="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </NavLink>
-              </Grid> */}
-            </Grid>
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="username"
+                name="email"
+                autoComplete="off"
+                autoFocus
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="password"
+                id="password"
+                autoComplete="off"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                onClick={(e) => handleSubmit(e)}
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Signin
+              </Button>
+            </Box>
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </div>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+      </div>
+    </>
   );
 };
 export default Signin;

@@ -120,3 +120,62 @@ body {
 */
 
 
+
+/* .PaginationWrapper {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+background-color: #fafafa; 
+} */
+.pagination {
+  display: flex;
+  list-style: none;
+  /* outline: white; */
+  font-size: large;
+}
+
+.pagination>ul{
+  margin-left: -18%;
+}
+
+.pagination>li{
+  margin: 0 2%;
+}
+
+.pagination>.active>a {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+  /* background-color: #58d358;
+  border-color: #58d358; */
+  color: white;
+  transition: all 300ms ease-in-out;
+  border-radius: 100%;
+}
+
+.pagination>li>a {
+  --tw-bg-opacity: 1;
+        background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+  border: 1px solid #060b0b;
+  border-radius: 100%;
+  padding: 9px 13px;
+  outline: none;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+  /* background-color: #58d358; */
+  --tw-bg-opacity: 1; background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+  border-color: white;
+  outline: none;
+}
+
+.pagination>li>a, .pagination>li>span {
+  color: white;
+}
+
+.pagination>li:first-child>a, .pagination>li:first-child>span, .pagination>li:last-child>a, .pagination>li:last-child>span {
+  border-radius: 15%
+}

@@ -2,6 +2,7 @@
     width: 20%;
     min-width: 15rem;
     background-color: #1d1e20;
+    height: 170vh;
     
 }
 
@@ -34,20 +35,6 @@
     align-items: center;
     justify-content: center;
     height: 2rem;
-}
-
-.trakky__logo {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.trakky__logo_img {
-    width: 50%;
-    height: auto;
-    display: flex;
-    margin: 0 auto;
 }
 
 .sidebar__topic_box {

@@ -1,12 +1,26 @@
-/* Navbar css starts  */
+/* Navbar css starts */
 .navbar__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 96%;
     margin: 1rem 2%;
     padding: 0.5rem 1rem;
     text-align: center;
-    letter-spacing: .2rem;
+    letter-spacing: 0.2rem;
     text-transform: uppercase;
 }
 
+.logout__button {
+    background-color: #1F2A40;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
 
-/* Navbar css ends  */
+.logout__button:hover {
+    background-color: #0e1522;
+}

@@ -45,7 +45,7 @@ const ProblemDescription = () => {
         output1: false,
         input2: false,
         output2: false,
-      });
+    });
 
 
 
@@ -55,9 +55,15 @@ const ProblemDescription = () => {
         navigator.clipboard.writeText(text);
         setCopiedText(text);
         setCopiedStates((prevStates) => ({
-            ...prevStates,
+            //     ...prevStates,
+            //     [className]: true,
+
+            input1: false,
+            output1: false,
+            input2: false,
+            output2: false,
             [className]: true,
-          }));
+        }));
     };
 
     return (
