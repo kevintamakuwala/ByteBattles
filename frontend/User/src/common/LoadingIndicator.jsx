@@ -1,14 +1,32 @@
-import React from 'react';
-import "./LoadingIndicator.css"
+import React from "react";
 
-export default function LoadingIndicator(props) {
-    return (
-        <div className="spinner-container">
-            <div className="spinner"></div>
-        </div>
+export default function LoadingIndicator() {
+  const spinnerContainerStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backdropFilter: "blur(8px)",
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    zIndex: 999,
+  };
 
-        // <div className="flex justify-center items-center h-full">
-        //     <div className="border-t-4 border-blue-500 border-solid rounded-full h-12 w-12 animate-spin"></div>
-        // </div>
-    );
+  const spinnerStyle = {
+    border: "4px solid rgba(0, 0, 0, 0.1)",
+    borderRadius: "50%",
+    borderTop: "4px solid #3498db",
+    width: "30px",
+    height: "30px",
+    animation: "spin 1s linear infinite",
+  };
+
+  return (
+    <div style={spinnerContainerStyle}>
+      <div style={spinnerStyle}></div>
+    </div>
+  );
 }

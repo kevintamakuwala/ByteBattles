@@ -36,7 +36,6 @@ const App = () => {
     notificationType = "success",
     description = "You're successfully logged out."
   ) => {
-    console.log("logout");
     localStorage.removeItem(ACCESS_TOKEN);
     setIsAuthenticated(false);
     navigate(redirectTo);
@@ -97,6 +96,7 @@ const App = () => {
             <Route path="/contests" element={<ContestList/>} />
             <Route path="/contestproblems" element={<ContestPage/>} />
             <Route path="/problem/*" element={<CodeWindow />} />
+            <Route path="/profile/" element={<ProfilePage />} />
             {/* <Route path="/profile/" element={<ProfilePage />} /> */}
 
 

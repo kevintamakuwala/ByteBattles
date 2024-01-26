@@ -21,7 +21,7 @@ const styles = {
     margin: "3% auto 6% auto",
     padding: "20px",
     textAlign: "center",
-    marginTop: "50px",
+    marginTop: "200px",
     backgroundColor: "#ffffff",
     color: "#120d32",
   },

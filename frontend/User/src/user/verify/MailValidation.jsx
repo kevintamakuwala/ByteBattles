@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ACCESS_TOKEN } from "../../constants";
 import { login, verify } from "../../util/APIUtils";
+import { errorNotification, successNotification } from "../../util/Helpers";
+import { ToastContainer } from "react-toastify";
 
 const MailValidation = (props) => {
   const [username, setUsername] = useState(localStorage.getItem("username"));
@@ -52,26 +54,28 @@ const MailValidation = (props) => {
         await login(data)
           .then((response) => {
             if (response.jwt === "") {
-              alert(
+              errorNotification(
                 "Your Username or Password is incorrect. Please try again!"
               );
               return;
             }
+            successNotification("Logged in");
+
             localStorage.setItem(ACCESS_TOKEN, response.jwt);
             props.onLogin();
             window.location.reload();
           })
           .catch((error) => {
             if (error.status === 401) {
-              alert(
+              errorNotification(
                 "Your Username or Password is incorrect. Please try again!"
               );
             } else {
-              alert(error.message);
+              errorNotification(error.message);
             }
           });
       } catch (error) {
-        alert("Sorry! Something went wrong. Please try again!");
+        successNotification("Sorry! Something went wrong. Please try again!");
       }
     }, 0);
   };
@@ -89,7 +93,8 @@ const MailValidation = (props) => {
     transition: "background-color 0.3s ease",
   };
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+    <div style={{ textAlign: "center", marginTop: "200px" }}>
+      <ToastContainer/>
       {username && password && !alreadyRegistered ? (
         <button style={buttonStyle} onClick={handleVerifyAndLogin}>
           Verify and Login
