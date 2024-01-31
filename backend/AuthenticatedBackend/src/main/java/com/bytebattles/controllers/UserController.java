@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/users")
@@ -35,14 +36,12 @@ public class UserController {
 
     @PostMapping({"/", ""})
     public ResponseEntity<ApplicationUser> addUser(@RequestBody ApplicationUser user) {
-        List<Submission> submissions = user.getSubmissionList();
+        Set<Submission> submissions = user.getSubmissionList();
         if (submissions != null) {
             for (Submission submission : submissions) {
                 submission.setApplicationUser(user);
             }
         }
-        System.out.println(submissions);
-
         ApplicationUser addedUser = userService.addUser(user);
         return new ResponseEntity<>(addedUser, HttpStatus.CREATED);
     }

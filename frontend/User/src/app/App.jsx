@@ -13,7 +13,7 @@ import Footer from "../common/Footer/Footer";
 // import Verify from "../user/verify/Verify";
 import MailValidation from "../user/verify/MailValidation";
 import ProblemPage from "../problems/ProblemPage";
-import CodeWindow from "../pages/code-editor/components/CodeWindow"
+import CodeWindow from "../pages/code-editor/components/CodeWindow";
 import "./App.css";
 import ContestPage from "../pages/contest/ContestPage";
 import ContestList from "../pages/contest/ContestList";
@@ -31,18 +31,11 @@ const App = () => {
   const [newUsername, setNewUsername] = useState(username);
   const [newPassword, setNewPassword] = useState(password);
 
-  const handleLogout = (
-    redirectTo = "/",
-    notificationType = "success",
-    description = "You're successfully logged out."
-  ) => {
+  const handleLogout = (redirectTo = "/") => {
     localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem("id");
     setIsAuthenticated(false);
     navigate(redirectTo);
-    // notification[notificationType]({
-    //   message: "ByteBattles",
-    //   description: description,
-    // });
   };
 
   const handleLogin = () => {
@@ -73,14 +66,13 @@ const App = () => {
     localStorage.setItem("password", pwd);
   };
 
-  const shouldRenderNavbarAndFooter = !(location.pathname.includes("/problem/"));
+  const shouldRenderNavbarAndFooter = !location.pathname.includes("/problems/");
 
   return (
     <div className="overflow-x-hidden bg-slate-950">
       <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
       {shouldRenderNavbarAndFooter && (
         <>
-          
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
@@ -92,13 +84,12 @@ const App = () => {
               path="/verify"
               element={<MailValidation onLogin={handleLogin} />}
             />
-            <Route path="/problemset" element={<ProblemPage />} />
-            <Route path="/contests" element={<ContestList/>} />
-            <Route path="/contestproblems" element={<ContestPage/>} />
-            <Route path="/problem/*" element={<CodeWindow />} />
+            <Route path="/problemset/" element={<ProblemPage />} />
+            <Route path="/contests" element={<ContestList />} />
+            <Route path="/contestproblems" element={<ContestPage />} />
+            <Route path="/problems/*" element={<CodeWindow />} />
             <Route path="/profile/" element={<ProfilePage />} />
             {/* <Route path="/profile/" element={<ProfilePage />} /> */}
-
 
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -109,12 +100,9 @@ const App = () => {
 
       {!shouldRenderNavbarAndFooter && (
         <Routes>
-          <Route path="/problem/*" element={<CodeWindow />} />
+          <Route path="/problems/*" element={<CodeWindow />} />
         </Routes>
-
-
       )}
-
     </div>
   );
 };

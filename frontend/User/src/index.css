@@ -33,12 +33,12 @@ code {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #898b89;
-  border-radius: 5px;
+  border-radius: 100px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -170,6 +170,7 @@ background-color: #fafafa;
   --tw-bg-opacity: 1; background-color: rgb(31 41 55 / var(--tw-bg-opacity));
   border-color: white;
   outline: none;
+  display: none;
 }
 
 .pagination>li>a, .pagination>li>span {

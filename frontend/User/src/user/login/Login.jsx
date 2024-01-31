@@ -35,6 +35,7 @@ const Login = (props) => {
                 return;
               }
               localStorage.setItem(ACCESS_TOKEN, response.jwt);
+              localStorage.setItem("id", response.user.userId);
               props.onLogin();
               window.location.reload();
             })
@@ -65,7 +66,8 @@ const Login = (props) => {
   };
 
   return !(
-    localStorage.length > 0 && localStorage.getItem(ACCESS_TOKEN) !== ""
+    localStorage.getItem(ACCESS_TOKEN) !== null &&
+    localStorage.getItem(ACCESS_TOKEN) !== undefined
   ) ? (
     <div id="loginform">
       {/* <FormHeader title="Login" /> */}
@@ -87,9 +89,8 @@ const Login = (props) => {
     </div>
   ) : (
     () => {
-      // Use history.replace to change the current URL without adding a new entry to the history stack
       navigate.replace("/");
-      return null; // This is to prevent rendering anything when redirecting
+      return null;
     }
   );
 };
@@ -107,16 +108,6 @@ const Form = (props) => (
           value={props.username}
           onChange={(e) => props.setUsername(e.target.value)}
         />
-
-        {/* <div className="FormInput">
-          <input
-            type="text"
-            placeholder="Enter your username"
-            value={props.username}
-            onChange={(e) => props.setUsername(e.target.value)}
-          />
-          <label>Username</label>
-        </div> */}
 
         <FormInput
           description="Password"
@@ -195,87 +186,3 @@ const FormInput = (props) => (
 );
 
 export default Login;
-
-// const FormItem = Form.Item;
-
-// class Login extends Component {
-//   render() {
-//     const AntWrappedLoginForm = Form.create()(LoginForm);
-//     return (
-//       <div className="login-container">
-//         <h1 className="page-title">Login</h1>
-//         <div className="login-content">
-//           <AntWrappedLoginForm onLogin={this.props.onLogin} />
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Login;
-
-// class LoginForm extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
-//   handleSubmit(event) {
-//     event.preventDefault();
-//     this.props.form.validateFields((err, values) => {
-//       if (!err) {
-//         const loginRequest = Object.assign({}, values);
-//
-//       }
-//     });
-//   }
-
-//   render() {
-//     const { getFieldDecorator } = this.props.form;
-//     return (
-//       <Form onSubmit={this.handleSubmit} className="login-form">
-//         <FormItem>
-//           {getFieldDecorator("username", {
-//             rules: [
-//               {
-//                 required: true,
-//                 message: "Please input your username!",
-//               },
-//             ],
-//           })(
-//             <Input
-//               prefix={<Icon type="user" />}
-//               size="large"
-//               name="username"
-//               placeholder="Username"
-//             />
-//           )}
-//         </FormItem>
-//         <FormItem>
-//           {getFieldDecorator("password", {
-//             rules: [{ required: true, message: "Please input your Password!" }],
-//           })(
-//             <Input
-//               prefix={<Icon type="lock" />}
-//               size="large"
-//               name="password"
-//               type="password"
-//               placeholder="Password"
-//             />
-//           )}
-//         </FormItem>
-//         <FormItem>
-//           <Button
-//             type="primary"
-//             htmlType="submit"
-//             size="large"
-//             className="login-form-button"
-//           >
-//             Login
-//           </Button>
-//           Or <Link to="/signup">register now!</Link>
-//         </FormItem>
-//       </Form>
-//     );
-//   }
-// }

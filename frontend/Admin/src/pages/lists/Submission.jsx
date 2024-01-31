@@ -191,7 +191,12 @@ const Submission = () => {
                       <td>{submission.submissionId}</td>
                       <td>{submission.language}</td>
                       <td>{submission.result}</td>
-                      <td>{formatDate(submission.submissionDate)}</td>
+
+                      <td
+                        dangerouslySetInnerHTML={{
+                          __html: formatDate(submission.submissionDate),
+                        }}
+                      ></td>
                       <td>
                         <AiFillDelete
                           onClick={() => {

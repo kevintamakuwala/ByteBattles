@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -43,19 +42,19 @@ public class ApplicationUser implements UserDetails {
 
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "user-submission")
-    private List<Submission> submissionList;
+    private Set<Submission> submissionList = new HashSet<>();
 
     @JsonIgnore
     @ManyToMany(mappedBy = "applicationUserSet", fetch = FetchType.LAZY)
     private Set<Contest> contestSet = new HashSet<>();
 
-//    constructors
+    //    constructors
     public ApplicationUser() {
         super();
         authorities = new HashSet<>();
     }
 
-    public ApplicationUser(Integer userId, String name, String email, String username, String password, String verificationCode, boolean enabled, Set<Role> authorities, List<Submission> submissionList) {
+    public ApplicationUser(Integer userId, String name, String email, String username, String password, String verificationCode, boolean enabled, Set<Role> authorities, Set<Submission> submissionList) {
         this.userId = userId;
         this.name = name;
         this.email = email;
@@ -67,7 +66,7 @@ public class ApplicationUser implements UserDetails {
         this.submissionList = submissionList;
     }
 
-    public ApplicationUser(Integer userId, String name, String email, String username, String password, String verificationCode, boolean enabled, Set<Role> authorities, List<Submission> submissions, Set<Contest> contestSet) {
+    public ApplicationUser(Integer userId, String name, String email, String username, String password, String verificationCode, boolean enabled, Set<Role> authorities, Set<Submission> submissions, Set<Contest> contestSet) {
         super();
         this.userId = userId;
         this.username = username;
@@ -87,7 +86,7 @@ public class ApplicationUser implements UserDetails {
             this.contestSet = contestSet;
     }
 
-//    Getters and Setters
+    //    Getters and Setters
     public Integer getUserId() {
         return this.userId;
     }
@@ -140,11 +139,11 @@ public class ApplicationUser implements UserDetails {
     }
 
 
-    public List<Submission> getSubmissionList() {
+    public Set<Submission> getSubmissionList() {
         return submissionList;
     }
 
-    public void setSubmissionList(List<Submission> submissionList) {
+    public void setSubmissionList(Set<Submission> submissionList) {
         this.submissionList = submissionList;
     }
 

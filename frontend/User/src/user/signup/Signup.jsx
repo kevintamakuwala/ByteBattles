@@ -63,10 +63,11 @@ const Signup = (props) => {
   if (registered) return <Verify />;
 
   return !(
-    localStorage.length > 0 && localStorage.getItem(ACCESS_TOKEN) !== ""
+    localStorage.getItem(ACCESS_TOKEN) !== null &&
+    localStorage.getItem(ACCESS_TOKEN) !== undefined
   ) ? (
     <div id="loginform">
-      <ToastContainer/>
+      <ToastContainer />
       <div className="signup-heading">
         <MdLock className="signup-icon" />
         <span>Sign up</span>
