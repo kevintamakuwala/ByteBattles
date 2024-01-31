@@ -15,6 +15,7 @@ const ProblemPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedTag, setSelectedTag] = useState(null);
   const [problemList, setProblemList] = useState([]);
+  const [tagList, setTagList] = useState([]);
   const [solvedProblems, setSolvedProblems] = useState([]);
   const [offset, setOffset] = useState(0);
   const [perPage] = useState(10);
@@ -41,6 +42,14 @@ const ProblemPage = () => {
 
   const handleTagSelect = (selectedLabel) => {
     setSelectedTag(selectedLabel);
+
+    // Filter problems based on the selected tag
+
+    setFilteredProblems(
+      problemList.filter((problem) =>
+        problem.tagList.some((tag) => tag.name === selectedLabel)
+      )
+    );
   };
 
   const [filteredProblems, setFilteredProblems] = useState([]);
@@ -68,13 +77,10 @@ const ProblemPage = () => {
     { value: "unsolved", label: "unsolved", color: "black" },
   ];
 
-  const tagOptions = [
-    { value: "array", label: "Array" },
-    { value: "graph", label: "Graph" },
-    { value: "string", label: "String" },
-    { value: "tree", label: "Tree" },
-    { value: "vector", label: "Vector" },
-  ];
+  const tagOptions = tagList.map((tag) => ({
+    value: tag.name.toLowerCase(),
+    label: tag.name,
+  }));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,6 +88,24 @@ const ProblemPage = () => {
         const problemsResponse = await fetch(`${API_BASE_URL}/problems`);
         const problemsData = await problemsResponse.json();
         setProblemList(problemsData);
+
+        // Extract unique tags from the list of problems
+        const uniqueTags = Array.from(
+          new Set(
+            problemsData
+              .flatMap((problem) => problem.tagList)
+              .map((tag) => tag.name)
+          )
+        );
+
+        // Create tag objects from unique tag names
+        const tags = uniqueTags.map((tagName) => ({ name: tagName }));
+
+        // Set the tagList state
+        setTagList(tags);
+        // const tagResponse = await fetch(`${API_BASE_URL}/tags`);
+        // const tagsData = await tagResponse.json();
+        // setTagList(tagsData);
 
         if (userId !== -1) {
           const userResponse = await fetch(`${API_BASE_URL}/users/${userId}`);
