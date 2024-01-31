@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import "../forms.css";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
@@ -39,23 +39,21 @@ const TestcaseUpdate = (props) => {
             <ToastContainer />
             <h1>Testcase</h1>
             <div className="form-group">
-              <label htmlFor="title">Input *</label>
-              <input
+              <label htmlFor="input">Input *</label>
+              <textarea
                 className="form-control"
-                type="text"
                 name="input"
                 id="input"
-                placeholder="Enter Input"
-                autoComplete="off"
                 value={input}
-                onChange={(e) => {
-                  setInput(e.target.value);
-                }}
+                placeholder="Enter Input"
+                style={{ resize: "vertical", minHeight: "100px" }} 
+                onChange={(e) => setInput(e.target.value)}
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="expectedOutput">ExpectedOutput *</label>
-              <input
+              <textarea
                 className="form-control"
                 type="text"
                 name="expectedOutput"
@@ -63,6 +61,7 @@ const TestcaseUpdate = (props) => {
                 value={expectedOutput}
                 placeholder="Enter Expected Output"
                 autoComplete="off"
+                style={{ resize: "vertical", minHeight: "100px" }} 
                 onChange={(e) => setExpectedOutput(e.target.value)}
               />
             </div>

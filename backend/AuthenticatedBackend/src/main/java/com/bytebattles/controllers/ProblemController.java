@@ -35,6 +35,16 @@ public class ProblemController {
         }
     }
 
+    @GetMapping({"/title/{problemTitle}/", "/title/{problemTitle}"})
+    public ResponseEntity<Problem> getProblemByTitle(@PathVariable String problemTitle) {
+        Problem problem = problemService.getProblemByTitle(problemTitle);
+        if (problem != null) {
+            return new ResponseEntity<>(problem, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping({"/", ""})
     public ResponseEntity<Problem> addProblem(@RequestBody Problem problem) {
         Set<Submission> submissions = problem.getSubmissionList();

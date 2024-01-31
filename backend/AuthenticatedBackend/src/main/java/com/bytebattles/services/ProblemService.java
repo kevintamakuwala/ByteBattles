@@ -20,4 +20,6 @@ public interface ProblemService {
     public Problem assignTagToProblem(Long problemId, Long tagId);
 
     public Problem assignTagToProblem(Long problemId, AssignTagToProblemDTO assignTagToProblemDTO);
+
+    public Problem getProblemByTitle(String problemTitle);
 }

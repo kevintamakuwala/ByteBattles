@@ -36,6 +36,12 @@ public class ProblemServiceImpl implements ProblemService {
         return problemRepository.getOne(Long.parseLong(problemId));
     }
 
+
+    @Override
+    public Problem getProblemByTitle(String problemTitle) {
+        return problemRepository.findByTitle(problemTitle).get();
+    }
+
     @Override
     public Problem addProblem(Problem problem) {
         if (problem.getSubmissionList() == null)

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../util/APIUtils";
 import "./Login.css";
 import { ACCESS_TOKEN } from "../../constants";
@@ -90,6 +90,7 @@ const Login = (props) => {
   ) : (
     () => {
       navigate.replace("/");
+      window.scrollTo(0, 0);
       return null;
     }
   );

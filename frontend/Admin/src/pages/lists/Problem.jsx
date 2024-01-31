@@ -118,7 +118,16 @@ const Problem = () => {
                       <td>{problem.problemId}</td>
                       <td>{problem.title}</td>
                       <td>{problem.description}</td>
-                      <td>{problem.constraints}</td>
+                      <td style={{width:"170px"}}>
+                        {problem.constraints
+                          .split("\n")
+                          .map((line, index) => (
+                            <li key={index}>
+                              {line}
+                              <br />
+                            </li>
+                          ))}
+                      </td>
                       <td>{problem.difficultyLevel}</td>
                       <td>
                         <>

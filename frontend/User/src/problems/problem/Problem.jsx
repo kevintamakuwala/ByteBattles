@@ -5,13 +5,22 @@ const Problem = (props) => {
   const navigate = useNavigate();
 
   const handleSolveClick = () => {
-    // Replace spaces in the title with '-'
-    const problemTitleSlug = props.data.title
-      .replace(/\s+/g, "-")
-      .toLowerCase();
-    const problemUrl = `/problems/${problemTitleSlug}`;
-    navigate(problemUrl);
+    if (
+      localStorage.getItem("id") !== null &&
+      localStorage.getItem("id") !== undefined
+    ) {
+      // Replace spaces in the title with '-'
+      const problemTitleSlug = props.data.title
+        .replace(/\s+/g, "-")
+        .toLowerCase();
+      const problemUrl = `/problems/${problemTitleSlug}/`;
+      navigate(problemUrl, { state: { problem: props.data } });
+    } else {
+      navigate("/login");
+      window.scrollTo(0, 0);
+    }
   };
+  
 
   return (
     <div

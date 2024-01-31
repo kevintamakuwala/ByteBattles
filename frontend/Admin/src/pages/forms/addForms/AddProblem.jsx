@@ -125,7 +125,6 @@ const AddProblem = () => {
     ProblemPUTRequest(problemId);
   };
 
-
   return (
     <div className="main-container">
       <div className="container">
@@ -148,7 +147,7 @@ const AddProblem = () => {
 
           <div className="form-group">
             <label htmlFor="description">Description *</label>
-            <input
+            <textarea
               className="form-control"
               type="text"
               name="description"
@@ -157,6 +156,7 @@ const AddProblem = () => {
               required
               autoComplete="off"
               onChange={(e) => setDescription(e.target.value)}
+              style={{ resize: "vertical", minHeight: "100px" }}
             />
           </div>
 
@@ -189,7 +189,7 @@ const AddProblem = () => {
               styles={customSelectStyles}
             />
           </div>
-          
+
           <div className="form-group" style={{ margin: "1rem 0" }}>
             <label htmlFor="tag">Select Tag:</label>
             <Select

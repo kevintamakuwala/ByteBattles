@@ -97,7 +97,7 @@ const ProblemUpdate = (props) => {
             </div>
             <div className="form-group">
               <label htmlFor="description">Description *</label>
-              <input
+              <textarea
                 className="form-control"
                 type="text"
                 name="description"
@@ -105,10 +105,11 @@ const ProblemUpdate = (props) => {
                 value={description}
                 placeholder="Enter Description"
                 autoComplete="off"
+                style={{ resize: "vertical", minHeight: "100px" }} 
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-
+            
             <div className="form-group">
               <label htmlFor="constraints">Constraints *</label>
               <input

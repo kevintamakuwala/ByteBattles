@@ -62,8 +62,6 @@ const Testcase = () => {
     }
   };
 
-
-
   // Handling Searchbar events
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -153,8 +151,24 @@ const Testcase = () => {
                 <>
                   <tr key={index}>
                     <td>{testcase.testCaseId}</td>
-                    <td>{testcase.input}</td>
-                    <td>{testcase.expectedOutput}</td>
+                    <td>
+                      {testcase.input.split("\n").map((line, index) => (
+                        <li key={index}>
+                          {line}
+                          <br />
+                        </li>
+                      ))}
+                    </td>
+                    <td>
+                      {testcase.expectedOutput
+                        .split("\n")
+                        .map((line, index) => (
+                          <li key={index}>
+                            {line}
+                            <br />
+                          </li>
+                        ))}
+                    </td>
                     <td>
                       <AiFillDelete
                         onClick={() => {

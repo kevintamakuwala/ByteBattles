@@ -36,10 +36,12 @@ const App = () => {
     localStorage.removeItem("id");
     setIsAuthenticated(false);
     navigate(redirectTo);
+    window.scrollTo(0, 0);
   };
 
   const handleLogin = () => {
     navigate("/");
+    window.scrollTo(0, 0);
   };
 
   const loadCurrentUser = () => {

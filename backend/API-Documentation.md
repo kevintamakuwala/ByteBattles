@@ -66,6 +66,10 @@ Delete a problem by ID.
 
 Retrieve details of a specific problem by ID.
 
+#### GET ```/problems/title/${problemTitle}```
+
+Retrieve details of a specific problem by Title.
+
 #### PUT ```/problems/${problemId}/tags/${tagId}```
 Add Tag to a Problem.
 
