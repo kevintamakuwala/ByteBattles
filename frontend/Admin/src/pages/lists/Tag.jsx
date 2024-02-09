@@ -3,7 +3,6 @@ import "./Page.css";
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import {
-  BASE_URL,
   errorNotification,
   successNotification,
   customListSelectStyles,
@@ -20,7 +19,7 @@ const Tag = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`${BASE_URL}/tags`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/tags`, requestOption)
       .then((res) => res.json())
       .then((data) => setTagsData(data))
       .catch((err) => console.log(err));
@@ -38,7 +37,7 @@ const Tag = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`${BASE_URL}/problems/`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems/`, requestOption)
       .then((res) => res.json())
       .then((data) => setProblemData(data))
       .catch((err) => console.log(err));
@@ -62,7 +61,7 @@ const Tag = () => {
 
   // Deleting Tag
   const deleteTag = (id) => {
-    fetch(`${BASE_URL}/tags/${id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/tags/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -88,7 +87,7 @@ const Tag = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`${BASE_URL}/problems/${id}`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems/${id}`, requestOption)
       .then((res) => res.json())
       .then((data) => setSelectedProblemData(data))
       .catch(() => errorNotification("Something Went Wrong"));

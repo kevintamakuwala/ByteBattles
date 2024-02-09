@@ -1,8 +1,6 @@
 import { Slide, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const BASE_URL = "http://localhost:8000";
-
 export const successNotification = (message) => {
   toast.success(message, {
     position: "top-center",

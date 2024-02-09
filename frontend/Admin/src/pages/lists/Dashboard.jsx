@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BASE_URL, requestOption } from "../../utils";
+import { requestOption } from "../../utils";
 import AdminContext from "../../context/AdminContext";
 import "./Dashboard.css";
 import BarChart from "../../components/charts/BarChart";
@@ -94,12 +94,12 @@ const Dashboard = () => {
     if (loginState) {
       // Use Promise.all to fetch data concurrently
       Promise.all([
-        fetch(`${BASE_URL}/users`, requestOption).then((res) => res.json()),
-        fetch(`${BASE_URL}/problems`, requestOption).then((res) => res.json()),
-        fetch(`${BASE_URL}/submissions`, requestOption).then((res) =>
+        fetch(`${process.env.REACT_APP_BASE_URL}/users`, requestOption).then((res) => res.json()),
+        fetch(`${process.env.REACT_APP_BASE_URL}/problems`, requestOption).then((res) => res.json()),
+        fetch(`${process.env.REACT_APP_BASE_URL}/submissions`, requestOption).then((res) =>
           res.json()
         ),
-        fetch(`${BASE_URL}/contests`, requestOption).then((res) => res.json()),
+        fetch(`${process.env.REACT_APP_BASE_URL}/contests`, requestOption).then((res) => res.json()),
       ])
         .then(([users, problems, submissions, contests]) => {
           setUsersData(users);

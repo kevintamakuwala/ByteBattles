@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Page.css";
 import { AiFillDelete } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
-import { BASE_URL, formatDate, requestOption } from "../../utils";
+import {  formatDate, requestOption } from "../../utils";
 import ContestUpdate from "../forms/updateForms/ContestUpdate";
 
 const Problem = () => {
@@ -14,7 +14,7 @@ const Problem = () => {
   const [contestData, setContestData] = useState([]);
 
   const getContest = () => {
-    fetch(`${BASE_URL}/contests`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/contests`, requestOption)
       .then((res) => res.json())
       .then((data) => setContestData(data))
       .catch((err) => console.log(err));
@@ -26,7 +26,7 @@ const Problem = () => {
 
   //  Deleting Contest
   const deleteContest = (id) => {
-    fetch(`${BASE_URL}/contests/${id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/contests/${id}`, {
       method: "DELETE",
     })
       .then(() => getContest())

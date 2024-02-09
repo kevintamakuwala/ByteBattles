@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../forms.css";
 import {
-  BASE_URL,
   errorNotification,
   successNotification,
   customSelectStyles,
@@ -42,7 +41,7 @@ const AddProblem = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`${BASE_URL}/tags`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/tags`, requestOption)
       .then((res) => res.json())
       .then((data) => {
         setTagList(data.map((e) => ({ value: e.name, label: e.name })));
@@ -52,7 +51,7 @@ const AddProblem = () => {
 
   const ProblemPOSTRequest = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/problems`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/problems`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +86,7 @@ const AddProblem = () => {
 
       const tagObjects = selectedTags.map((tag) => ({ name: tag.value }));
 
-      await fetch(`${BASE_URL}/problems/${problemId}/tags`, {
+      await fetch(`${process.env.REACT_APP_BASE_URL}/problems/${problemId}/tags`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

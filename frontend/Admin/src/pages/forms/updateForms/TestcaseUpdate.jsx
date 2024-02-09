@@ -5,7 +5,6 @@ import { ToastContainer } from "react-toastify";
 import {
   errorNotification,
   successNotification,
-  BASE_URL,
 } from "../../../utils";
 
 const TestcaseUpdate = (props) => {
@@ -17,7 +16,7 @@ const TestcaseUpdate = (props) => {
   // PUT Request Starts
   const PutRequest = (id) => {
     axios
-      .put(`${BASE_URL}/testcases/${id}`, {
+      .put(`${process.env.REACT_APP_BASE_URL}/testcases/${id}`, {
         input,
         expectedOutput,
         problem: { problemId: props.problemId },

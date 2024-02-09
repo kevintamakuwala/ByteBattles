@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { successNotification, errorNotification, BASE_URL } from "../../utils";
+import { successNotification, errorNotification } from "../../utils";
 import { ToastContainer } from "react-toastify";
 import Dashboard from "../lists/Dashboard";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +41,7 @@ const Signin = ({ onLogin,onLogout }) => {
       password,
     };
     try {
-      const response = await fetch(`${BASE_URL}/auth/login`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

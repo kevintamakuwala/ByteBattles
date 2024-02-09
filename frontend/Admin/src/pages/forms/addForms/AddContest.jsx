@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../forms.css";
 import {
-  BASE_URL,
   errorNotification,
   successNotification,
   customSelectStyles,
@@ -25,7 +24,7 @@ const AddContest = () => {
   const [endTimeFormatted, setEndTimeFormatted] = useState();
 
   useEffect(() => {
-    fetch(`${BASE_URL}/problems`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems`, requestOption)
       .then((res) => res.json())
       .then((data) => {
         setProblemList(data.map((e) => ({ value: e.title, label: e.title })));
@@ -41,7 +40,7 @@ const AddContest = () => {
       return;
     }
     try {
-      const response = await fetch(`${BASE_URL}/contests`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/contests`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +78,7 @@ const AddContest = () => {
         title: problem.value,
       }));
 
-      await fetch(`${BASE_URL}/contests/${contestId}/problems/`, {
+      await fetch(`${process.env.REACT_APP_BASE_URL}/contests/${contestId}/problems/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

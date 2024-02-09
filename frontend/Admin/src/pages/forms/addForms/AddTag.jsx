@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  BASE_URL,
   errorNotification,
   successNotification,
   customSelectStyles
@@ -22,14 +21,14 @@ const AddTag = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`${BASE_URL}/tags`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/tags`, requestOption)
       .then((res) => res.json())
       .then((data) => {
         setTagList(data.map((e) => ({ value: e.name, label: e.name })));
       })
       .catch((err) => console.log(err));
 
-    fetch(`${BASE_URL}/problems`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems`, requestOption)
       .then((res) => res.json())
       .then((data) => {
         setProblemData(data);
@@ -60,7 +59,7 @@ const AddTag = () => {
 
   const TagPOSTRequest = async (name) => {
     try {
-      const response = await fetch(`${BASE_URL}/tags`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/tags`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +87,7 @@ const AddTag = () => {
       }
       const tagObjects = selectedTags.map((tag) => ({ name: tag.value }));
 
-      await fetch(`${BASE_URL}/problems/${problemId}/tags`, {
+      await fetch(`${process.env.REACT_APP_BASE_URL}/problems/${problemId}/tags`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

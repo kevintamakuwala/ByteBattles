@@ -3,7 +3,6 @@ import "../forms.css";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import {
-  BASE_URL,
   errorNotification,
   customSelectStyles,
   successNotification,
@@ -31,7 +30,7 @@ const ProblemUpdate = (props) => {
   }, []);
 
   const fetchTags = () => {
-    fetch(`${BASE_URL}/tags`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/tags`, requestOption)
       .then((res) => res.json())
       .then((data) => {
         setTagData(data);
@@ -64,7 +63,7 @@ const ProblemUpdate = (props) => {
       tagList: filteredTagData.length > 0 ? filteredTagData : null,
     };
     axios
-      .put(`${BASE_URL}/problems/${id}`, data)
+      .put(`${process.env.REACT_APP_BASE_URL}/problems/${id}`, data)
       .then(() => {
         successNotification("Problem Updated Successfully");
       })

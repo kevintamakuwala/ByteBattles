@@ -5,7 +5,6 @@ import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
-  BASE_URL,
   customSelectStyles,
   errorNotification,
   minMaxTime,
@@ -31,7 +30,7 @@ const ContestUpdate = ({ data }) => {
   }, []);
 
   const fetchProblems = () => {
-    fetch(`${BASE_URL}/problems`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems`, requestOption)
       .then((res) => res.json())
       .then((data) => {
         setProblemData(data);
@@ -64,7 +63,7 @@ const ContestUpdate = ({ data }) => {
     };
 
     axios
-      .put(`${BASE_URL}/contests/${id}`, data)
+      .put(`${process.env.REACT_APP_BASE_URL}/contests/${id}`, data)
       .then(() => {
         successNotification("Contest Updated Successfully");
       })

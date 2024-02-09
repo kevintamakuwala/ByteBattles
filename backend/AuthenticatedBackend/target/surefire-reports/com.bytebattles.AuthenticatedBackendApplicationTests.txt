@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.bytebattles.AuthenticatedBackendApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.892 s - in com.bytebattles.AuthenticatedBackendApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 26.775 s - in com.bytebattles.AuthenticatedBackendApplicationTests

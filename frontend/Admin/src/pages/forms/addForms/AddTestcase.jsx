@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../forms.css";
 import {
-  BASE_URL,
   errorNotification,
   successNotification,
   customSelectStyles,
@@ -22,7 +21,7 @@ const AddTestcase = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`${BASE_URL}/problems`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems`, requestOption)
       .then((res) => res.json())
       .then((data) => setProblemData(data))
       .catch((err) => console.log(err));
@@ -33,7 +32,7 @@ const AddTestcase = () => {
     event.preventDefault();
 
     try {
-      await fetch(`${BASE_URL}/testcases`, {
+      await fetch(`${process.env.REACT_APP_BASE_URL}/testcases`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Page.css";
 import { AiFillDelete } from "react-icons/ai";
 import {
-  BASE_URL,
   errorNotification,
   formatDate,
   successNotification,
@@ -21,7 +20,7 @@ const Submission = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`${BASE_URL}/submissions`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/submissions`, requestOption)
       .then((res) => res.json())
       .then((data) => setSubmissionsData(data))
       .catch((err) => console.log(err));
@@ -39,7 +38,7 @@ const Submission = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`${BASE_URL}/problems/`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems/`, requestOption)
       .then((res) => res.json())
       .then((data) => setProblemData(data))
       .catch((err) => console.log(err));
@@ -51,7 +50,7 @@ const Submission = () => {
 
   //  Deleting Submission
   const deleteSubmission = (id) => {
-    fetch(`${BASE_URL}/submissions/${id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/submissions/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -98,7 +97,7 @@ const Submission = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`${BASE_URL}/problems/${id}`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems/${id}`, requestOption)
       .then((res) => res.json())
       .then((data) => setSelectedProblemData(data))
       .catch(() => errorNotification("Something Went Wrong"));

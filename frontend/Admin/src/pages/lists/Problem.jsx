@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import ProblemUpdate from "../forms/updateForms/ProblemUpdate";
-import { BASE_URL, requestOption } from "../../utils";
+import {  requestOption } from "../../utils";
 
 const Problem = () => {
   // update Problem use state variables
@@ -16,7 +16,7 @@ const Problem = () => {
   const [ProblemData, setProblemData] = useState([]);
 
   const getProblem = () => {
-    fetch(`${BASE_URL}/problems`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems`, requestOption)
       .then((res) => res.json())
       .then((data) => setProblemData(data))
       .catch((err) => console.log(err));
@@ -28,7 +28,7 @@ const Problem = () => {
 
   //  Deleting Problem
   const deleteProblem = (id) => {
-    fetch(`${BASE_URL}/problems/${id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems/${id}`, {
       method: "DELETE",
     })
       .then(() => getProblem())

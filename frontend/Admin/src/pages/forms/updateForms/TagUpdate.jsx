@@ -5,7 +5,6 @@ import { ToastContainer } from "react-toastify";
 import {
   errorNotification,
   successNotification,
-  BASE_URL,
 } from "../../../utils";
 
 const TagUpdate = (props) => {
@@ -13,7 +12,7 @@ const TagUpdate = (props) => {
   // PUT Request Starts
   const PutRequest = (id) => {
     axios
-      .put(`${BASE_URL}/tags/${id}`, {
+      .put(`${process.env.REACT_APP_BASE_URL}/tags/${id}`, {
         name,
         problem: { problemId: props.problemId },
       })

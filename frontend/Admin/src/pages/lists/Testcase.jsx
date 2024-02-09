@@ -3,7 +3,6 @@ import "./Page.css";
 import { AiFillDelete } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import {
-  BASE_URL,
   errorNotification,
   successNotification,
   customListSelectStyles,
@@ -23,12 +22,12 @@ const Testcase = () => {
       method: "GET",
       header: { "Content-Type": "application/json" },
     };
-    fetch(`${BASE_URL}/testcases`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/testcases`, requestOption)
       .then((res) => res.json())
       .then((data) => setTestcasesData(data))
       .catch((err) => console.log(err));
 
-    fetch(`${BASE_URL}/problems/`, requestOption)
+    fetch(`${process.env.REACT_APP_BASE_URL}/problems/`, requestOption)
       .then((res) => res.json())
       .then((data) => setProblemData(data))
       .catch((err) => console.log(err));
@@ -36,7 +35,7 @@ const Testcase = () => {
 
   //  Deleting Testcase
   const deleteTestcase = (id) => {
-    fetch(`${BASE_URL}/testcases/${id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/testcases/${id}`, {
       method: "DELETE",
     })
       .then(() => {
