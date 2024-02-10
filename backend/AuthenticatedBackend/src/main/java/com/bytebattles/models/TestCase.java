@@ -12,9 +12,9 @@ public class TestCase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long testCaseId;
 
-    @Column(name = "input")
+    @Column(name = "input", length = Integer.MAX_VALUE)
     private String input;
-    @Column(name = "expected_output")
+    @Column(name = "expected_output", length = Integer.MAX_VALUE)
     private String expectedOutput;
 
     @ManyToOne

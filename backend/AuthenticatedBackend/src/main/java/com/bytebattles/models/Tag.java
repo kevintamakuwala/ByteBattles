@@ -18,7 +18,7 @@ public class Tag {
     @JsonProperty("tagId")
     private Long tagId;
 
-    @Column(name = "tag_name",unique = true)
+    @Column(name = "tag_name",unique = true,length = Integer.MAX_VALUE)
     @JsonProperty("name")
     private String name;
 

@@ -14,19 +14,18 @@ import java.util.Set;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class ApplicationUser implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("userId")
     private Integer userId;
-
+    @Column(length = Integer.MAX_VALUE)
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true,length = Integer.MAX_VALUE)
     private String email;
-    @Column(unique = true)
+    @Column(unique = true, length = Integer.MAX_VALUE)
     private String username;
-
+    @Column(length = Integer.MAX_VALUE)
     private String password;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;

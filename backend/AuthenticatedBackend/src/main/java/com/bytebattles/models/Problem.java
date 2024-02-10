@@ -15,11 +15,12 @@ public class Problem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("problemId")
     private Long problemId;
-
+    @Column(length = Integer.MAX_VALUE)
     private String title;
 
+    @Column(length = Integer.MAX_VALUE)
     private String description;
-
+    @Column(length = Integer.MAX_VALUE)
     private String constraints;
 
     private String difficultyLevel;

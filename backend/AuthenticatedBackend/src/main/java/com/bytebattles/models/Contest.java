@@ -17,10 +17,10 @@ public class Contest {
     @Column(name = "contest_id")
     private Long contestId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = Integer.MAX_VALUE)
     private String title;
 
-    @Column(nullable = false, length = 4000)
+    @Column(nullable = false, length = Integer.MAX_VALUE)
     private String description;
 
     @Column(name = "start_time", nullable = false)
