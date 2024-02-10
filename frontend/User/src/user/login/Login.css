@@ -11,7 +11,8 @@
 	width: 100%;
 }
 body {
-	background: #120d32;
+	--tw-bg-opacity: 1;
+    background-color: rgb(3 7 18 / var(--tw-bg-opacity));
 	font-family: "work sans";
 }
 
@@ -24,7 +25,8 @@ body {
 	height: 60%;
 	margin: 100px auto;
 	background-color: #ffffff;
-	border-radius: 25px;
+	border-radius: 15px;
+    /* box-shadow: 19px 24px 17px -9px #2a2d36; */
 }
 
 #headerTitle {
@@ -41,25 +43,25 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding-top: 2rem;
+	padding-top: 1rem;
 	max-width: 100%;
 }
 
 .row input {
 	width: 83%;
 	box-sizing: border-box;
-	border: none;
+	/* border: none; */
 	font-size: 1.3rem;
 	padding-bottom: 1rem;
-	box-shadow: inset 0px -3px 0px 0px rgba(187, 187, 187, 0.2);
+	/* box-shadow: inset 0px -3px 0px 0px rgba(187, 187, 187, 0.2); */
 	transition: box-shadow 0.2s ease-in;
 }
 
 
-.row input:focus {
-	box-shadow: inset 0px -3px 0px 0px rgba(34, 63, 195, 0.7);
+/* .row input:focus {
+	box-shadow:  0px -3px 0px 0px rgba(34, 63, 195, 0.7);
 	outline: none;
-}
+} */
 
 .row input::-webkit-input-placeholder {
 	opacity: 1;
@@ -73,11 +75,12 @@ body {
 
 .row label {
 	align-self: start;
-	padding-left: 2.7rem;
-	padding-bottom: 0.5rem;
+	/* padding-left: 4rem; */
+	/* padding-bottom: 0.5rem; */
 	color: rgba(28, 27, 27, 0.9);
 	font-size: 1.2rem;
 	font-family: sans-serif;
+	padding-left: 16%;
 }
 
 .row button {
@@ -126,11 +129,11 @@ body {
 	justify-content: center;
 	padding-top: 6%;
 	margin-bottom: 2%;
+	
 }
 
 .signup-heading span {
 	font-size: 2rem;
-	padding-left: 3%;
 	font-family: sans-serif;
 	font-weight: 600;
 }
@@ -146,9 +149,40 @@ body {
 	padding: 6.1% 0;
 }
 
+
+.input-field{
+	position: relative;
+}
+
+.icon{
+	position: absolute;
+    top: 13%;
+    left: 9%;
+	font-size: 1.4rem;
+	padding-right: 2%;
+}
+
+.name-label:focus{
+	box-shadow:  0px -3px 0px 0px rgba(34, 63, 195, 0.7);
+	/* outline: none; */
+}
+
+
 @media only screen and (max-width: 768px) {
+	.signup-heading{
+		align-items: center;
+	}
+
 	.login-here {
 	  font-size: 0.8rem;
+	}
+	.row label{
+		margin-left: 3%;
+		padding-left: 15%;
+	}
+	.icon{
+		font-size: 1.2rem;
+		top: 16%;
 	}
   }
 

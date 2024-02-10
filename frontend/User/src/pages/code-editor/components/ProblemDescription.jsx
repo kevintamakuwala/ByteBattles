@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdContentCopy } from "react-icons/md";
 import { MdOutlineDone } from "react-icons/md";
 
@@ -60,11 +60,29 @@ const ProblemDescription = (props) => {
       output2: false,
       [className]: true,
     }));
+    setTimeout(() => {
+      setCopiedStates((prevStates) => ({
+        ...prevStates,
+        [className]: false,
+      }));
+    }, 5000);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCopiedStates((prevStates) => ({
+        input1: false,
+        output1: false,
+        input2: false,
+        output2: false,
+      }));
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [copiedStates]);
 
   return (
     <div className="overflow-y-scroll text-base md:text-lg font-sans px-8 pt-4 mb-4">
-      {/* lg:-mt-6  */}
       <h2 className="text-lg md:text-xl font-semibold pb-4">Description</h2>
       <div>
         {props.problem.description.split("\n").map((line, index) => (
@@ -73,15 +91,6 @@ const ProblemDescription = (props) => {
             <br />
           </React.Fragment>
         ))}
-        {/* Chef has invented 1-minute Instant Noodles. As the name suggests, each
-                packet takes exactly 1 minute to cook.
-                <br />
-                Chef's restaurant has X stoves and only 1 packet can be cooked in a
-                single stove at any minute.
-                <br />
-                How many customers can Chef serve in Y minutes if each customer orders
-                exactly 1 packet of noodles?
-                <br /> */}
       </div>
 
       <h2 className="text-lg md:text-xl font-semibold pt-8 pb-4">

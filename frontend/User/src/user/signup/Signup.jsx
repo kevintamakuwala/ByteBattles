@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Verify from "../verify/Verify";
 import LoadingIndicator from "../../common/LoadingIndicator";
 import { errorNotification, successNotification } from "../../util/Helpers";
+import { BiSolidUser } from "react-icons/bi";
+import { IoIosMail } from "react-icons/io";
 import { ToastContainer } from "react-toastify";
 
 const Signup = (props) => {
@@ -109,14 +111,30 @@ const Form = (props) => (
     )}
 
     <div>
-      <FormInput
-        description="Name"
-        placeholder="Enter your name"
-        type="text"
-        value={props.name}
-        onChange={(e) => props.setName(e.target.value)}
-        className="name-label"
-      />
+      <div className="input-field">
+        <div className="icon">
+          <BiSolidUser />
+        </div>
+        <FormInput
+          description="Name"
+          placeholder="Enter your name"
+          type="text"
+          value={props.name}
+          onChange={(e) => props.setName(e.target.value)}
+          className="name-label"
+          style={{
+            border: "1px solid red",
+            ":focus": {
+              outline: "2px solid blue",
+            },
+          }}
+        />
+      </div>
+      <div className="input-field">
+        <div className='icon'>
+          <IoIosMail />
+        </div>
+
       <FormInput
         description="Email"
         placeholder="Enter your Email"
@@ -128,6 +146,12 @@ const Form = (props) => (
         }}
         isValid={props.validEmail}
       />
+      </div>
+
+      <div className="input-field">
+        <div className="icon">
+          <BiSolidUser />
+        </div>
       <FormInput
         description="Username"
         placeholder="Enter your username"
@@ -135,6 +159,11 @@ const Form = (props) => (
         value={props.username}
         onChange={(e) => props.setUsername(e.target.value)}
       />
+      </div>
+      <div className="input-field">
+        <div className="icon">
+          <MdLock />
+        </div>
       <FormInput
         description="Password"
         placeholder="Enter your password"
@@ -146,6 +175,7 @@ const Form = (props) => (
         }}
         isValid={props.validPassword}
       />
+      </div>
       <div
         style={{
           padding: "0px 2.6rem",

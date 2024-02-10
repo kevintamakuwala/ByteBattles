@@ -5,7 +5,9 @@ import "./Login.css";
 import { ACCESS_TOKEN } from "../../constants";
 import LoadingIndicator from "../../common/LoadingIndicator";
 import { MdLock } from "react-icons/md";
-
+import { BiSolidUser } from "react-icons/bi";
+import { IoIosMail } from "react-icons/io";
+import Logo from "../../assets/standard-collection-27.svg"
 const FormHeader = (props) => <h2 id="headerTitle">{props.title}</h2>;
 
 const Login = (props) => {
@@ -72,7 +74,12 @@ const Login = (props) => {
     <div id="loginform">
       {/* <FormHeader title="Login" /> */}
       <div className="signup-heading">
-        <MdLock className="signup-icon" />
+        <img
+          className="w-7 h-7 md:w-100 md:h-10 mr-2"
+          alt="logo"
+          src={Logo}
+          draggable={false}
+        />
         <span>Login</span>
       </div>
 
@@ -102,26 +109,36 @@ const Form = (props) => (
       <LoadingIndicator />
     ) : (
       <div>
-        <FormInput
-          description="Username"
-          placeholder="Enter your username"
-          type="text"
-          value={props.username}
-          onChange={(e) => props.setUsername(e.target.value)}
-        />
+        <div className="input-field">
+          <div className="icon">
+            <BiSolidUser />
+          </div>
+          <FormInput
+            description="Username"
+            placeholder="Enter your username"
+            type="text"
+            value={props.username}
+            onChange={(e) => props.setUsername(e.target.value)}
+          />
+        </div>
 
-        <FormInput
-          description="Password"
-          placeholder="Enter your password"
-          type="password"
-          value={props.password}
-          onChange={(e) => {
-            const newPassword = e.target.value;
-            props.setPassword(newPassword);
-            props.validatePassword(newPassword);
-          }}
-          isValid={props.validPassword}
-        />
+        <div className="input-field">
+          <div className="icon">
+            <MdLock />
+          </div>
+          <FormInput
+            description="Password"
+            placeholder="Enter your password"
+            type="password"
+            value={props.password}
+            onChange={(e) => {
+              const newPassword = e.target.value;
+              props.setPassword(newPassword);
+              props.validatePassword(newPassword);
+            }}
+            isValid={props.validPassword}
+          />
+        </div>
 
         <div
           style={{
@@ -165,23 +182,14 @@ const FormInput = (props) => (
       style={{
         padding: "10px",
         borderRadius: "5px",
-        border: `1px solid ${
-          props.description === "Password" &&
-          props.value !== "" &&
-          !props.isValid
-            ? "red"
-            : "#ccc"
-        }`,
-        boxShadow:
-          props.description === "Password" &&
-          props.value !== "" &&
-          !props.isValid
-            ? "0 0 5px rgba(255, 0, 0, 0.5)"
-            : "none",
-        boxSizing: "border-box",
         marginBottom: "15px",
         fontSize: "14px",
       }}
+      className={`${
+        props.description === "Password" && props.value !== "" && !props.isValid
+          ? "focus:border-none focus:outline focus:outline-red-700 shadow-[0px_0px_5px_rgba(255, 0, 0, 0.5)]"
+          : "focus:border-none focus:outline focus:outline-blue-800 focus:ring-1 focus:ring-blue-600"
+      }  border border-[#ccc]`}
     />
   </div>
 );

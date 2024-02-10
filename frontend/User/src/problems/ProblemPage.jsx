@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "./search/SearchBar";
-import Dropdown from "./drop-down/DropDown";
 import DailyProblem from "./daily-problem/DailyProblem";
 import Problem from "./problem/Problem";
 import FullScreenDialog from "./pop-up/PopUp";
@@ -10,6 +9,9 @@ import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 import { API_BASE_URL } from "../constants";
 import LoadingIndicator from "../common/LoadingIndicator";
+import { Tooltip as ReactToolTip } from "react-tooltip";
+import Select from "react-select";
+
 
 const ProblemPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -103,10 +105,6 @@ const ProblemPage = () => {
 
         // Set the tagList state
         setTagList(tags);
-        // const tagResponse = await fetch(`${API_BASE_URL}/tags`);
-        // const tagsData = await tagResponse.json();
-        // setTagList(tagsData);
-
         if (userId !== -1) {
           const userResponse = await fetch(`${API_BASE_URL}/users/${userId}`);
           const userData = await userResponse.json();
@@ -143,6 +141,18 @@ const ProblemPage = () => {
     selectedStatus,
   ]);
 
+  const handleSelectChange = (selectedOption, type) => {
+    if (type === "difficulty") {
+      setSelectedDifficulty(selectedOption ? selectedOption.value : null); 
+    } else if (type === "status") {
+      setSelectedStatus(selectedOption ? selectedOption.value : null);
+    }
+  };
+
+  useEffect(() => {
+    receivedData();
+  }, [offset, problemList, selectedDifficulty, selectedStatus]);
+
   const receivedData = () => {
     let filteredProblemsToDisplay = filteredProblems.length
       ? filteredProblems
@@ -177,7 +187,7 @@ const ProblemPage = () => {
       return (
         <Problem
           key={problem.problemId}
-          value={index % 2 === 0 ? "bg-gray-800" : "bg-gray-800"}
+          value={index % 2 === 0 ? "bg-[#1a232f]" : "bg-[#333b46]"}
           data={problem}
           status={isFiltered ? "solved" : "unsolved"}
         />
@@ -220,25 +230,41 @@ const ProblemPage = () => {
   if (problemList.length === 0 && offset === 0) {
     return <LoadingIndicator />;
   }
-
   return (
     <div className="bg-gray-950 min-h-screen py-8 ">
       <div className="problem-bar flex flex-col md:flex-row justify-around items-center rounded-lg mx-4 md:mx-12 h-auto md:h-16 bg-white mb-8 md:mb-0 lg:ps-12 md:ps-8">
         <SearchBar onSearch={handleSearch} />
         <div className="flex items-center w-full justify-around">
-          <Dropdown
+
+          <Select
             options={difficultyOptions}
-            onChange={(selectedOption) =>
-              setSelectedDifficulty(selectedOption.value)
-            }
+            onChange={(selectedOption) => handleSelectChange(selectedOption, "difficulty")}
+            value={selectedDifficulty ? { value: selectedDifficulty, label: selectedDifficulty } : null}
             placeholder="Difficulty"
+            isClearable
+            classNamePrefix="react-select"
+            styles={{
+              dropdownIndicator: (base) => ({
+                ...base,
+                display: selectedDifficulty ? "none" : "block", 
+                color : "gray",
+              }),
+            }}
           />
-          <Dropdown
+          <Select
             options={statusOptions}
-            onChange={(selectedOption) =>
-              setSelectedStatus(selectedOption.value)
-            }
+            onChange={(selectedOption) => handleSelectChange(selectedOption, "status")}
+            value={selectedStatus ? { value: selectedStatus, label: selectedStatus } : null}
             placeholder="Status"
+            isClearable
+            classNamePrefix="react-select"
+            styles={{
+              dropdownIndicator: (base) => ({
+                ...base,
+                display: selectedStatus ? "none" : "block",
+                color : "gray",
+              }),
+            }}
           />
 
           <div>
@@ -286,20 +312,19 @@ const ProblemPage = () => {
               containerClassName={"pagination"}
               subContainerClassName={"pages pagination"}
               activeClassName={"active"}
-              previousLinkClassName={`border px-4 py-2 ${
-                currentPage === 0 ? "pointer-events-none opacity-50" : ""
-              }`}
-              nextLinkClassName={`border px-4 py-2 ${
-                currentPage === pageCount - 1
-                  ? "pointer-events-none opacity-50"
-                  : ""
-              }`}
+              previousLinkClassName={`border px-4 py-2 ${currentPage === 0 ? "pointer-events-none opacity-50" : ""
+                }`}
+              nextLinkClassName={`border px-4 py-2 ${currentPage === pageCount - 1
+                ? "pointer-events-none opacity-50"
+                : ""
+                }`}
             />
           </div>
         </div>
 
         <div className="daily-problems mx-2 md:ms-0 md:mr-10 lg:mx-12 mt-2 md:mt-0 md:w-2/6">
           <DailyProblem />
+          <ReactToolTip />
         </div>
       </div>
     </div>

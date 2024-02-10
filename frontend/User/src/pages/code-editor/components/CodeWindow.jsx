@@ -346,7 +346,7 @@ const CodeWindow = () => {
             {problemData?.problemId}. {problemData?.title}
           </div>
 
-          <div className="flex flex-col md:flex-row md:h-[77.7vh] border-2  overflow-y-scroll overflow-x-hidden border-slate-950 md:mt-[3rem]">
+          <div className="flex flex-col md:flex-row md:h-[78.9vh] border-2  overflow-y-scroll overflow-x-hidden border-slate-950 md:mt-[3rem]">
             <div className="left problem sm:w-screen md:w-[42%] md:overflow-y-scroll md:border-r border-gray-600 ps-6 lg:-mt:8">
               <div className="overflow-y-scroll">
                 {!problemData ? (

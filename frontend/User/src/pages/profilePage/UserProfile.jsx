@@ -4,9 +4,33 @@ import { MdOutlineAlternateEmail } from "react-icons/md";
 import Avatar, { ConfigProvider, Cache } from "react-avatar";
 
 const generateRandomColor = () => {
-  const colors = ["red", "cyan", "green"];
-  const colorIndex = Math.floor(Math.random() * colors.length);
-  return colors[colorIndex];
+  const hue = Math.floor(Math.random() * 360);
+  const saturation = Math.floor(Math.random() * 100);
+  const lightness = Math.floor(Math.random() * 100);
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+};
+
+const username = "rushi_sureja";
+
+const getUserColor = () => {
+  return getCookie(username);
+};
+
+const setUserColor = (color) => {
+  setCookie(username, color, 365);
+};
+
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+};
+
+const setCookie = (name, value, days) => {
+  const date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  const expires = `expires=${date.toUTCString()}`;
+  document.cookie = `${name}=${value}; ${expires}; path=/`;
 };
 
 const UserProfile = () => {
@@ -38,18 +62,19 @@ const UserProfile = () => {
   }
 
   const [avatarVisible, setAvatarVisible] = useState(false);
-  const [avatarColor, setAvatarColor] = useState(() => {
-    const storedColor = localStorage.getItem("avatarColor");
-    return storedColor || generateRandomColor();
-  });
+  const [avatarColor, setAvatarColor] = useState(() => getUserColor());
 
   useEffect(() => {
-    localStorage.setItem("avatarColor", avatarColor);
-    const timeoutId = setTimeout(() => {
-      setAvatarVisible(true);
-    }, 300);
-    return () => clearTimeout(timeoutId);
-  }, [avatarColor]);
+    const storedColor = getUserColor();
+    if (!storedColor) {
+      const newColor = generateRandomColor();
+      setAvatarColor(newColor);
+      setUserColor(newColor);
+    } else {
+      setAvatarColor(storedColor);
+    }
+    setAvatarVisible(true);
+  }, []);
 
   const cache = new Cache({
     sourceTTL: 7 * 24 * 3600 * 1000,
@@ -61,9 +86,6 @@ const UserProfile = () => {
       <div className=" inline">
         <div className="flex flex-col bg-[#151b2d94] items-center rounded-lg justify-center w-[100%] pl-[1%] ml-[2%] mt-[5%] pb-[2%] shadow-lg shadow-[#14171e] ">
           <div className="flex align-middle justify-center items-center text-xl text-white my-[1%] mt-[5%] -ms-[22%] w-[81%] ">
-            {/* <div className='text-4xl md:text-3xl lg:text-5xl py-2 px-4 border rounded-full mx-[4%] md:mx-[7%] '>
-                        R
-                    </div> */}
             <div className="mx-[4%] md:mx-[5%] ">
               <Avatar
                 name="Rushi Sureja"
@@ -82,7 +104,7 @@ const UserProfile = () => {
             </div>
           </div>
 
-          <hr className="w-[90%] mt-[3%] -ml-[4%] border-red-500 " />
+          <hr className="w-[90%] mt-[3%] -ml-[4%] border-red-300 " />
 
           <div className="flex flex-col justify-center max-md:ml-[15%] ms-[8%] text-md font-semibold text-white mt-[3%] w-[100%] pr-[2%] ">
             <div className="flex md:flex-col max-md:items-center xl:flex-row xl:items-center py-2">
@@ -98,7 +120,7 @@ const UserProfile = () => {
               <div className="flex items-center py-2">
                 <MdOutlineAlternateEmail className="mr-2 text-xl" />
                 <span className="lg:w-[31%] text-[#dbe0e1c4] md:text-lg ">
-                  Email:{" "}
+                  Email:
                 </span>
               </div>
               <span className="font-normal ml-[7%] md:ml-[13%] xl:ml-[11%] md:text-base lg:text-lg lg:font-semibold">
@@ -107,58 +129,12 @@ const UserProfile = () => {
             </div>
           </div>
 
-          <hr className="w-[90%] mt-[3%] -ml-[4%] border-red-500 " />
+          <hr className="w-[90%] mt-[3%] -ml-[4%] border-red-300 " />
 
           <div className="w-[100%] ms-[8%] md:ms-5 mt-[6%] ">
             <span className="text-2xl text-white font-medium ">Skills </span>
 
-            <div className="flex flex-wrap mt-2">
-              {/* <div className='inline-block text-md mr-[6%] '>
-                            <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">Array</span>
-                            <span className='text-[#7f7e7e] '>x20</span>
-                        </div>
-
-                        <div className='inline-block text-md mr-[6%] ext-lg'>
-                            <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">Array</span>
-                            <span className='text-[#7f7e7e] '>x20</span>
-                        </div>
-
-                        <div className='inline-block text-md mr-[6%] ext-lg'>
-                            <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">Hash Table</span>
-                            <span className='text-[#7f7e7e] '>x20</span>
-                        </div>
-
-                        <div className='inline-block text-md mr-[6%] '>
-                            <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">Greedy</span>
-                            <span className='text-[#7f7e7e] '>x20</span>
-                        </div>
-
-                        <div className='inline-block text-md mr-[6%] '>
-                            <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">Dynamic Programming</span>
-                            <span className='text-[#7f7e7e] '>x20</span>
-                        </div>
-
-                        <div className='inline-block text-md mr-[6%] ext-lg'>
-                            <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">Sort</span>
-                            <span className='text-[#7f7e7e] '>x20</span>
-                        </div>
-
-                        <div className='inline-block text-md mr-[6%] ext-lg'>
-                            <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">Array</span>
-                            <span className='text-[#7f7e7e] '>x20</span>
-                        </div>
-
-                        <div className='inline-block text-md mr-[6%] '>
-                            <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">String</span>
-                            <span className='text-[#7f7e7e] '>x20</span>
-                        </div>
-
-                        <div className='inline-block text-md mr-[6%] '>
-                            <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">Array</span>
-                            <span className='text-[#7f7e7e] '>x20</span>
-                        </div> */}
-              {renderedTags}
-            </div>
+            <div className="flex flex-wrap mt-2">{renderedTags}</div>
           </div>
         </div>
       </div>
