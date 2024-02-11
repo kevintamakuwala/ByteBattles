@@ -2,7 +2,7 @@ import React from 'react'
 import Home from './home/HomeSection'
 import Purpose from './purpose/Purpose'
 import Review from './reviews/Reviews';
-import Footer from '../../common/Footer/Footer';
+import Footer from '../../common/footerComponent/FooterComponent';
 import Navbar from '../../common/navbar/Navbar';
 
 const LandingPage = () => {

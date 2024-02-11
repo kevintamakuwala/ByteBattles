@@ -9,7 +9,7 @@ import LoadingIndicator from "../common/LoadingIndicator";
 // import ProblemList from "../common/ProblemList";
 import LandingPage from "../pages/landingPage/LandingPage";
 import Navbar from "../common/navbar/Navbar";
-import Footer from "../common/Footer/Footer";
+import FooterComponent from "../common/footerComponent/FooterComponent";
 // import Verify from "../user/verify/Verify";
 import MailValidation from "../user/verify/MailValidation";
 import ProblemPage from "../problems/ProblemPage";
@@ -121,7 +121,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
 
-          <Footer />
+          <FooterComponent />
         </>
       )}
 

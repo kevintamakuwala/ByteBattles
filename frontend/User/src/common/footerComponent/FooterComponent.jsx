@@ -3,7 +3,7 @@ import Logo from "../../assets/standard-collection-27.svg";
 import { FaInstagram, FaFacebook, FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+const FooterComponent = () => {
   return (
     <div className="flex flex-col pl-[6%] pt-[3%] bg-white w-screen">
       <Link
@@ -59,4 +59,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default FooterComponent;
