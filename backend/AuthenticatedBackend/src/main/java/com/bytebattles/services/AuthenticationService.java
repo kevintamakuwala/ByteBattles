@@ -64,8 +64,8 @@ public class AuthenticationService {
         helper.setSubject(subject);
 
         content = content.replace("[[name]]", user.getName());
-//      String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
-        String verifyURL =  "http://localhost:3000/verify?code=" + user.getVerificationCode();
+//       String verifyURL =  "http://localhost:3000/verify?code=" + user.getVerificationCode();
+        String verifyURL = "https://bytebattles.vercel.app/verify?code=" + user.getVerificationCode();
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -85,7 +85,7 @@ public class AuthenticationService {
 
         String randomCode = RandomString.make(64);
 
-        ApplicationUser user = new ApplicationUser(0, name, email, username, encodedPassword, randomCode, false, authorities,null);
+        ApplicationUser user = new ApplicationUser(0, name, email, username, encodedPassword, randomCode, false, authorities, null);
         ApplicationUser savedUser = userRepository.save(user);
         sendVerificationEmail(user, siteURL);
 

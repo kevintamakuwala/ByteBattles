@@ -68,6 +68,7 @@ public class SecurityConfiguration {
                     auth.requestMatchers("/testcases/**").permitAll();
                     auth.requestMatchers("/contests/**").permitAll();
                     auth.requestMatchers("http://localhost:3000/verify/**").permitAll();
+                    auth.requestMatchers("https://bytebattles.vercel.app/verify/**").permitAll();
                     auth.requestMatchers("/admin/**").hasRole("ADMIN");
                     auth.requestMatchers("/user/**").hasAnyRole("ADMIN", "USER");
                     auth.anyRequest().authenticated();
