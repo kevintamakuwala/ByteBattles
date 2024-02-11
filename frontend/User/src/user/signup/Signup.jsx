@@ -9,6 +9,7 @@ import { errorNotification, successNotification } from "../../util/Helpers";
 import { BiSolidUser } from "react-icons/bi";
 import { IoIosMail } from "react-icons/io";
 import { ToastContainer } from "react-toastify";
+import LandingPage from "../../pages/landingPage/LandingPage";
 
 const Signup = (props) => {
   const navigate = useNavigate();
@@ -40,12 +41,21 @@ const Signup = (props) => {
       setLoading(true);
 
       try {
-        await signup({
-          name: name,
-          email: email,
-          username: username,
-          password: password,
-        });
+        await fetch(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/auth/register`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              username,
+              password,
+            }),
+          }
+        );
 
         successNotification(
           "Thank you! You're successfully registered. Please Login to continue!"
@@ -61,8 +71,9 @@ const Signup = (props) => {
       errorNotification("Please fix the validation errors before submitting.");
     }
   };
-
-  if (registered) return <Verify />;
+  if (registered) {
+    return <Verify />;
+  }
 
   return !(
     localStorage.getItem(ACCESS_TOKEN) !== null &&
@@ -131,50 +142,50 @@ const Form = (props) => (
         />
       </div>
       <div className="input-field">
-        <div className='icon'>
+        <div className="icon">
           <IoIosMail />
         </div>
 
-      <FormInput
-        description="Email"
-        placeholder="Enter your Email"
-        type="text"
-        value={props.email}
-        onChange={(e) => {
-          props.setEmail(e.target.value);
-          props.validateEmail();
-        }}
-        isValid={props.validEmail}
-      />
+        <FormInput
+          description="Email"
+          placeholder="Enter your Email"
+          type="text"
+          value={props.email}
+          onChange={(e) => {
+            props.setEmail(e.target.value);
+            props.validateEmail();
+          }}
+          isValid={props.validEmail}
+        />
       </div>
 
       <div className="input-field">
         <div className="icon">
           <BiSolidUser />
         </div>
-      <FormInput
-        description="Username"
-        placeholder="Enter your username"
-        type="text"
-        value={props.username}
-        onChange={(e) => props.setUsername(e.target.value)}
-      />
+        <FormInput
+          description="Username"
+          placeholder="Enter your username"
+          type="text"
+          value={props.username}
+          onChange={(e) => props.setUsername(e.target.value)}
+        />
       </div>
       <div className="input-field">
         <div className="icon">
           <MdLock />
         </div>
-      <FormInput
-        description="Password"
-        placeholder="Enter your password"
-        type="password"
-        value={props.password}
-        onChange={(e) => {
-          props.setPassword(e.target.value);
-          props.validatePassword();
-        }}
-        isValid={props.validPassword}
-      />
+        <FormInput
+          description="Password"
+          placeholder="Enter your password"
+          type="password"
+          value={props.password}
+          onChange={(e) => {
+            props.setPassword(e.target.value);
+            props.validatePassword();
+          }}
+          isValid={props.validPassword}
+        />
       </div>
       <div
         style={{

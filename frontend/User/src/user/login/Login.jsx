@@ -6,8 +6,7 @@ import { ACCESS_TOKEN } from "../../constants";
 import LoadingIndicator from "../../common/LoadingIndicator";
 import { MdLock } from "react-icons/md";
 import { BiSolidUser } from "react-icons/bi";
-import { IoIosMail } from "react-icons/io";
-import Logo from "../../assets/standard-collection-27.svg"
+import Logo from "../../assets/standard-collection-27.svg";
 const FormHeader = (props) => <h2 id="headerTitle">{props.title}</h2>;
 
 const Login = (props) => {
@@ -19,39 +18,42 @@ const Login = (props) => {
 
   const handleLogin = () => {
     validatePassword();
-
     setTimeout(async () => {
       if (validPassword) {
         setLoading(true);
         try {
-          await login({
-            username: username,
-            password: password,
-          })
-            .then((response) => {
-              if (response.jwt === "") {
-                alert(
-                  "Your Username or Password is incorrect. Please try again!"
-                );
-                setLoading(false);
-                return;
-              }
-              localStorage.setItem(ACCESS_TOKEN, response.jwt);
-              localStorage.setItem("id", response.user.userId);
-              props.onLogin();
-              window.location.reload();
-            })
-            .catch((error) => {
-              if (error.status === 401) {
-                alert(
-                  "Your Username or Password is incorrect. Please try again!"
-                );
-              } else {
-                alert(error.message);
-              }
-            });
+          const response = await fetch(
+            `${import.meta.env.VITE_REACT_APP_BASE_URL}/auth/login`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                username: username,
+                password: password,
+              }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+          const responseData = await response.json();
+
+          if (responseData.jwt === "") {
+            alert("Your Username or Password is incorrect. Please try again!");
+            setLoading(false);
+            return;
+          }
+          localStorage.setItem(ACCESS_TOKEN, responseData.jwt);
+          localStorage.setItem("id", responseData.user.userId);
+          props.onLogin();
+          navigate("/");
+          // window.location.reload();
         } catch (error) {
-          alert("Sorry! Something went wrong. Please try again!");
+          alert(error.message);
         } finally {
           setLoading(false);
         }

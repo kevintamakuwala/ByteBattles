@@ -3,14 +3,14 @@ import { ACCESS_TOKEN } from "../../constants";
 import { login, verify } from "../../util/APIUtils";
 import { errorNotification, successNotification } from "../../util/Helpers";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const MailValidation = (props) => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState(localStorage.getItem("username"));
   const [password, setPassword] = useState(localStorage.getItem("password"));
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
-  // console.log(username);
-  // console.log(password);
 
   const urlParams = new URLSearchParams(window.location.search);
   const codeParam = urlParams.get("code");
@@ -18,7 +18,7 @@ const MailValidation = (props) => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/verify?code=${codeParam}`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/verify?code=${codeParam}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -36,46 +36,52 @@ const MailValidation = (props) => {
   };
 
   const handleVerifyAndLogin = () => {
-    // Call the function to initiate the fetch
     fetchData();
 
-    // handling login
-    handleLogin({
-      username,
-      password,
-    });
-    if (localStorage.getItem("username")) localStorage.removeItem("username");
-    if (localStorage.getItem("password")) localStorage.removeItem("password");
-  };
-
-  const handleLogin = (data) => {
     setTimeout(async () => {
       try {
-        await login(data)
-          .then((response) => {
-            if (response.jwt === "") {
-              errorNotification(
-                "Your Username or Password is incorrect. Please try again!"
-              );
-              return;
-            }
-            successNotification("Logged in");
+        const response = await fetch(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/auth/login`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username,
+              password,
+            }),
+          }
+        );
 
-            localStorage.setItem(ACCESS_TOKEN, response.jwt);
-            props.onLogin();
-            window.location.reload();
-          })
-          .catch((error) => {
-            if (error.status === 401) {
-              errorNotification(
-                "Your Username or Password is incorrect. Please try again!"
-              );
-            } else {
-              errorNotification(error.message);
-            }
-          });
+        if (!response.ok) {
+          errorNotification("Oops Something went wrong!!!");
+          return;
+        }
+
+        const responseData = await response.json();
+
+        if (responseData.jwt === "") {
+          errorNotification("Oops Something went wrong!!!");
+          return;
+        }
+
+        successNotification("Logged in");
+
+        localStorage.setItem(ACCESS_TOKEN, responseData.jwt);
+        localStorage.setItem("id", responseData.user.userId);
+        
+        props.setIsAuthenticated(true);
+        navigate("/");
       } catch (error) {
-        successNotification("Sorry! Something went wrong. Please try again!");
+        console.error("Oops Something went wrong!!!", error);
+        errorNotification("Oops Something went wrong!!!");
+        return;
+      } finally {
+        if (localStorage.getItem("username"))
+          localStorage.removeItem("username");
+        if (localStorage.getItem("password"))
+          localStorage.removeItem("password");
       }
     }, 0);
   };
@@ -94,7 +100,7 @@ const MailValidation = (props) => {
   };
   return (
     <div style={{ textAlign: "center", marginTop: "200px" }}>
-      <ToastContainer/>
+      <ToastContainer />
       {username && password && !alreadyRegistered ? (
         <button style={buttonStyle} onClick={handleVerifyAndLogin}>
           Verify and Login

@@ -31,15 +31,17 @@ const App = () => {
   const [newUsername, setNewUsername] = useState(username);
   const [newPassword, setNewPassword] = useState(password);
 
-  const handleLogout = (redirectTo = "/") => {
+  const handleLogout = () => {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem("id");
     setIsAuthenticated(false);
-    navigate(redirectTo);
+    navigate("/");
     window.scrollTo(0, 0);
   };
 
   const handleLogin = () => {
+    // navigate("/");
+    setIsAuthenticated(true);
     navigate("/");
     window.scrollTo(0, 0);
   };
@@ -77,14 +79,37 @@ const App = () => {
         <>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route
+              path="/login"
+              element={
+                isAuthenticated ? (
+                  <LandingPage />
+                ) : (
+                  <Login onLogin={handleLogin} />
+                )
+              }
+            />
             <Route
               path="/signup"
-              element={<Signup updateStates={updateStates} />}
+              element={
+                isAuthenticated ? (
+                  <LandingPage />
+                ) : (
+                  <Signup
+                    updateStates={updateStates}
+                    handleAuthenticated={setIsAuthenticated}
+                  />
+                )
+              }
             />
             <Route
               path="/verify"
-              element={<MailValidation onLogin={handleLogin} />}
+              element={
+                <MailValidation
+                  onLogin={handleLogin}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
             />
             <Route path="/problemset/" element={<ProblemPage />} />
             <Route path="/contests" element={<ContestList />} />

@@ -18,7 +18,6 @@ import { FaPlay } from "react-icons/fa";
 import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowDown } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../../../constants";
 import LoadingIndicator from "../../../common/LoadingIndicator";
 
 const cppDefault = `#include<bits/stdc++.h>
@@ -56,7 +55,7 @@ const CodeWindow = () => {
           data = location.state.problem;
         } else {
           const response = await fetch(
-            `${API_BASE_URL}/problems/title/${problemTitle}`,
+            `$${import.meta.env.VITE_REACT_APP_BASE_URL}/problems/title/${problemTitle}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },

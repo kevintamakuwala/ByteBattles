@@ -7,7 +7,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import ReactPaginate from "react-paginate";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
-import { API_BASE_URL } from "../constants";
+
 import LoadingIndicator from "../common/LoadingIndicator";
 import { Tooltip as ReactToolTip } from "react-tooltip";
 import Select from "react-select";
@@ -25,7 +25,7 @@ const ProblemPage = () => {
   const [pageCount, setPageCount] = useState(0);
   const [postData, setPostData] = useState([]);
   const [userId, setUserId] = useState(
-    localStorage.getItem("id") !== null
+    localStorage.getItem("id") !== null && localStorage.getItem("id") !== undefined
       ? Number(localStorage.getItem("id"))
       : -1
   );
@@ -87,7 +87,7 @@ const ProblemPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const problemsResponse = await fetch(`${API_BASE_URL}/problems`);
+        const problemsResponse = await fetch(`${import.meta.env.VITE_REACT_APP_BASE_URL}/problems`);
         const problemsData = await problemsResponse.json();
         setProblemList(problemsData);
 
@@ -106,7 +106,7 @@ const ProblemPage = () => {
         // Set the tagList state
         setTagList(tags);
         if (userId !== -1) {
-          const userResponse = await fetch(`${API_BASE_URL}/users/${userId}`);
+          const userResponse = await fetch(`${import.meta.env.VITE_REACT_APP_BASE_URL}/users/${userId}`);
           const userData = await userResponse.json();
           setUserData(userData);
           setUserSubmissionData(userData.submissionList);

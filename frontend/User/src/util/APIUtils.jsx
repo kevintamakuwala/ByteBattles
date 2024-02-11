@@ -1,4 +1,3 @@
-import { API_BASE_URL, ACCESS_TOKEN } from "../constants";
 
 const request = (options) => {
   const headers = new Headers({
@@ -25,15 +24,17 @@ const request = (options) => {
     })
   );
 };
+
 export function verify(verificationCode) {
   return request({
-    url: `http://localhost:8000/verify?code=${verificationCode}`,
+    url: `${import.meta.env.VITE_REACT_APP_BASE_URL}/verify?code=${verificationCode}`,
     method: "GET",
   });
 }
+
 export function login(loginRequest) {
   return request({
-    url: "http://localhost:8000/auth/login",
+    url: `${import.meta.env.VITE_REACT_APP_BASE_URL}/auth/login`,
     method: "POST",
     body: JSON.stringify(loginRequest),
   });
@@ -41,7 +42,7 @@ export function login(loginRequest) {
 
 export function signup(signupRequest) {
   return request({
-    url: "http://localhost:8000/auth/register",
+    url: `${import.meta.env.VITE_REACT_APP_BASE_URL}/auth/register`,
     method: "POST",
     body: JSON.stringify(signupRequest),
   });
@@ -52,14 +53,14 @@ export function getCurrentUser() {
     return Promise.reject("No access token set.");
   }
   return request({
-    url: "http://localhost:8000/user/",
+    url: `${import.meta.env.VITE_REACT_APP_BASE_URL}/user/`,
     method: "GET",
   });
 }
 
 export function getUserProfile(username) {
   return request({
-    url: API_BASE_URL + "/users/" + username,
+    url: import.meta.env.VITE_REACT_APP_BASE_URL + "/users/" + username,
     method: "GET",
   });
 }
