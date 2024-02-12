@@ -69,7 +69,7 @@ const Signin = ({ onLogin,onLogout }) => {
   const [password, setPassword] = useState("");
   return (
     <>
-      <div
+      <form
         style={{
           display: "flex",
           alignItems: "center",
@@ -118,6 +118,7 @@ const Signin = ({ onLogin,onLogout }) => {
                 required
                 fullWidth
                 name="password"
+                type="password"
                 label="password"
                 id="password"
                 autoComplete="off"
@@ -136,7 +137,7 @@ const Signin = ({ onLogin,onLogout }) => {
           </Box>
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
-      </div>
+      </form>
     </>
   );
 };

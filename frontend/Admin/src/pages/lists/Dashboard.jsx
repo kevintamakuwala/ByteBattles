@@ -94,12 +94,19 @@ const Dashboard = () => {
     if (loginState) {
       // Use Promise.all to fetch data concurrently
       Promise.all([
-        fetch(`${process.env.REACT_APP_BASE_URL}/users`, requestOption).then((res) => res.json()),
-        fetch(`${process.env.REACT_APP_BASE_URL}/problems`, requestOption).then((res) => res.json()),
-        fetch(`${process.env.REACT_APP_BASE_URL}/submissions`, requestOption).then((res) =>
-          res.json()
+        fetch(`${process.env.REACT_APP_BASE_URL}/users`, requestOption).then(
+          (res) => res.json()
         ),
-        fetch(`${process.env.REACT_APP_BASE_URL}/contests`, requestOption).then((res) => res.json()),
+        fetch(`${process.env.REACT_APP_BASE_URL}/problems`, requestOption).then(
+          (res) => res.json()
+        ),
+        fetch(
+          `${process.env.REACT_APP_BASE_URL}/submissions`,
+          requestOption
+        ).then((res) => res.json()),
+        fetch(`${process.env.REACT_APP_BASE_URL}/contests`, requestOption).then(
+          (res) => res.json()
+        ),
       ])
         .then(([users, problems, submissions, contests]) => {
           setUsersData(users);
@@ -133,9 +140,9 @@ const Dashboard = () => {
 
     if (submissionsData?.length > 0) {
       const resultCounts = {
-        Accepted: 0,
-        "Wrong Answer": 0,
-        "Runtime Error": 0,
+        AC: 0,
+        WA: 0,
+        RE: 0,
       };
 
       submissionsData.forEach((submission) => {
@@ -149,7 +156,7 @@ const Dashboard = () => {
 
       setSubmissionResultPieChartData((prevChartData) => ({
         ...prevChartData,
-        labels: Object.keys(resultCounts),
+        labels: ["Accepted", "Wrong Answer", "Runtime Error"],
         datasets: [
           {
             ...prevChartData.datasets[0],
