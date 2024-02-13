@@ -88,7 +88,7 @@ const UserProfile = () => {
           <div className="flex align-middle justify-center items-center text-xl text-white my-[1%] mt-[5%] -ms-[22%] w-[81%] ">
             <div className="mx-[4%] md:mx-[5%] ">
               <Avatar
-                name="Rushi Sureja"
+                name="Kevin Tamakuwala"
                 size="60"
                 textSizeRatio={2.75}
                 round={true}
@@ -100,7 +100,7 @@ const UserProfile = () => {
             </div>
 
             <div className="flex font-bold text-3xl md:text-xl lg:text-2xl">
-              <span>Rushi Sureja</span>
+              <span>Kevin Tamakuwala</span>
             </div>
           </div>
 
@@ -112,8 +112,8 @@ const UserProfile = () => {
                 <FaRegUser className="mr-2 text-xl" />
                 <span className="lg:w-[31%] text-[#dbe0e1c4]">Username: </span>
               </div>
-              <span className="font-normal ml-[2%] md:ml-[13%] xl:ml-[2%] md:text-base lg:text-lg lg:font-semibold">
-                rushi_sureja
+              <span className="font-normal ml-[2%] md:ml-[8.5%] xl:ml-[2%] md:text-base lg:text-lg lg:font-semibold">
+                kev.t16
               </span>
             </div>
             <div className="flex md:flex-col max-md:items-center xl:flex-row xl:items-center py-2">
@@ -123,8 +123,8 @@ const UserProfile = () => {
                   Email:
                 </span>
               </div>
-              <span className="font-normal ml-[7%] md:ml-[13%] xl:ml-[11%] md:text-base lg:text-lg lg:font-semibold">
-                rsureja48@gmail.com
+              <span className="font-normal ml-[7%] md:ml-[8.5%] xl:ml-[11%] md:text-base lg:text-lg lg:font-semibold">
+                kevintamakuwala16@gmail.com
               </span>
             </div>
           </div>
