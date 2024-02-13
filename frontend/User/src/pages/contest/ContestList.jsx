@@ -99,7 +99,21 @@ const ContestList = () => {
       });
     }
   };
-
+  const [contestsData, setContestsData] = useState([{}]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const contestsResponse = await fetch(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/contests`
+        );
+        const contestsData = await contestsResponse.json();
+        setContestsData(contestsData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <div className="mt-16 bg-gray-950 pt-8 px-6 md:px-16 mb-4 pb-4">
       <div>

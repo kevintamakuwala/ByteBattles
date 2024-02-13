@@ -54,10 +54,8 @@ const CodeWindow = () => {
         if (location.state && location.state.problem !== undefined) {
           data = location.state.problem;
         } else {
-          const response = await fetch(
-            `$${
-              import.meta.env.VITE_REACT_APP_BASE_URL
-            }/problems/title/${problemTitle}`,
+          const response = await 
+          fetch(`${import.meta.env.VITE_REACT_APP_BASE_URL}/problems/title/${problemTitle}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -119,13 +117,13 @@ const CodeWindow = () => {
         // "X-RapidAPI-Key": "a947ffeda4msh650089f42152dfdp1a205cjsnebeda844ebe8",
 
         // Key-2:
-        // "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
+        "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
 
         // Key-3:
         // "X-RapidAPI-Key": "7d17e17a3emshadc9a4db55ca221p134345jsn04d17d4a4f2f",
 
         // Key-4:
-        "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
+        // "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
       },
       data: formData,
     };
@@ -140,7 +138,7 @@ const CodeWindow = () => {
         let error = err.response ? err.response.data : err;
         let status = err.response.status;
         if (status === 429) {
-          showErrorToast(`Quota of 100 requests exceeded for the Day!`, 10000);
+          showErrorToast(`Quota of 50 requests exceeded for the Day!`, 10000);
         }
         setProcessing(false);
       });
@@ -171,13 +169,13 @@ const CodeWindow = () => {
         // "X-RapidAPI-Key": "a947ffeda4msh650089f42152dfdp1a205cjsnebeda844ebe8",
 
         // Key-2:
-        // "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
+        "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
 
         // Key-3:
         // "X-RapidAPI-Key": "7d17e17a3emshadc9a4db55ca221p134345jsn04d17d4a4f2f",
 
         // Key-4:
-        "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
+        // "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
       },
       data: formData,
     };
@@ -205,7 +203,7 @@ const CodeWindow = () => {
   const submitProblem = async (data) => {
     try {
       await axios.post(
-        "https://kevinbytebattles.h3110fr13nd.me/submissions/",
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/submissions/`,
         data
       );
     } catch (error) {
@@ -275,13 +273,13 @@ const CodeWindow = () => {
         // "X-RapidAPI-Key": "a947ffeda4msh650089f42152dfdp1a205cjsnebeda844ebe8",
 
         // Key-2:
-        // "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
+        "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
 
         // Key-3:
         // "X-RapidAPI-Key": "7d17e17a3emshadc9a4db55ca221p134345jsn04d17d4a4f2f",
 
         // Key-4:
-        "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
+        // "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
       },
     };
     try {

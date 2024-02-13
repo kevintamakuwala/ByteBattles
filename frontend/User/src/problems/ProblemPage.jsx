@@ -152,7 +152,7 @@ const ProblemPage = () => {
   useEffect(() => {
     receivedData();
   }, [offset, problemList, selectedDifficulty, selectedStatus]);
-
+ 
   const receivedData = () => {
     let filteredProblemsToDisplay = filteredProblems.length
       ? filteredProblems
