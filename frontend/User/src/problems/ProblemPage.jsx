@@ -103,7 +103,6 @@ const ProblemPage = () => {
         // Create tag objects from unique tag names
         const tags = uniqueTags.map((tagName) => ({ name: tagName }));
 
-        // Set the tagList state
         setTagList(tags);
         if (userId !== -1) {
           const userResponse = await fetch(`${import.meta.env.VITE_REACT_APP_BASE_URL}/users/${userId}`);

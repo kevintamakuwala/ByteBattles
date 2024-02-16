@@ -28,6 +28,29 @@ signed main() {
 }
 `;
 
+export const showSuccessToast = (msg) => {
+  toast.success(msg || `Compiled Successfully!`, {
+    position: "top-right",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+};
+export const showErrorToast = (msg, timer) => {
+  toast.error(msg || `Something went wrong! Please try again.`, {
+    position: "top-right",
+    autoClose: timer ? timer : 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+};
+
 const CodeWindow = () => {
   const navigate = useNavigate();
   const [code, setCode] = useState(cppDefault);
@@ -54,8 +77,10 @@ const CodeWindow = () => {
         if (location.state && location.state.problem !== undefined) {
           data = location.state.problem;
         } else {
-          const response = await 
-          fetch(`${import.meta.env.VITE_REACT_APP_BASE_URL}/problems/title/${problemTitle}`,
+          const response = await fetch(
+            `${
+              import.meta.env.VITE_REACT_APP_BASE_URL
+            }/problems/title/${problemTitle}`,
             {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -117,13 +142,13 @@ const CodeWindow = () => {
         // "X-RapidAPI-Key": "a947ffeda4msh650089f42152dfdp1a205cjsnebeda844ebe8",
 
         // Key-2:
-        "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
+        // "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
 
         // Key-3:
         // "X-RapidAPI-Key": "7d17e17a3emshadc9a4db55ca221p134345jsn04d17d4a4f2f",
 
         // Key-4:
-        // "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
+        "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
       },
       data: formData,
     };
@@ -138,7 +163,7 @@ const CodeWindow = () => {
         let error = err.response ? err.response.data : err;
         let status = err.response.status;
         if (status === 429) {
-          showErrorToast(`Quota of 50 requests exceeded for the Day!`, 10000);
+          showErrorToast(`Quota of 100 requests exceeded for the Day!`, 10000);
         }
         setProcessing(false);
       });
@@ -169,13 +194,13 @@ const CodeWindow = () => {
         // "X-RapidAPI-Key": "a947ffeda4msh650089f42152dfdp1a205cjsnebeda844ebe8",
 
         // Key-2:
-        "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
+        // "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
 
         // Key-3:
         // "X-RapidAPI-Key": "7d17e17a3emshadc9a4db55ca221p134345jsn04d17d4a4f2f",
 
         // Key-4:
-        // "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
+        "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
       },
       data: formData,
     };
@@ -199,30 +224,9 @@ const CodeWindow = () => {
     }
   };
 
-  // handle Submission
-  const submitProblem = async (data) => {
-    try {
-      await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/submissions/`,
-        data
-      );
-    } catch (error) {
-      console.error("Error submitting problem:", error);
-    }
-  };
   const handleSubmit = async () => {
     const testCaseList = problemData.testCaseList;
     let allTestCasesPassed = true;
-    const incorrectSubmission = {
-      language: language.name,
-      result: "WA",
-      problem: {
-        problemId: problemData.problemId,
-      },
-      applicationUser: {
-        userId: Number(localStorage.getItem("id")),
-      },
-    };
 
     for (let i = 0; i < testCaseList.length; i++) {
       const formData = {
@@ -238,26 +242,12 @@ const CodeWindow = () => {
 
       if (status === false) {
         allTestCasesPassed = false;
-        console.log("incorrectSubmission", incorrectSubmission);
-        submitProblem(incorrectSubmission);
         showErrorToast(`Wrong Answer on Test Case ${i + 1}`);
         break;
       }
     }
 
     if (allTestCasesPassed) {
-      const correctSubmission = {
-        language: language.name,
-        result: "AC",
-        problem: {
-          problemId: problemData.problemId,
-        },
-        applicationUser: {
-          userId: Number(localStorage.getItem("id")),
-        },
-      };
-      console.log("correctSubmission", correctSubmission);
-      submitProblem(correctSubmission);
       showSuccessToast("Accepted");
     }
   };
@@ -273,13 +263,13 @@ const CodeWindow = () => {
         // "X-RapidAPI-Key": "a947ffeda4msh650089f42152dfdp1a205cjsnebeda844ebe8",
 
         // Key-2:
-        "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
+        // "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
 
         // Key-3:
         // "X-RapidAPI-Key": "7d17e17a3emshadc9a4db55ca221p134345jsn04d17d4a4f2f",
 
         // Key-4:
-        // "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
+        "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
       },
     };
     try {
@@ -292,6 +282,7 @@ const CodeWindow = () => {
         }, 2000);
       } else {
         setProcessing(false);
+        let ans = false;
         if (submit === false) {
           setOutputDetails(response.data);
           showSuccessToast(`Compiled Successfully!`);
@@ -299,19 +290,11 @@ const CodeWindow = () => {
           statusId = response.data?.status?.id;
           if (statusId === 3) {
             if (atob(response.data.stdout) !== null) {
-              const actualOutput = atob(response.data.stdout);
-              if (actualOutput == expectedOutput) {
-                return true;
-              } else {
-                return false;
-              }
-            } else {
-              showErrorToast("Error");
-              return false;
-            }
+              return atob(response.data.stdout) === expectedOutput;
+            } else showErrorToast("Error");
           }
         }
-        return false;
+        return ans;
       }
     } catch (err) {
       console.log("err", err);
@@ -330,33 +313,10 @@ const CodeWindow = () => {
     }
   }
   useEffect(() => {
-    defineTheme("blackboard").then((_) =>
-      setTheme({ value: "blackboard", label: "Blackboard" })
+    defineTheme("oceanic-next").then((_) =>
+      setTheme({ value: "oceanic-next", label: "Oceanic Next" })
     );
   }, []);
-
-  const showSuccessToast = (msg) => {
-    toast.success(msg || `Compiled Successfully!`, {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-  const showErrorToast = (msg, timer) => {
-    toast.error(msg || `Something went wrong! Please try again.`, {
-      position: "top-right",
-      autoClose: timer ? timer : 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
 
   const [expanded, setExpanded] = useState(true);
 
@@ -369,7 +329,7 @@ const CodeWindow = () => {
     localStorage.getItem("id") !== undefined
   ) {
     return (
-      <div className="h-[100%] bg-slate-950 text-white">
+      <div className="h-[100%] bg-gray-950 text-white">
         <ToastContainer
           position="top-right"
           autoClose={2000}
@@ -383,12 +343,12 @@ const CodeWindow = () => {
         />
 
         <div className="flex flex-col mt-[80px] md:h-[100%] overflow-y-hidden">
-          <div className="m-auto ms-8 w-3/4 text-xl md:text-2xl font-semibold font-serif py-3 md:w-screen pb-2 mb-6 md:fixed md:z-10 top-0 md:left-0 lg:left-[2%] md:mt-[4rem] lg:mt-[5rem] md:pt-[3%] md:h-[15%] lg:h-12 lg:pt-2 md:bg-slate-950 underline underline-offset-[1rem]">
+          <div className="m-auto text-xl md:text-2xl font-semibold font-sans py-3 pb-2 mb-6 md:fixed md:z-10 top-0 md:left-0  md:mt-[5rem] lg:mt-[5rem] md:pt-2 md:h-12 lg:h-12 lg:pt-2 border-t-[1px] border-t-[#444444] border-b-[1px] border-b-[#444444] bg-[#030712] md:ml-[0.6%] md:w-[99%] md:pl-[5%] lg:pl-[4%] ml-[7%] w-[86%] pl-[3%] z-40 ">
             {problemData?.problemId}. {problemData?.title}
           </div>
 
           <div className="flex flex-col md:flex-row md:h-[78.9vh] border-2  overflow-y-scroll overflow-x-hidden border-slate-950 md:mt-[3rem]">
-            <div className="left problem sm:w-screen md:w-[42%] md:overflow-y-scroll md:border-r border-gray-600 ps-6 lg:-mt:8">
+            <div className="left problem sm:w-screen md:w-[42%] md:overflow-y-scroll md:border-r border-gray-600 md:ps-6 lg:-mt:8 max-md:px-[4%] ">
               <div className="overflow-y-scroll">
                 {!problemData ? (
                   <LoadingIndicator />
@@ -397,13 +357,13 @@ const CodeWindow = () => {
                 )}
               </div>
             </div>
-            <div className="right w-screen md:w-[58%] flex flex-col md:overflow-y-scroll md:border-r border-gray-600 sm:px-6 md:pl-6">
+            <div className="right w-screen md:w-[58%] flex flex-col md:overflow-y-scroll md:border-r border-gray-600 sm:px-6 md:pl-6 lg:pt-[1%] ">
               <div className="h-fit">
-                <div className="flex justify-center md:justify-start max-[400px]:flex-col max-[400px]:items-center min-[767px]:flex-col min-[846px]:flex-row min-[767px]:items-start ">
-                  <div className="md:px-2 py-2">
+                <div className="flex justify-center md:justify-start max-[400px]:flex-col max-[400px]:items-center min-[767px]:flex-col min-[767px]:pl-[2%] min-[846px]:pl-[1%] min-[846px]:flex-row min-[767px]:items-start ">
+                  <div className="min-[767px]:py-[1%] min-[846px]:py-0">
                     <LanguagesDropdown onSelectChange={onSelectChange} />
                   </div>
-                  <div className="md:px-4 py-2">
+                  <div className="min-[767px]:py-[1%] min-[846px]:py-0">
                     <ThemeDropdown
                       handleThemeChange={handleThemeChange}
                       theme={theme}
@@ -413,7 +373,7 @@ const CodeWindow = () => {
 
                 <div
                   style={{ height: "56vh", transition: "height 0.3s ease" }}
-                  className="mt-2"
+                  className="mt-2 w-[98%] max-md:pl-[1%] "
                 >
                   <CodeEditorWindow
                     // codeEditorHeight
@@ -434,7 +394,7 @@ const CodeWindow = () => {
                 }`}
               >
                 <div
-                  className={`flex flex-col md:w-[98%] md:ml-[1%] md:h-fit min-[550px]:flex-row max-[850px]:mt-[6%]  `}
+                  className={`flex flex-col md:w-[99%] lg:ml-[1%] md:h-fit min-[550px]:flex-row max-md:w-[99%] max-md:px-[1%]  `}
                 >
                   <div className="w-screen ms-0 min-[550px]:w-4/12 h-full">
                     <CustomInput
@@ -443,26 +403,24 @@ const CodeWindow = () => {
                     />
                   </div>
 
-                  <div className="  min-[550px]:mt-4 md:mt-4 w-screen min-[550px]:w-8/12">
+                  <div className="  min-[550px]:mt-4 md:mt-4  min-[550px]:w-8/12">
                     <OutputWindow outputDetails={outputDetails} />
                   </div>
                 </div>
               </div>
 
-              <div className="fill-available flex w-[99%] md:w-[56.5%] justify-center md:justify-between md:px-7 bg-gray-900 border-2 border-gray-600 md:fixed md:bottom-0 pb-2 bg-opacity-70 md:-ml-[1.5rem] z-50">
-                <div className="">
-                  <button
-                    onClick={toggleCodeEditorHeight}
-                    className="mt-2 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md  focus:ring focus:ring-blue-300 focus:outline-none active:bg-blue-600 text-base transition duration-300 ease-in-out flex items-center"
-                  >
-                    Console
-                    {expanded ? (
-                      <MdOutlineKeyboardDoubleArrowUp className="ms-2 text-2xl" />
-                    ) : (
-                      <MdOutlineKeyboardDoubleArrowDown className="ms-2 text-2xl" />
-                    )}
-                  </button>
-                </div>
+              <div className="fill-available flex w-[99%] md:w-[56.5%] justify-center md:justify-between md:px-2 lg:px-5 bg-gray-900 border-2 border-gray-600 md:fixed md:bottom-0 pb-2 bg-opacity-70 md:-ml-[1.5rem] z-50">
+                <button
+                  onClick={toggleCodeEditorHeight}
+                  className="mt-2 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md  focus:ring focus:ring-blue-300 focus:outline-none active:bg-blue-600 text-base transition duration-300 ease-in-out flex items-center max-md:hidden "
+                >
+                  Console
+                  {expanded ? (
+                    <MdOutlineKeyboardDoubleArrowUp className="ms-2 text-2xl" />
+                  ) : (
+                    <MdOutlineKeyboardDoubleArrowDown className="ms-2 text-2xl" />
+                  )}
+                </button>
                 <div className="flex">
                   <button
                     onClick={handleRun}
@@ -480,7 +438,7 @@ const CodeWindow = () => {
                     onClick={handleSubmit}
                     disabled={!code}
                     className={classnames(
-                      "bg-green-500 hover:bg-green-600 focus:ring focus:ring-green-300 focus:outline-none active:bg-green-700 text-white transition duration-300 ease-in-out mt-2 w-32 ml-4 text-lg border border-black rounded-md px-4 py-1 hover:shadow flex-shrink-0 font-bold",
+                      "bg-green-500 hover:bg-green-600 focus:ring focus:ring-green-300 focus:outline-none active:bg-green-700 text-white transition duration-300 ease-in-out mt-2 w-32  text-lg border border-black rounded-md px-4 py-1 hover:shadow flex-shrink-0 font-bold",
                       !code ? "opacity-50" : ""
                     )}
                   >

@@ -113,7 +113,7 @@ const App = () => {
             />
             <Route path="/problemset/" element={<ProblemPage />} />
             <Route path="/contests" element={<ContestList />} />
-            <Route path="/contestproblems" element={<ContestPage />} />
+            <Route path="/contests/*" element={<ContestPage />} />
             <Route path="/problems/*" element={<CodeWindow />} />
             <Route path="/profile/" element={<ProfilePage />} />
             {/* <Route path="/profile/" element={<ProfilePage />} /> */}

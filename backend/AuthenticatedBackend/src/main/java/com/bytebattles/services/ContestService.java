@@ -11,6 +11,8 @@ public interface ContestService {
 
     public Contest getContestById(String contestId);
 
+    public Contest getContestByTitle(String contestTitle);
+
     public Contest addContest(Contest contest);
 
     public Contest updateContest(Contest updatedContest);

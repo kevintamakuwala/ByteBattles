@@ -32,6 +32,11 @@ public class ContestServiceImpl implements ContestService {
     }
 
     @Override
+    public Contest getContestByTitle(String contestTitle) {
+        return contestRepository.findByTitle(contestTitle).get();
+    }
+
+    @Override
     public Contest addContest(Contest contest) {
         contestRepository.save(contest);
         return contest;

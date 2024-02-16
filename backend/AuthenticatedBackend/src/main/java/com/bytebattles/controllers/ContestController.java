@@ -34,6 +34,16 @@ public class ContestController {
         }
     }
 
+    @GetMapping({"/title/{contestTitle}", "/title/{contestTitle}/"})
+    public ResponseEntity<Contest> getContestByTitle(@PathVariable String contestTitle) {
+        Contest contest = contestService.getContestByTitle(contestTitle);
+        if (contest != null) {
+            return new ResponseEntity<>(contest, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping({"/", ""})
     public ResponseEntity<Contest> addContest(@RequestBody Contest contest) {
         Contest addedContest = contestService.addContest(contest);
@@ -82,7 +92,7 @@ public class ContestController {
     }
     @PutMapping({"/{contestId}/users", "/{contestId}/users/"})
     public Contest assignUsersToContest(@PathVariable Long contestId,
-                                           @RequestBody AssignUserToContestDTO assignUserToContestDTO) {
+                                        @RequestBody AssignUserToContestDTO assignUserToContestDTO) {
         return contestService.assignUserToContest(contestId, assignUserToContestDTO);
     }
 
