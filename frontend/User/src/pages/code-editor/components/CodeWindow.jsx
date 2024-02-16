@@ -313,8 +313,8 @@ const CodeWindow = () => {
     }
   }
   useEffect(() => {
-    defineTheme("oceanic-next").then((_) =>
-      setTheme({ value: "oceanic-next", label: "Oceanic Next" })
+    defineTheme("blackboard").then((_) =>
+      setTheme({ value: "blackboard", label: "Blackboard" })
     );
   }, []);
 
