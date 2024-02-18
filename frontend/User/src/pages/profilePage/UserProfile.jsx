@@ -33,36 +33,33 @@ const setCookie = (name, value, days) => {
   document.cookie = `${name}=${value}; ${expires}; path=/`;
 };
 
-const UserProfile = () => {
-  const tags = (tag) => {
+const UserProfile = ({ username, email, name, problems }) => {
+  const tags = (tag, cnt) => {
     return (
       <div className="inline-block text-md mr-[6%] ext-lg">
         <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">
           {tag}
         </span>
-        <span className="text-[#7f7e7e] ">x20</span>
+        <span className="text-[#7f7e7e] ">x{cnt}</span>
       </div>
     );
   };
 
-  const tagCount = 3;
-  const renderedTags = [];
-  const allTags = [
-    "Array",
-    "Dynamic Programming",
-    "Greedy",
-    "String",
-    "Hash Table",
-  ];
-
-  for (let i = 0; i < tagCount; i++) {
-    for (let j = 0; j < allTags.length; j++) {
-      renderedTags.push(tags(allTags[j]));
-    }
-  }
-
   const [avatarVisible, setAvatarVisible] = useState(false);
   const [avatarColor, setAvatarColor] = useState(() => getUserColor());
+  const [userTags, setUserTags] = useState({});
+  let renderedTags;
+  useEffect(() => {
+    const tagFrequencyMap = {};
+
+    problems?.forEach((problem) => {
+      problem?.tagList?.forEach((tag) => {
+        const tagName = tag.name;
+        tagFrequencyMap[tagName] = (tagFrequencyMap[tagName] || 0) + 1;
+      });
+    });
+    setUserTags(tagFrequencyMap);
+  }, [problems]);
 
   useEffect(() => {
     const storedColor = getUserColor();
@@ -88,7 +85,7 @@ const UserProfile = () => {
           <div className="flex align-middle justify-center items-center text-xl text-white my-[1%] mt-[5%] -ms-[22%] w-[81%] ">
             <div className="mx-[4%] md:mx-[5%] ">
               <Avatar
-                name="Kevin Tamakuwala"
+                name={name}
                 size="60"
                 textSizeRatio={2.75}
                 round={true}
@@ -100,7 +97,7 @@ const UserProfile = () => {
             </div>
 
             <div className="flex font-bold text-3xl md:text-xl lg:text-2xl">
-              <span>Kevin Tamakuwala</span>
+              <span>{name}</span>
             </div>
           </div>
 
@@ -113,7 +110,7 @@ const UserProfile = () => {
                 <span className="lg:w-[31%] text-[#dbe0e1c4]">Username: </span>
               </div>
               <span className="font-normal ml-[2%] md:ml-[8.5%] xl:ml-[2%] md:text-base lg:text-lg lg:font-semibold">
-                kev.t16
+                {username}
               </span>
             </div>
             <div className="flex md:flex-col max-md:items-center xl:flex-row xl:items-center py-2">
@@ -124,7 +121,7 @@ const UserProfile = () => {
                 </span>
               </div>
               <span className="font-normal ml-[7%] md:ml-[8.5%] xl:ml-[11%] md:text-base lg:text-lg lg:font-semibold">
-                kevintamakuwala16@gmail.com
+                {email}
               </span>
             </div>
           </div>
@@ -134,7 +131,11 @@ const UserProfile = () => {
           <div className="w-[100%] ms-[8%] md:ms-5 mt-[6%] ">
             <span className="text-2xl text-white font-medium ">Skills </span>
 
-            <div className="flex flex-wrap mt-2">{renderedTags}</div>
+            <div className="flex flex-wrap mt-2">
+              {Object.entries(userTags).map(([tagName, frequency]) => (
+                <React.Fragment key={tagName}>{tags(tagName, frequency)}</React.Fragment>
+              ))}
+            </div>
           </div>
         </div>
       </div>

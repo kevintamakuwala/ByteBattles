@@ -142,13 +142,13 @@ const CodeWindow = () => {
         // "X-RapidAPI-Key": "a947ffeda4msh650089f42152dfdp1a205cjsnebeda844ebe8",
 
         // Key-2:
-        // "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
+        "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
 
         // Key-3:
         // "X-RapidAPI-Key": "7d17e17a3emshadc9a4db55ca221p134345jsn04d17d4a4f2f",
 
         // Key-4:
-        "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
+        // "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
       },
       data: formData,
     };
@@ -194,13 +194,13 @@ const CodeWindow = () => {
         // "X-RapidAPI-Key": "a947ffeda4msh650089f42152dfdp1a205cjsnebeda844ebe8",
 
         // Key-2:
-        // "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
+        "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
 
         // Key-3:
         // "X-RapidAPI-Key": "7d17e17a3emshadc9a4db55ca221p134345jsn04d17d4a4f2f",
 
         // Key-4:
-        "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
+        // "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
       },
       data: formData,
     };
@@ -224,9 +224,30 @@ const CodeWindow = () => {
     }
   };
 
+  // handle Submission
+  const submitProblem = async (data) => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/submissions/`,
+        data
+      );
+    } catch (error) {
+      console.error("Error submitting problem:", error);
+    }
+  };
   const handleSubmit = async () => {
     const testCaseList = problemData.testCaseList;
     let allTestCasesPassed = true;
+    const incorrectSubmission = {
+      language: language.name,
+      result: "WA",
+      problem: {
+        problemId: problemData.problemId,
+      },
+      applicationUser: {
+        userId: Number(localStorage.getItem("id")),
+      },
+    };
 
     for (let i = 0; i < testCaseList.length; i++) {
       const formData = {
@@ -242,12 +263,26 @@ const CodeWindow = () => {
 
       if (status === false) {
         allTestCasesPassed = false;
+        console.log("incorrectSubmission", incorrectSubmission);
+        submitProblem(incorrectSubmission);
         showErrorToast(`Wrong Answer on Test Case ${i + 1}`);
         break;
       }
     }
 
     if (allTestCasesPassed) {
+      const correctSubmission = {
+        language: language.name,
+        result: "AC",
+        problem: {
+          problemId: problemData.problemId,
+        },
+        applicationUser: {
+          userId: Number(localStorage.getItem("id")),
+        },
+      };
+      console.log("correctSubmission", correctSubmission);
+      submitProblem(correctSubmission);
       showSuccessToast("Accepted");
     }
   };
@@ -263,13 +298,13 @@ const CodeWindow = () => {
         // "X-RapidAPI-Key": "a947ffeda4msh650089f42152dfdp1a205cjsnebeda844ebe8",
 
         // Key-2:
-        // "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
+        "X-RapidAPI-Key": "f30831f1b1mshaecab54a43c6574p121731jsn22ac1ef78751",
 
         // Key-3:
         // "X-RapidAPI-Key": "7d17e17a3emshadc9a4db55ca221p134345jsn04d17d4a4f2f",
 
         // Key-4:
-        "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
+        // "X-RapidAPI-Key": "364f61d56dmshfa3e94f46c1408cp19896bjsn9cb3a3f1b27c",
       },
     };
     try {
@@ -282,7 +317,6 @@ const CodeWindow = () => {
         }, 2000);
       } else {
         setProcessing(false);
-        let ans = false;
         if (submit === false) {
           setOutputDetails(response.data);
           showSuccessToast(`Compiled Successfully!`);
@@ -290,11 +324,19 @@ const CodeWindow = () => {
           statusId = response.data?.status?.id;
           if (statusId === 3) {
             if (atob(response.data.stdout) !== null) {
-              return atob(response.data.stdout) === expectedOutput;
-            } else showErrorToast("Error");
+              const actualOutput = atob(response.data.stdout);
+              if (actualOutput == expectedOutput) {
+                return true;
+              } else {
+                return false;
+              }
+            } else {
+              showErrorToast("Error");
+              return false;
+            }
           }
         }
-        return ans;
+        return false;
       }
     } catch (err) {
       console.log("err", err);

@@ -42,7 +42,7 @@ const App = () => {
   const handleLogin = () => {
     // navigate("/");
     setIsAuthenticated(true);
-    navigate("/");
+    navigate(-1);
     window.scrollTo(0, 0);
   };
 
@@ -115,8 +115,10 @@ const App = () => {
             <Route path="/contests" element={<ContestList />} />
             <Route path="/contests/*" element={<ContestPage />} />
             <Route path="/problems/*" element={<CodeWindow />} />
-            <Route path="/profile/" element={<ProfilePage />} />
-            {/* <Route path="/profile/" element={<ProfilePage />} /> */}
+            <Route
+              path="/profile/"
+              element={!isAuthenticated ? <Login onLogin={handleLogin}/> : <ProfilePage />}
+            />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
