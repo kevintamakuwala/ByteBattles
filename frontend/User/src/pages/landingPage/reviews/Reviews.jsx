@@ -23,67 +23,67 @@ const Review = () => {
         />
       </div>
       <div className="user-reviews flex flex-col lg:flex-row items-center justify-evenly mt-8 py-1 px-7 pb-4">
-        <section class="text-gray-600 body-font">
-          <div class="container px-5 py-24 mx-auto">
-            <div class="flex flex-wrap -m-4">
-              <div class="lg:w-1/3 lg:mb-0 mb-6 p-4">
-                <div class="h-full text-center bg-white px-2 py-2 rounded-xl shadow-lg shadow-[#2b3241]">
+        <section className="text-gray-600 body-font">
+          <div className="container px-5 py-24 mx-auto">
+            <div className="flex flex-wrap -m-4">
+              <div className="lg:w-1/3 lg:mb-0 mb-6 p-4">
+                <div className="h-full text-center bg-white px-2 py-2 rounded-xl shadow-lg shadow-[#2b3241]">
                   <img
                     alt="testimonial"
-                    class="w-20 h-20 mb-5 mt-2 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100 ring-2 ring-zinc-800"
+                    className="w-20 h-20 mb-5 mt-2 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100 ring-2 ring-zinc-800"
                     src={Priyansh}
                   />
-                  <p class="leading-relaxed text-gray-900 font-semibold">
+                  <p className="leading-relaxed text-gray-900 font-semibold">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                     Earum corporis ad vitae quas eos. Maxime incidunt, officia,
                     distinctio dolor maiores autem reiciendis quae voluptatum,
                     inventore accusantium rem quas facilis facere!
                   </p>
-                  <span class="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-                  <h2 class="text-gray-900 font-medium title-font tracking-wider text-base">
+                  <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
+                  <h2 className="text-gray-900 font-medium title-font tracking-wider text-base">
                     PRIYANSH AGGARWAL
                   </h2>
-                  <p class="text-gray-700">Senior Product Designer</p>
+                  <p className="text-gray-700">Senior Product Designer</p>
                 </div>
               </div>
-              <div class="lg:w-1/3 lg:mb-0 mb-6 p-4">
-                <div class="h-full text-center bg-white px-2 py-2 rounded-xl shadow-lg shadow-[#2b3241]">
+              <div className="lg:w-1/3 lg:mb-0 mb-6 p-4">
+                <div className="h-full text-center bg-white px-2 py-2 rounded-xl shadow-lg shadow-[#2b3241]">
                   <img
                     alt="testimonial"
-                    class="w-20 h-20 mb-5 mt-2 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100 ring-2 ring-zinc-800"
+                    className="w-20 h-20 mb-5 mt-2 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100 ring-2 ring-zinc-800"
                     src={Abhishek}
                   />
-                  <p class="leading-relaxed text-gray-900 font-semibold">
+                  <p className="leading-relaxed text-gray-900 font-semibold">
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                     Earum corporis ad vitae quas eos. Maxime incidunt, officia,
                     distinctio dolor maiores autem reiciendis quae voluptatum,
                     inventore accusantium rem quas facilis facere!
                   </p>
-                  <span class="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-                  <h2 class="text-gray-900 font-medium title-font tracking-wider text-base">
+                  <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
+                  <h2 className="text-gray-900 font-medium title-font tracking-wider text-base">
                     ABHISHEK SAINI
                   </h2>
-                  <p class="text-gray-700">UI Develeoper</p>
+                  <p className="text-gray-700">UI Develeoper</p>
                 </div>
               </div>
-              <div class="lg:w-1/3 lg:mb-0 p-4">
-                <div class="h-full text-center bg-white px-2 py-2 rounded-xl shadow-lg shadow-[#2b3241]">
+              <div className="lg:w-1/3 lg:mb-0 p-4">
+                <div className="h-full text-center bg-white px-2 py-2 rounded-xl shadow-lg shadow-[#2b3241]">
                   <img
                     alt="testimonial"
-                    class="w-20 h-20 mb-5 mt-2 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100 ring-2 ring-zinc-800"
+                    className="w-20 h-20 mb-5 mt-2 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100 ring-2 ring-zinc-800"
                     src={Striver}
                   />
-                  <p class="leading-relaxed text-gray-900 font-semibold">
+                  <p className="leading-relaxed text-gray-900 font-semibold">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                     Aperiam, maiores vitae adipisci, a iusto cumque voluptas ab
                     iure voluptates sint possimus dolorem ipsa qui quibusdam
                     error odit reiciendis alias voluptatem?
                   </p>
-                  <span class="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
-                  <h2 class="text-gray-900 font-medium title-font tracking-wider text-base">
+                  <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4"></span>
+                  <h2 className="text-gray-900 font-medium title-font tracking-wider text-base">
                     STRIVER
                   </h2>
-                  <p class="text-gray-700">CTO</p>
+                  <p className="text-gray-700">CTO</p>
                 </div>
               </div>
             </div>

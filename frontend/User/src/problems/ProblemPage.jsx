@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "./search/SearchBar";
-import DailyProblem from "./daily-problem/DailyProblem";
 import Problem from "./problem/Problem";
 import FullScreenDialog from "./pop-up/PopUp";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -11,7 +10,7 @@ import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
 import LoadingIndicator from "../common/LoadingIndicator";
 import { Tooltip as ReactToolTip } from "react-tooltip";
 import Select from "react-select";
-
+import ProblemRecommendation from "./problem-recommendation/ProblemRecommendation";
 
 const ProblemPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -25,7 +24,8 @@ const ProblemPage = () => {
   const [pageCount, setPageCount] = useState(0);
   const [postData, setPostData] = useState([]);
   const [userId, setUserId] = useState(
-    localStorage.getItem("id") !== null && localStorage.getItem("id") !== undefined
+    localStorage.getItem("id") !== null &&
+      localStorage.getItem("id") !== undefined
       ? Number(localStorage.getItem("id"))
       : -1
   );
@@ -87,7 +87,9 @@ const ProblemPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const problemsResponse = await fetch(`${import.meta.env.VITE_REACT_APP_BASE_URL}/problems`);
+        const problemsResponse = await fetch(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/problems`
+        );
         const problemsData = await problemsResponse.json();
         setProblemList(problemsData);
 
@@ -105,7 +107,9 @@ const ProblemPage = () => {
 
         setTagList(tags);
         if (userId !== -1) {
-          const userResponse = await fetch(`${import.meta.env.VITE_REACT_APP_BASE_URL}/users/${userId}`);
+          const userResponse = await fetch(
+            `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/${userId}`
+          );
           const userData = await userResponse.json();
           setUserData(userData);
           setUserSubmissionData(userData.submissionList);
@@ -133,7 +137,6 @@ const ProblemPage = () => {
     }
   }, [
     problemList,
-    solvedProblems,
     userSubmissionData,
     userId,
     selectedDifficulty,
@@ -142,7 +145,7 @@ const ProblemPage = () => {
 
   const handleSelectChange = (selectedOption, type) => {
     if (type === "difficulty") {
-      setSelectedDifficulty(selectedOption ? selectedOption.value : null); 
+      setSelectedDifficulty(selectedOption ? selectedOption.value : null);
     } else if (type === "status") {
       setSelectedStatus(selectedOption ? selectedOption.value : null);
     }
@@ -151,7 +154,7 @@ const ProblemPage = () => {
   useEffect(() => {
     receivedData();
   }, [offset, problemList, selectedDifficulty, selectedStatus]);
- 
+
   const receivedData = () => {
     let filteredProblemsToDisplay = filteredProblems.length
       ? filteredProblems
@@ -234,26 +237,37 @@ const ProblemPage = () => {
       <div className="problem-bar flex flex-col md:flex-row justify-around items-center rounded-lg mx-4 md:mx-12 h-auto md:h-16 bg-white mb-8 md:mb-0 lg:ps-12 md:ps-8">
         <SearchBar onSearch={handleSearch} />
         <div className="flex items-center w-full justify-around">
-
           <Select
             options={difficultyOptions}
-            onChange={(selectedOption) => handleSelectChange(selectedOption, "difficulty")}
-            value={selectedDifficulty ? { value: selectedDifficulty, label: selectedDifficulty } : null}
+            onChange={(selectedOption) =>
+              handleSelectChange(selectedOption, "difficulty")
+            }
+            value={
+              selectedDifficulty
+                ? { value: selectedDifficulty, label: selectedDifficulty }
+                : null
+            }
             placeholder="Difficulty"
             isClearable
             classNamePrefix="react-select"
             styles={{
               dropdownIndicator: (base) => ({
                 ...base,
-                display: selectedDifficulty ? "none" : "block", 
-                color : "gray",
+                display: selectedDifficulty ? "none" : "block",
+                color: "gray",
               }),
             }}
           />
           <Select
             options={statusOptions}
-            onChange={(selectedOption) => handleSelectChange(selectedOption, "status")}
-            value={selectedStatus ? { value: selectedStatus, label: selectedStatus } : null}
+            onChange={(selectedOption) =>
+              handleSelectChange(selectedOption, "status")
+            }
+            value={
+              selectedStatus
+                ? { value: selectedStatus, label: selectedStatus }
+                : null
+            }
             placeholder="Status"
             isClearable
             classNamePrefix="react-select"
@@ -261,7 +275,7 @@ const ProblemPage = () => {
               dropdownIndicator: (base) => ({
                 ...base,
                 display: selectedStatus ? "none" : "block",
-                color : "gray",
+                color: "gray",
               }),
             }}
           />
@@ -311,18 +325,25 @@ const ProblemPage = () => {
               containerClassName={"pagination"}
               subContainerClassName={"pages pagination"}
               activeClassName={"active"}
-              previousLinkClassName={`border px-4 py-2 ${currentPage === 0 ? "pointer-events-none opacity-50" : ""
-                }`}
-              nextLinkClassName={`border px-4 py-2 ${currentPage === pageCount - 1
-                ? "pointer-events-none opacity-50"
-                : ""
-                }`}
+              previousLinkClassName={`border px-4 py-2 ${
+                currentPage === 0 ? "pointer-events-none opacity-50" : ""
+              }`}
+              nextLinkClassName={`border px-4 py-2 ${
+                currentPage === pageCount - 1
+                  ? "pointer-events-none opacity-50"
+                  : ""
+              }`}
             />
           </div>
         </div>
 
         <div className="daily-problems mx-2 md:ms-0 md:mr-10 lg:mx-12 mt-2 md:mt-0 md:w-2/6">
-          <DailyProblem />
+          <ProblemRecommendation
+            tagList={tagList}
+            userSubmissionData={userSubmissionData}
+            solvedProblems={solvedProblems}
+            problemList={problemList}
+          />
           <ReactToolTip />
         </div>
       </div>

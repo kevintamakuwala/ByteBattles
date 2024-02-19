@@ -58,7 +58,6 @@ const Contest = (props) => {
         .replace(/\s+/g, "-")
         .toLowerCase();
       const contestUrl = `/contests/${contestTitleSlug}/`;
-      console.log(props.data.startTime);
       navigate(contestUrl, { 
         state: { 
           url: props.data.title, 
@@ -119,30 +118,23 @@ const Contest = (props) => {
 
     if (liveStartTime <= currentDate && liveEndTime >= currentDate) {
       const userSet = props.data.applicationUserSet;
-      console.log(userSet);
-      console.log(props.data);
       userSet.map((user, index) => {
-        console.log(user);
         if(typeof user === "number"){
           if (user === Number(localStorage.getItem("id"))) {
-            console.log("hello");
             const newTitle = props.data?.title;
             setRegisteredContestTitles([...registeredContestTitles, newTitle]);
           }
         }
         else{
           if (user.userId === localStorage.getItem("id")) {
-            console.log("first");
             const newTitle = props.data?.title;
             setRegisteredContestTitles([...registeredContestTitles, newTitle]);
           }
         }
-        console.log(registeredContestTitles);
       });
     }
 
 
-    console.log("registeredContestTitles");
 
     for (let i = 0; i < registeredContestTitles.length; i++) {
       if (props.data.title === registeredContestTitles[i]) {
