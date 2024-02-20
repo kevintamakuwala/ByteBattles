@@ -7,32 +7,54 @@ function Navbar({ isAuthenticated, handleLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const updateIsOpen = () => {
-    setIsOpen(window.innerWidth <= 768 && isMenuOpen); // isOpen is set to false when screen size is greater than md
-  };
+  // const updateIsOpen = () => {
+  //   setIsOpen(window.innerWidth <= 768 && isMenuOpen); // isOpen is set to false when screen size is greater than md
+  // };
+
+  // const toggleMenu = () => {
+  //   setIsTransitioning(true);
+  //   // setTimeout(() => {
+  //   //   setIsMenuOpen(!isMenuOpen);
+  //   //   setIsTransitioning(false);
+  //   // },300);
+  //   setIsOpen(!isOpen);
+  // };
 
   const toggleMenu = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setIsMenuOpen(!isMenuOpen);
-      setIsTransitioning(false);
-    },300);
+    setIsOpen(!isOpen);
   };
 
   useEffect(() => {
-    updateIsOpen();
-    window.addEventListener('resize', updateIsOpen);
-    return () => {
-      window.removeEventListener('resize', updateIsOpen);
+    const updateIsOpen = () => {
+      setIsOpen(window.innerWidth <= 768 && isOpen); // isOpen is set to false when screen size is greater than md
     };
-  }, []);
+
+    updateIsOpen();
+    window.addEventListener("resize", updateIsOpen);
+    return () => {
+      window.removeEventListener("resize", updateIsOpen);
+    };
+  }, [isOpen]);
+
+  // useEffect(() => {
+  //   updateIsOpen();
+  //   window.addEventListener("resize", updateIsOpen);
+  //   return () => {
+  //     window.removeEventListener("resize", updateIsOpen);
+  //   };
+  // }, [isMenuOpen]);
 
   return (
     // flex-wrap transition-all ${isTransitioning ? "duration-300 transition-transform transform ease-in-out" : ""}
-    <div className={` ${isTransitioning ? "duration-300" : ""} ${isOpen ? "mb-[22rem]" : "mb-16"}`}>
-      <nav className="flex items-center flex-wrap md:flex-nowrap lg:flex-nowrap justify-between p-6 md:mt-0 md:mb-2 md:pt-4 md:pb-4 bg-gray-950 text-white w-screen fixed top-0 left-0 mb-52 z-50">
+    // <div className="relative">
+    <div
+      className={` ${
+        isTransitioning ? "transition-all duration-300 ease-in-out " : ""
+      } ${isOpen ? " mb-[22rem] h-auto" : " mb-16 h-0"} `}
+    >
+      <nav className="flex items-center flex-wrap md:flex-nowrap lg:flex-nowrap justify-between py-6 md:mt-0 md:mb-2 md:pt-4 md:pb-4 bg-gray-950 text-white w-screen fixed top-0 left-0 mb-52 z-50">
         <Link to="/">
-          <div className="flex items-end flex-shrink-0 ps-12 mr-6 mt-1">
+          <div className="flex items-end flex-shrink-0 ps-5 md:ps-12 mr-6 mt-1">
             <img
               className="w-7 h-6 md:w-100 md:h-10 mr-2"
               alt="logo"
@@ -47,7 +69,7 @@ function Navbar({ isAuthenticated, handleLogout }) {
         <div className="block md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center px-3 py-2 rounded mr-12 text-black-500 text-lg font-bold hover:text-black-400 transition-all ease-in-out duration-300"
+            className="flex items-center py-2 rounded mr-12 text-black-500 text-lg font-bold hover:text-black-400 transition-all ease-in-out duration-300"
           >
             <svg
               className={`fill-current h-4 w-4 ${isOpen ? "hidden" : "block"}`}
@@ -66,10 +88,12 @@ function Navbar({ isAuthenticated, handleLogout }) {
           </button>
         </div>
         <div
-          className={`w-full block flex-grow md:flex md:justify-end md:items-center md:w-auto border-none mt-2 md:mt-0 ${isOpen ? "block" : "hidden"
-            }`}
+          className={`w-full block flex-grow md:flex md:justify-end md:items-center md:w-auto border-none mt-2 md:mt-0 ${
+            isOpen ? "block " : "hidden"
+          }`}
         >
-          <div className="w-[100%] flex flex-col md:flex-row md:justify-end items-center mt-4 font-semibold text-lg md:text-base lg:text-xl  pb-4 md:pb-0">
+          <div className={`mx-4 md:w-[100%] flex flex-col md:flex-row md:justify-end items-center mt-4 font-semibold text-lg md:text-base lg:text-xl  pb-4 md:pb-0 ${isMenuOpen ? "border border-white" : "" }`}>
+            {/* */}
             <Link
               to="/problemset"
               onClick={toggleMenu}
@@ -103,7 +127,7 @@ function Navbar({ isAuthenticated, handleLogout }) {
               onClick={isAuthenticated ? handleLogout : null}
             >
               {!isAuthenticated ? (
-                <Link to="/signup">Sign up</Link>
+                <Link to="/login">Login</Link>
               ) : (
                 <span>Log out</span>
               )}

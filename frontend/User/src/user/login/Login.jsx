@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../util/APIUtils";
 import "./Login.css";
 import { ACCESS_TOKEN } from "../../constants";
@@ -157,6 +157,12 @@ const Form = (props) => (
           <button type="button" onClick={props.handleLogin}>
             Login
           </button>
+          <span className="login-here">
+            Don't have account?{" "}
+            <Link to="/signup" className="font-semibold">
+              Create an Account
+            </Link>
+          </span>
         </div>
       </div>
     )}

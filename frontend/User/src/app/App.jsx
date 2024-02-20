@@ -73,7 +73,7 @@ const App = () => {
   const shouldRenderNavbarAndFooter = !location.pathname.includes("/problems/");
 
   return (
-    <div className="overflow-x-hidden bg-slate-950">
+    <div className="overflow-x-hidden bg-gray-950">
       <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
       {shouldRenderNavbarAndFooter && (
         <>

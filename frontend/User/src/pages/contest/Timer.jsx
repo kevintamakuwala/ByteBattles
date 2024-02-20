@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Timer = ({ endTime }) => {
+const Timer = ({ startTime, endTime }) => {
   const EndTime = new Date(
     endTime[0],
     endTime[1] - 1,
@@ -12,12 +12,15 @@ const Timer = ({ endTime }) => {
   const [remainingTime, setRemainingTime] = useState(initialTime);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setRemainingTime((prevTime) => prevTime - 1);
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
+    if (EndTime > new Date()) {
+      const intervalId = setInterval(() => {
+        setRemainingTime((prevTime) => prevTime - 1);
+      }, 1000);
+      return () => clearInterval(intervalId);
+    } else {
+      setRemainingTime(0);
+    }
+  }, [new Date()]);
 
   const formatTime = (timeInSeconds) => {
     const hours = Math.floor(timeInSeconds / 3600);

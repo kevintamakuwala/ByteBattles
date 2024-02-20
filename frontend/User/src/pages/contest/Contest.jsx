@@ -103,6 +103,47 @@ const Contest = (props) => {
     }
   };
 
+  // useEffect(() => {
+  //   const currentDate = new Date();
+  //   const start = props.data.startTime;
+  //   const end = props.data.endTime;
+  //   const liveStartTime = new Date(
+  //     start[0],
+  //     start[1] - 1,
+  //     start[2],
+  //     start[3],
+  //     start[4]
+  //   );
+  //   const liveEndTime = new Date(end[0], end[1] - 1, end[2], end[3], end[4]);
+
+  //   if (liveStartTime <= currentDate && liveEndTime >= currentDate) {
+  //     const userSet = props.data.applicationUserSet;
+  //     userSet.map((user, index) => {
+  //       if(typeof user === "number"){
+  //         if (user === Number(localStorage.getItem("id"))) {
+  //           const newTitle = props.data?.title;
+  //           setRegisteredContestTitles([...registeredContestTitles, newTitle]);
+  //         }
+  //       }
+  //       else{
+  //         if (user.userId === localStorage.getItem("id")) {
+  //           const newTitle = props.data?.title;
+  //           setRegisteredContestTitles([...registeredContestTitles, newTitle]);
+  //         }
+  //       }
+  //     });
+  //   }
+
+
+
+  //   for (let i = 0; i < registeredContestTitles.length; i++) {
+  //     if (props.data.title === registeredContestTitles[i]) {
+  //       setIsRegistered(true);
+  //       setRegisterButton("Enter");
+  //     }
+  //   }
+  // }, [registeredContestTitles]);
+
   useEffect(() => {
     const currentDate = new Date();
     const start = props.data.startTime;
@@ -115,64 +156,60 @@ const Contest = (props) => {
       start[4]
     );
     const liveEndTime = new Date(end[0], end[1] - 1, end[2], end[3], end[4]);
-
+  
     if (liveStartTime <= currentDate && liveEndTime >= currentDate) {
       const userSet = props.data.applicationUserSet;
-      userSet.map((user, index) => {
-        if(typeof user === "number"){
-          if (user === Number(localStorage.getItem("id"))) {
-            const newTitle = props.data?.title;
-            setRegisteredContestTitles([...registeredContestTitles, newTitle]);
-          }
-        }
-        else{
-          if (user.userId === localStorage.getItem("id")) {
-            const newTitle = props.data?.title;
-            setRegisteredContestTitles([...registeredContestTitles, newTitle]);
-          }
+      userSet.forEach(user => {
+        if (typeof user === "number" && user === Number(localStorage.getItem("id"))) {
+          const newTitle = props.data?.title;
+          setRegisteredContestTitles(prevTitles => [...prevTitles, newTitle]);
+        } else if (user.userId === localStorage.getItem("id")) {
+          const newTitle = props.data?.title;
+          setRegisteredContestTitles(prevTitles => [...prevTitles, newTitle]);
         }
       });
     }
-
-
-
+  }, [props.data]);
+  
+  useEffect(() => {
     for (let i = 0; i < registeredContestTitles.length; i++) {
       if (props.data.title === registeredContestTitles[i]) {
         setIsRegistered(true);
         setRegisterButton("Enter");
+        break; // Exit the loop once found
       }
     }
-  }, [registeredContestTitles]);
-  //
+  }, [registeredContestTitles, props.data.title]);
+  
 
   return (
     <div className="my-1">
       <div
-        className={`h-[4rem] max-[493px]:w-full max-[493px]:m-auto max-[493px]:my-1 max-[493px]:px-3 max-[493px]:py-2 items-center flex max-[493px]:flex-col max-[493px]:h-fit text-white lg:font-semibold justify-evenly overflow-hidden max-[493px]:items-center ${backgroundColor} ${
+        className={`grid grid-cols-6 h-[4rem] max-[590px]:w-full max-[590px]:m-auto max-[590px]:my-1 max-[590px]:px-5 max-[590px]:py-2 items-center max-[590px]:flex max-[590px]:flex-col max-[590px]:h-fit text-white lg:font-semibold min-[590px]:pl-[3%] min-[590px]:pr-[5%] md:px-[5%] overflow-hidden max-[590px]:items-center ${backgroundColor} ${
           props.value === "past" ? "cursor-pointer" : "cursor-auto"
         }`}
         onClick={props.value === "past" ? handleClick : null}
       >
-        <div className="max-[493px]:grid max-[493px]:grid-cols-2 max-[493px]:w-full max-[493px]:my-1 ">
+        <div className="max-[590px]:grid max-[590px]:grid-cols-2 max-[590px]:w-full max-[590px]:my-1 ">
           {/* max-[493px]:flex max-[493px]:items-baseline max-[493px]:w-full max-[493px]:justify-center max-[493px]:pr-[30%] */}
-          <p className="min-[493px]:hidden pr-4 text-md">Title: </p>
-          <p className="max-[493px]:text-md text-base md:text-xl">
+          <p className="min-[590px]:hidden pr-4 text-md">Title: </p>
+          <p className="max-[590px]:text-md text-base md:text-lg min-md:font-normal max-md:font-semibold w-[80%] truncate overflow-ellipsis">
             {props.data?.title}
           </p>
         </div>
 
-        <div className="max-[493px]:grid max-[493px]:grid-cols-2 max-[493px]:w-full min-[493px]:w-[20%] max-[493px]:my-1 ">
+        <div className="max-[590px]:grid max-[590px]:grid-cols-2 max-[590px]:w-full min-[590px]:w-[70%] md:w-[90%] max-[590px]:my-1 col-span-2 ">
           {/* max-[493px]:flex max-[493px]:items-baseline max-[493px]:justify-center max-[493px]:w-full */}
-          <p className="min-[493px]:hidden pr-[4%] text-md">Start Time: </p>
-          <p className="max-[493px]:text-md text-sm md:text-base ">
+          <p className="min-[590px]:hidden pr-[4%] text-md">Start Time: </p>
+          <p className="max-[590px]:text-md text-sm md:text-base ">
             {changeDate(props.data?.startTime)}
           </p>
         </div>
 
-        <div className="max-[493px]:grid max-[493px]:grid-cols-2 max-[493px]:w-full min-[493px]:w-[20%] max-[493px]:my-1">
+        <div className="max-[590px]:grid max-[590px]:grid-cols-2 max-[590px]:w-full min-[590px]:w-[70%] md:w-[90%] max-[590px]:my-1 col-span-2 ">
           {/* max-[493px]:flex max-[493px]:items-baseline max-[493px]:justify-center max-[493px]:w-full w-[20%] */}
-          <p className="min-[493px]:hidden pr-[6%] text-md">End Time: </p>
-          <p className="max-[493px]:text-md text-sm md:text-base">
+          <p className="min-[590px]:hidden pr-[6%] text-md">End Time: </p>
+          <p className="max-[590px]:text-md text-sm md:text-base">
             {changeDate(props.data?.endTime)}
           </p>
         </div>
@@ -182,9 +219,9 @@ const Contest = (props) => {
           <button
             className={`${
               props.value === "hidden" || props.value === "past"
-                ? "opacity-40 cursor-not-allowed max-[493px]:hidden"
-                : ""
-            } max-[493px]:mt-3 max-[493px]:mb-3 font-medium text-xl bg-slate-800 border border-slate-500 text-green-400 hover:bg-slate-900 hover:text-green-300 px-3 py-1 max-[493px]:text-base rounded-md transition duration-300 ease-in-out`}
+                ? "opacity-40 cursor-not-allowed max-[590px]:hidden pointer-events-none px-2 "
+                : "px-3"
+            } max-[590px]:mt-3 max-[590px]:mb-3 font-medium text-xl bg-slate-800 border border-slate-500 text-green-400 hover:bg-slate-900 hover:text-green-300  py-1 max-[590px]:text-base rounded-md transition duration-300 ease-in-out`}
             onClick={isRegistered ? handleClick : handleClickRegister}
           >
             {registerButton}

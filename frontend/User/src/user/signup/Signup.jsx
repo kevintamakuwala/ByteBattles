@@ -203,7 +203,10 @@ const Form = (props) => (
           SIGN UP
         </button>
         <span className="login-here">
-          Already have an account? <Link to="/login">Login here</Link>
+          Already have an account?{" "}
+          <Link to="/signup" className="font-semibold">
+            Login here
+          </Link>
         </span>
       </div>
     </div>

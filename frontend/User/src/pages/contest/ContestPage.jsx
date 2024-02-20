@@ -4,10 +4,18 @@ import Problem from "../../problems/problem/Problem";
 import Timer from "./Timer";
 
 const ContestPage = () => {
+  const [timerDisplayStatus, setTimerDisplayStatus] = useState(true);
+
   const location = useLocation();
   const attribute = location.state;
   console.log(location.state);
   let url = attribute?.url;
+
+  const startTime = attribute.startTime;
+  const endTime = attribute.endTime;
+
+  const EndTime = new Date(endTime[0], endTime[1] - 1, endTime[2], endTime[3], endTime[4]);
+  const StartTime = new Date(startTime[0], startTime[1] - 1, startTime[2], startTime[3], startTime[4]);
 
   if (!url) {
     const contestsIndex = window.location.href.indexOf("/contests");
@@ -46,6 +54,9 @@ const ContestPage = () => {
     };
     if (url) {
       fetchContestData();
+      if(StartTime < new Date() && EndTime <= new Date()){
+        setTimerDisplayStatus(false);
+      }
     }
   }, [url]);
 
@@ -86,7 +97,7 @@ const ContestPage = () => {
       </div>
 
       <div
-        className={`${attribute} max-md:mr-[5%] max-md:mt-4 md:w-fit text-center mt-4`}
+        className={`${timerDisplayStatus ? "" : "hidden"} max-md:mr-[5%] max-md:mt-4 md:w-fit text-center mt-4`}
       >
         <Timer startTime={attribute?.startTime} endTime={attribute?.endTime} />
       </div>

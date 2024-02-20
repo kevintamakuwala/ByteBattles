@@ -82,7 +82,7 @@ const ProblemDescription = (props) => {
   }, [copiedStates]);
 
   return (
-    <div className="overflow-y-scroll text-base md:text-lg font-sans px-8 pt-4 mb-4">
+    <div className="overflow-y-scroll text-base md:text-lg font-sans px-4 lg:px-8 pt-4 mb-4">
       <h2 className="text-lg md:text-xl font-semibold pb-4">Description</h2>
       <div>
         {props.problem.description.split("\n").map((line, index) => (
@@ -110,7 +110,7 @@ const ProblemDescription = (props) => {
       <div>
         <h2 className="text-lg md:text-xl font-semibold pt-8 pb-4">Sample 1</h2>
 
-        <div className="container mx-auto mt-4 text-white">
+        <div className="container md:mx-auto mt-4 text-white">
           <table className="min-w-full bg-gray-600 border border-gray-800">
             <thead>
               <tr>
@@ -203,7 +203,7 @@ const ProblemDescription = (props) => {
       <div>
         <h2 className="md:text-xl font-semibold pt-8 pb-4">Sample 2</h2>
 
-        <div className="container mx-auto mt-4 text-white">
+        <div className="container md:mx-auto mt-4 text-white">
           <table className="min-w-full bg-gray-600 border border-gray-800">
             <thead>
               <tr>

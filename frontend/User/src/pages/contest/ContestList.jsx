@@ -12,7 +12,7 @@ import { SpinnerRoundFilled } from "spinners-react";
 
 const ContestList = () => {
   const [contestsData, setContestsData] = useState([]);
-  const [liveContestsList, setLiveContestsList] = useState(null);
+  const [liveContestsList, setLiveContestsList] = useState([]);
   const [upcomingContestsList, setUpcomingContestsList] = useState([]);
   const [pastContestsList, setPastContestsList] = useState([]);
   const [perPage] = useState(4);
@@ -103,25 +103,54 @@ const ContestList = () => {
         
   }, []);
 
+  // Pagination for live Contests ...........
+  useEffect(() => {
+    const count = Math.ceil(liveContestsList.length / perPage);
+    setLivePageCount(count);
+  }, [liveContestsList, perPage]);
 
   const handleLivePageChange = (selectedPage) => {
-    setLiveOffset(selectedPage.selected * perPage);
+    const offset = selectedPage.selected * perPage;
+    setLiveOffset(offset);
     setLiveCurrentPage(selectedPage.selected);
   };
 
+  const liveContests = liveContestsList.slice(liveOffset, liveOffset + perPage);
+
+
+  // Pagination for upcoming Contests ........
+  useEffect(() => {
+    const count = Math.ceil(upcomingContestsList.length / perPage);
+    setUpPageCount(count);
+  }, [upcomingContestsList, perPage]);
+
   const handleUpcomingPageChange = (selectedPage) => {
-    setUpcomingOffset(selectedPage.selected * perPage);
+    const offset = selectedPage.selected * perPage;
+    setUpOffset(offset);
     setUpCurrentPage(selectedPage.selected);
   };
 
+  const upComingContests = upcomingContestsList.slice(upOffset, upOffset + perPage);
+
+
+  // Pagination for past Contests ...........
+  useEffect(() => {
+    const count = Math.ceil(pastContestsList.length / perPage);
+    setPastPageCount(count);
+  }, [pastContestsList, perPage]);
+  
   const handlePastPageChange = (selectedPage) => {
-    setPastOffset(selectedPage.selected * perPage);
+    const offset = selectedPage.selected * perPage;
+    setPastOffset(offset);
     setPastCurrentPage(selectedPage.selected);
   };
 
+  const pastContests = pastContestsList.slice(pastOffset, pastOffset + perPage);
+
+
   return (
     <div className="mt-16 bg-gray-950 pt-8 px-6 md:px-16 mb-4 pb-4">
-      <div >
+      <div className={`${liveContestsList.length === 0? "hidden" : ""}`} >
         <ToastContainer />
         <div className="flex justify-between align-middle">
           <div className="live_contest flex text-xl md:text-3xl lg:text-4xl  text-white ps-2 pt-4 items-center">
@@ -143,7 +172,8 @@ const ContestList = () => {
 
         <div className="problem-list h-fit md:mt-4 border border-slate-900 live px-2 py-1 overflow-y-scroll max-[493px]:mt-4 text-red-500">
           {liveContestsList &&
-            liveContestsList
+            // liveContestsList
+            liveContests
               .map((contest, index) => {
                 return (
                   <Contest
@@ -170,11 +200,7 @@ const ContestList = () => {
             pageCount={livePageCount}
             marginPagesDisplayed={0}
             pageRangeDisplayed={0}
-            onPageChange={(selectedPage) => {
-              setLiveOffset(selectedPage.selected * perPage);
-              setLiveCurrentPage(selectedPage.selected);
-              scrollToElement("live_contest");
-            }}
+            onPageChange={handleLivePageChange}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
@@ -190,7 +216,7 @@ const ContestList = () => {
         </div>
       </div>
 
-      <div className="md:mt-6">
+      <div className={`${liveContestsList.length === 0 ? "" : "md:mt-6" } ${upcomingContestsList.length === 0? "hidden" : ""}`}>
         <div className="up_contest flex justify-between align-middle items-center max-[493px]:mt-4">
           <div className="flex text-xl md:text-3xl lg:text-4xl text-white pt-8 ps-2 items-center">
             {/* <span className='underline underline-offset-8 leading-4'>Live</span> Contest */}
@@ -204,7 +230,8 @@ const ContestList = () => {
 
         <div className="problem-list h-fit upcoming border border-slate-900 mt-4 px-2 py-2 overflow-y-scroll max-[493px]:mt-4">
           {upcomingContestsList &&
-            upcomingContestsList
+            // upcomingContestsList
+            upComingContests
               .map((contest, index) => {
                 return (
                   <Contest
@@ -230,11 +257,7 @@ const ContestList = () => {
             pageCount={upPageCount}
             marginPagesDisplayed={0}
             pageRangeDisplayed={0}
-            onPageChange={(selectedPage) => {
-              setUpOffset(selectedPage.selected * perPage);
-              setUpCurrentPage(selectedPage.selected);
-              scrollToElement("up_contest");
-            }}
+            onPageChange={handleUpcomingPageChange}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
@@ -261,7 +284,8 @@ const ContestList = () => {
 
         <div className="problem-list h-fit past border border-slate-900 mt-4 px-2 py-2 overflow-y-scroll max-[493px]:mt-4">
           {pastContestsList &&
-            pastContestsList
+            // pastContestsList
+            pastContests  
               .map((contest, index) => {
                 return (
                   <Contest
@@ -286,11 +310,7 @@ const ContestList = () => {
             pageCount={pastPageCount}
             marginPagesDisplayed={0}
             pageRangeDisplayed={0}
-            onPageChange={(selectedPage) => {
-              setPastOffset(selectedPage.selected * perPage);
-              setPastCurrentPage(selectedPage.selected);
-              scrollToElement("past_contest");
-            }}
+            onPageChange={handlePastPageChange}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
