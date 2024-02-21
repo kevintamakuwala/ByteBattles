@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import {  useNavigate } from "react-router-dom";
 import { showSuccessToast } from "../code-editor/components/CodeWindow";
 
 const Contest = (props) => {
   const navigate = useNavigate();
 
-  const [msg, setMsg] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("");
   const [registerButton, setRegisterButton] = useState("Register");
   const [contestId, setContestId] = useState("");

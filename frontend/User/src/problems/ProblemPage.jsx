@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "./search/SearchBar";
+import ProblemRecommendation from "./problem-recommendation/ProblemRecommendation";
 import Problem from "./problem/Problem";
 import FullScreenDialog from "./pop-up/PopUp";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import ReactPaginate from "react-paginate";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
-
 import LoadingIndicator from "../common/LoadingIndicator";
 import { Tooltip as ReactToolTip } from "react-tooltip";
 import Select from "react-select";
-import ProblemRecommendation from "./problem-recommendation/ProblemRecommendation";
 
 const ProblemPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -24,8 +23,7 @@ const ProblemPage = () => {
   const [pageCount, setPageCount] = useState(0);
   const [postData, setPostData] = useState([]);
   const [userId, setUserId] = useState(
-    localStorage.getItem("id") !== null &&
-      localStorage.getItem("id") !== undefined
+    localStorage.getItem("id") !== null
       ? Number(localStorage.getItem("id"))
       : -1
   );
@@ -36,10 +34,12 @@ const ProblemPage = () => {
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
+    console.log("Opened")
   };
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
+    console.log("Closed")
   };
 
   const handleTagSelect = (selectedLabel) => {
@@ -105,6 +105,7 @@ const ProblemPage = () => {
         // Create tag objects from unique tag names
         const tags = uniqueTags.map((tagName) => ({ name: tagName }));
 
+        // Set the tagList state
         setTagList(tags);
         if (userId !== -1) {
           const userResponse = await fetch(
@@ -302,10 +303,11 @@ const ProblemPage = () => {
       <div className="problem__main flex flex-col-reverse md:flex-row justify-between mt-4 md:mt-12 ms-2 md:ms-8">
         <div className="md:w-4/6 flex flex-col">
           <div
-            className={`problems mx-2 max-md:mr-4 max-md:mt-4 md:ms-2 lg:ms-4 md:pr-2 md:ps-4 `}
+            className={` problems mx-2 max-md:mr-4 max-md:mt-4 md:ms-2 lg:ms-4 md:pr-2 md:ps-4 `}
           >
             {postData}
           </div>
+
           <div className="pagination w-fit flex justify-center m-auto mt-[4%]">
             <ReactPaginate
               previousLabel={

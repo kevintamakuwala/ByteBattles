@@ -19,6 +19,7 @@ import ContestPage from "../pages/contest/ContestPage";
 import ContestList from "../pages/contest/ContestList";
 import Contest from "../pages/contest/Contest";
 import ProfilePage from "../pages/profilePage/ProfilePage";
+import About from "../pages/about/About";
 
 const App = () => {
   const navigate = useNavigate();
@@ -115,9 +116,16 @@ const App = () => {
             <Route path="/contests" element={<ContestList />} />
             <Route path="/contests/*" element={<ContestPage />} />
             <Route path="/problems/*" element={<CodeWindow />} />
+            <Route path="/about/" element={<About />} />
             <Route
               path="/profile/"
-              element={!isAuthenticated ? <Login onLogin={handleLogin}/> : <ProfilePage />}
+              element={
+                !isAuthenticated ? (
+                  <Login onLogin={handleLogin} />
+                ) : (
+                  <ProfilePage />
+                )
+              }
             />
 
             <Route path="*" element={<NotFound />} />

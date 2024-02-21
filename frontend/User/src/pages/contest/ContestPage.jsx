@@ -26,7 +26,6 @@ const ContestPage = () => {
       afterContests = afterContests.replace(/^\//, "");
       const modifiedUrl = afterContests.replace(/-/g, " ");
       url = modifiedUrl;
-      console.log("Modified URL:", url);
     } else {
       console.log("'/contests' not found in the URL");
     }
@@ -60,7 +59,6 @@ const ContestPage = () => {
     }
   }, [url]);
 
-  console.log("Contest Data:", contestData);
 
   const problemList = contestData.problemSet;
 

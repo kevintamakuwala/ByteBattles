@@ -24,7 +24,7 @@ const SearchBar = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleChange}
         onKeyPress={handleKeyPress}
-        className="sm:border md:w-[215px] lg:w-auto sm:border-slate-600 md:border-none pl-12 md:pl-8 pr-4 py-2 rounded-md focus:outline-none focus:border-blue-500 text-black placeholder-black text-base sm:text-lg lg:text-xl focus:ring focus:ring-blue-300"
+        className="border md:w-[215px] lg:w-auto border-slate-600 md:border-none pl-12 md:pl-8 pr-4 py-2 rounded-md focus:outline-none focus:border-blue-500 text-black placeholder-black text-base sm:text-lg lg:text-xl focus:ring focus:ring-blue-300"
       />
     </div>
   );
