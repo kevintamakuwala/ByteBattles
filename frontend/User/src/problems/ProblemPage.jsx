@@ -32,14 +32,13 @@ const ProblemPage = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState(null);
 
-  const handleOpenDialog = () => {
+  const handleOpenDialog = (event) => {
+    event.stopPropagation();
     setIsDialogOpen(true);
-    console.log("Opened")
   };
-
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
-    console.log("Closed")
+    console.log("Closed");
   };
 
   const handleTagSelect = (selectedLabel) => {
@@ -284,7 +283,7 @@ const ProblemPage = () => {
           <div>
             <button
               className="p-4 text-[#484849] flex text-center rounded-md text-xl"
-              onClick={handleOpenDialog}
+              onClick={(event) => handleOpenDialog(event)}
             >
               {selectedTag || "Tags"}{" "}
               <RiArrowDropDownLine className="text-3xl" />
