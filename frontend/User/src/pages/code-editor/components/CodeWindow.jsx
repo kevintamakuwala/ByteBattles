@@ -97,7 +97,6 @@ const CodeWindow = () => {
         }
         setProblemData(data);
       } catch (error) {
-        console.error("Error during fetch:", error);
       }
     };
 
@@ -122,7 +121,6 @@ const CodeWindow = () => {
         break;
       }
       default: {
-        console.warn("case not handled!", action, data);
       }
     }
   };
@@ -232,7 +230,6 @@ const CodeWindow = () => {
         data
       );
     } catch (error) {
-      console.error("Error submitting problem:", error);
     }
   };
   const handleSubmit = async () => {
@@ -263,7 +260,6 @@ const CodeWindow = () => {
 
       if (status === false) {
         allTestCasesPassed = false;
-        console.log("incorrectSubmission", incorrectSubmission);
         submitProblem(incorrectSubmission);
         showErrorToast(`Wrong Answer on Test Case ${i + 1}`);
         break;
@@ -281,7 +277,6 @@ const CodeWindow = () => {
           userId: Number(localStorage.getItem("id")),
         },
       };
-      console.log("correctSubmission", correctSubmission);
       submitProblem(correctSubmission);
       showSuccessToast("Accepted");
     }
@@ -339,7 +334,6 @@ const CodeWindow = () => {
         return false;
       }
     } catch (err) {
-      console.log("err", err);
       setProcessing(false);
       showErrorToast();
     }

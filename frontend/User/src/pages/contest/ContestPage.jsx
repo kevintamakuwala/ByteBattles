@@ -8,7 +8,6 @@ const ContestPage = () => {
 
   const location = useLocation();
   const attribute = location.state;
-  console.log(location.state);
   let url = attribute?.url;
 
   const startTime = attribute.startTime;
@@ -27,11 +26,8 @@ const ContestPage = () => {
       const modifiedUrl = afterContests.replace(/-/g, " ");
       url = modifiedUrl;
     } else {
-      console.log("'/contests' not found in the URL");
     }
-  } else {
-    console.log("URL from attribute:", url);
-  }
+  } 
 
   const [problems, setProblems] = useState([]);
   const [contestData, setContestData] = useState([]);
@@ -48,7 +44,7 @@ const ContestPage = () => {
         const data = await response.json();
         setContestData(data);
       } catch (error) {
-        console.log(error);
+       
       }
     };
     if (url) {

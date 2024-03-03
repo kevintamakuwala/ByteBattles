@@ -20,12 +20,9 @@ import { MdOutlineDone } from "react-icons/md";
 
 function CopyIcon({ className, onClick }) {
   const handleCopy = () => {
-    console.log(className);
     const tdElement = document.querySelector(`.${className}`);
-    console.log("Selected Element:", tdElement);
     if (tdElement) {
       const text = tdElement.textContent || tdElement.innerText;
-      console.log(text);
       onClick(text);
     }
   };

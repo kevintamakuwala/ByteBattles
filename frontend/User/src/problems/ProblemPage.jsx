@@ -38,7 +38,6 @@ const ProblemPage = () => {
   };
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
-    console.log("Closed");
   };
 
   const handleTagSelect = (selectedLabel) => {
@@ -115,7 +114,6 @@ const ProblemPage = () => {
           setUserSubmissionData(userData.submissionList);
         }
       } catch (error) {
-        console.error(error);
       }
     };
 
