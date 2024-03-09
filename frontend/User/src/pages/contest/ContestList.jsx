@@ -92,11 +92,9 @@ const ContestList = () => {
         setPastContestsList(pastContests);
 
         // setLivePageCount(Math.ceil(Object.keys(liveContestsList).length / perPage));
-        // console.log(livePageCount);
         // setUpPageCount(Math.ceil(upcomingContestsList.length / perPage));
         // setPastPageCount(Math.ceil(pastContestsList.length / perPage));
       } catch (error) {
-        console.log(error);
       }
     };
     fetchContests();

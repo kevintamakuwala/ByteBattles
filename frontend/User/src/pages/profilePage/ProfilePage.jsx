@@ -86,7 +86,6 @@ const ProfilePage = () => {
 
           setLoading(false);
         } catch (error) {
-          console.error("Error fetching user:", error);
         }
       }
     };
@@ -173,7 +172,6 @@ const ProfilePage = () => {
         setProblemsData(response.data);
         return response.data;
       } catch (error) {
-        console.error("Error fetching problems:", error);
         return [];
       }
     }

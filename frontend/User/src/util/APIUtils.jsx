@@ -9,7 +9,6 @@ const request = (options) => {
       "Authorization",
       "Bearer " + localStorage.getItem(ACCESS_TOKEN)
     );
-    console.log(localStorage.getItem(ACCESS_TOKEN));
   }
 
   const defaults = { headers: headers };

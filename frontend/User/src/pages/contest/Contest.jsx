@@ -97,7 +97,6 @@ const Contest = (props) => {
         navigate("/login");
       }
     } catch (error) {
-      console.error("Error registering user:", error);
     }
   };
 

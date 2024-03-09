@@ -11,7 +11,6 @@ const MailValidation = (props) => {
   const [password, setPassword] = useState(localStorage.getItem("password"));
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
-
   const urlParams = new URLSearchParams(window.location.search);
   const codeParam = urlParams.get("code");
 
@@ -29,10 +28,7 @@ const MailValidation = (props) => {
       if (data !== "verify_success") {
         setAlreadyRegistered(true);
       }
-      // console.log('Data from the backend:', data);
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-    }
+    } catch (error) {}
   };
 
   const handleVerifyAndLogin = () => {
@@ -70,11 +66,10 @@ const MailValidation = (props) => {
 
         localStorage.setItem(ACCESS_TOKEN, responseData.jwt);
         localStorage.setItem("id", responseData.user.userId);
-        
+
         props.setIsAuthenticated(true);
         navigate("/");
       } catch (error) {
-        console.error("Oops Something went wrong!!!", error);
         errorNotification("Oops Something went wrong!!!");
         return;
       } finally {
