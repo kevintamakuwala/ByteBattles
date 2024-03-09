@@ -100,7 +100,6 @@ const ProblemRecommendation = ({
     fetchRecommendation();
   }, [tagList, userSubmissionData, solvedProblems, problemList]);
 
-
   const navigate = useNavigate();
 
   const handleSolveClick = (problem) => {
@@ -109,11 +108,9 @@ const ProblemRecommendation = ({
       localStorage.getItem("id") !== undefined
     ) {
       // Replace spaces in the title with '-'
-      const problemTitleSlug = problem.title
-        .replace(/\s+/g, "-")
-        .toLowerCase();
+      const problemTitleSlug = problem.title.replace(/\s+/g, "-").toLowerCase();
       const problemUrl = `/problems/${problemTitleSlug}/`;
-      navigate(problemUrl, { state: { problem: problem} });
+      navigate(problemUrl, { state: { problem: problem } });
     } else {
       navigate("/login");
       window.scrollTo(0, 0);
@@ -137,10 +134,18 @@ const ProblemRecommendation = ({
             <p className="md:w-[200px]">{recommendation.title}</p>
           </div>
 
-          <div className="dailyProblem-details flex justify-around flex-col md:items-center md:justify-center md:pb-2 md:mt-4 lg:mx-20 text-lg md:text-lg">
+          <div className="dailyProblem-details md:w-full w-fit flex justify-around flex-col md:items-center md:justify-center md:pb-2 md:mt-4 lg:mx-20 text-lg md:text-lg">
             <>
               {recommendation.tagList.map((tag, index) => {
-                return <span key={index}>{tag.name}</span>;
+                return (
+                  <span
+                    key={index}
+                    className="mr-2 my-2 w-fit inline-flex px-[10px] md:text-base lg:text-xl border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0]"
+                  >
+                    {tag.name}
+                    {/* divide and conquer */}
+                  </span>
+                );
               })}
             </>
             <p>{recommendation.difficultyLevel}</p>
@@ -150,7 +155,7 @@ const ProblemRecommendation = ({
             <button
               className="daily-solveBtn border-2 border-red-600 rounded-2xl py-2 px-8 font-semibold transition duration-300 ease
               mt-5 hover:bg-red-700 hover:text-white text-lg md:text-xl"
-              onClick={()=>handleSolveClick(recommendation)}
+              onClick={() => handleSolveClick(recommendation)}
             >
               Solve
             </button>

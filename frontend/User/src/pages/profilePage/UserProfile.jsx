@@ -36,7 +36,7 @@ const setCookie = (name, value, days) => {
 const UserProfile = ({ username, email, name, problems }) => {
   const tags = (tag, cnt) => {
     return (
-      <div className="inline-block text-md mr-[6%] ext-lg">
+      <div className="inline-block text-md mr-[6%] text-lg">
         <span className="mr-2 my-2 inline-flex px-[10px] border border-gray-500 rounded-full text-[#ffffff9e] bg-[#1c2743b0] ">
           {tag}
         </span>

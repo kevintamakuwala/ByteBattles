@@ -7,6 +7,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import ReactPaginate from "react-paginate";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
+
 import LoadingIndicator from "../common/LoadingIndicator";
 import { Tooltip as ReactToolTip } from "react-tooltip";
 import Select from "react-select";
@@ -32,15 +33,18 @@ const ProblemPage = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState(null);
 
-  const handleOpenDialog = () => {
+  const handleOpenDialog = (event) => {
+    event.stopPropagation();
     setIsDialogOpen(true);
-    console.log("Opened")
   };
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
-    console.log("Closed")
+    // console.log(isDialogOpen);
+    // console.log("Closed")
   };
+
+  // console.log(selectedTag);
 
   const handleTagSelect = (selectedLabel) => {
     setSelectedTag(selectedLabel);
@@ -52,7 +56,10 @@ const ProblemPage = () => {
         problem.tagList.some((tag) => tag.name === selectedLabel)
       )
     );
+    setIsDialogOpen(false);
   };
+
+  // console.log(tagList);
 
   const [filteredProblems, setFilteredProblems] = useState([]);
 
@@ -281,10 +288,28 @@ const ProblemPage = () => {
             }}
           />
 
-          <div>
+          {/* <div>
             <button
               className="p-4 text-[#484849] flex text-center rounded-md text-xl"
               onClick={handleOpenDialog}
+            >
+              {selectedTag || "Tags"}{" "}
+              <RiArrowDropDownLine className="text-3xl" />
+            </button>
+
+            {isDialogOpen && (
+              <FullScreenDialog
+                options={tagOptions}
+                onClose={handleCloseDialog}
+                onSelect={handleTagSelect}
+              />
+            )}
+          </div> */}
+          <div>
+            <button
+              className="p-4 text-[#484849] flex text-center rounded-md text-xl"
+              // onClick={handleOpenDialog}
+              onClick={(event) => handleOpenDialog(event)}
             >
               {selectedTag || "Tags"}{" "}
               <RiArrowDropDownLine className="text-3xl" />
@@ -354,3 +379,4 @@ const ProblemPage = () => {
 };
 
 export default ProblemPage;
+
