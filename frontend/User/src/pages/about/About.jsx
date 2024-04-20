@@ -36,8 +36,7 @@ const About = () => {
                     Software Developer
                   </h3>
                   <p className="mb-4 text-gray-900 text-md ">
-                    Specialist (1520) @Codeforces | Ex - SDE Intern @Trakky | 4
-                    star @Codechef (1813) | React Js | Java | Spring Boot | C++
+                    Specialist @Codeforces | Knight @Leetcode | 4 stars @Codechef | Ex - SDE Intern @Trakky | React Js | Java | Spring Boot | Software Dev.
                   </p>
                   <span className="inline-flex mt-4">
                     <Link
