@@ -204,7 +204,7 @@ const Form = (props) => (
         </button>
         <span className="login-here">
           Already have an account?{" "}
-          <Link to="/signup" className="font-semibold">
+          <Link to="/login" className="font-semibold">
             Login here
           </Link>
         </span>
