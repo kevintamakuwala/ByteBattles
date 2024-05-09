@@ -2,8 +2,6 @@
 import React from "react";
 import WorldMap from "../../../assets/worldMap.png";
 import Priyansh from "../../../assets/piyush.png";
-import Abhishek from "../../../assets/abhishek.png";
-import Striver from "../../../assets/striver.png";
 import Star from "../../../assets/star.png";
 import Netflix from "../../../assets/netflix.png";
 import Discord from "../../../assets/discord.png";
@@ -45,7 +43,7 @@ const Review = () => {
                   <h2 class="text-gray-900 font-medium title-font tracking-wider text-base">
                     PRIYANSH AGARWAL
                   </h2>
-                  <p class="text-gray-700">Software Engineer @zomato</p>
+                  <p class="text-gray-700">Software Engineer @Google</p>
                 </div>
               </div>
               <div class="lg:w-1/3 lg:mb-0 mb-6 p-4">
@@ -53,7 +51,7 @@ const Review = () => {
                   <img
                     alt="testimonial"
                     class="w-20 h-20 mb-5 mt-2 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100 ring-2 ring-zinc-800"
-                    src={Abhishek}
+                    src={Priyansh}
                   />
                   <p class="leading-relaxed text-gray-900 font-semibold">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -65,7 +63,7 @@ const Review = () => {
                   <h2 class="text-gray-900 font-medium title-font tracking-wider text-base">
                     ABHISHEK SAINI
                   </h2>
-                  <p class="text-gray-700">SWE III @google</p>
+                  <p class="text-gray-700">SWE @google</p>
                 </div>
               </div>
               <div class="lg:w-1/3 lg:mb-0 p-4">
@@ -73,7 +71,7 @@ const Review = () => {
                   <img
                     alt="testimonial"
                     class="w-20 h-20 mb-5 mt-2 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100 ring-2 ring-zinc-800"
-                    src={Striver}
+                    src={Priyansh}
                   />
                   <p class="leading-relaxed text-gray-900 font-semibold">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -85,7 +83,7 @@ const Review = () => {
                   <h2 class="text-gray-900 font-medium title-font tracking-wider text-base">
                     STRIVER
                   </h2>
-                  <p class="text-gray-700">SWE III @Google</p>
+                  <p class="text-gray-700">SWE @Google</p>
                 </div>
               </div>
             </div>
