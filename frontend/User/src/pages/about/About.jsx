@@ -33,10 +33,10 @@ const About = () => {
                     Kevin Tamakuwala
                   </h2>
                   <h3 className="text-gray-800 font-semibold mb-3">
-                     Software Engineer
+                     SDE Intern @Pirimid Fintech
                   </h3>
                   <p className="mb-4 text-gray-900 text-md ">
-                    Specialist @Codeforces | 4 stars @Codechef | Knight @Leetcode | Ex - SDE Intern @Trakky | React Js | Java | Spring Boot | AWS
+                    Specialist @Codeforces | 4 stars @Codechef | Knight @Leetcode | Java | Spring Boot | AWS | Nginx | Docker | React
                   </p>
                   <span className="inline-flex mt-4">
                     <Link
